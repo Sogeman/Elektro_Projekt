@@ -1,0 +1,10 @@
+﻿.profile-picture {
+    height: 150px;
+    width: 150px;
+}
+
+.nav-menu {
+    position: fixed;
+    left: 15px;
+    top: 15px;
+}

@@ -1,0 +1,194 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="Scripts/jquery-3.3.1.js"></script>
+    <script src="Scripts/popper.min.js"></script>
+    <script src="Scripts/bootstrap.js"></script>
+    <script src="Scripts/mycontroller.js"></script>
+    <script src="Scripts/mylogic.js"></script>
+    <script src="Scripts/mydataqueries.js"></script>
+    <script src="Scripts/switchView.js"></script>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <link href="Content/mystyles.css" rel="stylesheet" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title></title>
+</head>
+
+<body>
+    <div class="container">
+
+        <!-- Nav-menu -->
+        <div class="col-2 nav-menu">
+            <button id="home" class="btn btn-outline-info">Home</button>
+        </div>
+
+        <!-- Header -->
+        <div class=" text-center my-2">
+            <h1>
+                <strong>E-Installationen</strong>
+            </h1>
+        </div>
+    </div>
+
+    <div class="row my-4"></div>
+
+    <!-- Homepage -->
+    <div id="homepage">
+        <div class="container">
+            <div class="row my-3">
+                <div class="col-6 offset-1">
+                    <h2 id="page-title">Projekte</h2> <!-- hier gehört der Name des angeklickten Projekts rein -->
+                </div>
+                <div class="col-3 offset-1">
+                    <button type="button" id="add-item-button" class="btn btn-primary btn-lg btn-info" data-toggle="modal" data-target="#create-project-modal">
+                        + PROJEKT
+                    </button> <!-- Titel variabel ändern -->
+                </div>
+            </div>
+    
+            <div class="row my-3">
+                <div id="data-list" class="col">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Erstellungsdatum</th>
+                                <th scope="col">Bezeichnung</th>
+                                <th scope="col">Optionen</th>
+                            </tr>
+                        </thead>
+                        <tbody id="data-table">
+                            <!-- <tr class="single">
+                                <th scope="row">1</th> Variable id
+                                <td>01.01.1989</td>
+                                <td>Haus</td>
+                                <td><button data-toggle="modal" data-target="#entry-modal">Neues Stockwerk</button></td>
+                            </tr> -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Shoppinglist -->
+    <div id="shopping-list">
+        <div class="container">
+            <div class="row my-3">
+                <div class="col-6 offset-1">
+                    <h2>Shoppinglist</h2> 
+                </div>
+            </div>
+            <div class="row my-3">
+                <div id="floor-list" class="col">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Erstellungsdatum</th>
+                                <th scope="col">Bezeichnung</th>
+                                <th scope="col">Stockwerk</th>
+                                <th scope="col">Optionen</th>
+                            </tr>
+                        </thead>
+                        <tbody id="floor-table">
+                            <tr class="single-floor">
+                                <th scope="row">1</th>
+                                <!--Variable id-->
+                                <td>01.01.1989</td>
+                                <td>3. Stock</td>
+                                <td>3</td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Create Project Modal-->
+    <div class="modal" id="create-project-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Projekt anlegen</h5>
+                    <!--Titel variabel-->
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="row">
+                            <div class="col-4">
+                                <p>Bezeichnung</p>
+                            </div>
+                            <div class="col-7">
+                                <input type="text" class="form-control" id="description" placeholder="Bezeichnung">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" id="save-button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Entry Modal-->
+    <div class="modal" id="entry-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Neues Element anlegen</h5>
+                    <!--Titel variabel-->
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h3 class="dialog-item-name"></h3>
+                    <input type="hidden" name="parent-id" />
+                    <input type="hidden" name="item-listtype" />
+                    <input type="hidden" name="item-id" />
+
+                    <div class="form-group" id="form-name">
+                        <label for="name">Bezeichnung</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Name" required="required" />
+                    </div>
+                    <!-- nur bei Stockwerken -->
+                    <div class="form-group" id="form-floor-count">
+                        <label for="floor-count">Stockwerk (0 ist Keller)</label>
+                        <input type="number" class="form-control" id="floor-count" name="count_from_basement" placeholder="0-n" min="0" max="99"
+                            required="required" />
+                    </div>
+                    <!-- nur bei Sensoren -->
+                    <div class="form-group" id="form-unit">
+                        <label for="unit">Einheit</label>
+                        <input type="text" class="form-control" id="unit" name="unit" placeholder="Ein/Aus, Lumen,..." />
+                    </div>
+
+                    <div class="form-group" id="form-value">
+                        <label for="value">Wert</label>
+                        <input type="text" class="form-control" id="value" name="value" placeholder="Ein, Aus,..." />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" id="save-button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    </div>
+
+</body>
+
+</html>
