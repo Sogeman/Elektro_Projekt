@@ -26,7 +26,7 @@ var ListHandler = {
             $(".edit-button").on("click", function() {
                 ModalManager.EditEntry($(this)); // wird für jeden Eintrag 3mal ausgeführt auch wenn nur einer geklickt ist, keine Ahung ob das anders geht
             });                                    // sicher irgendwo ein [0] vergessen oder weil alle Knöpfe gleich heißen
-            $(".delete-button").on("click", function() {
+            $(".delete-button").on("click", function() { // oder vielleicht stoppropagation
 
             })
         });
