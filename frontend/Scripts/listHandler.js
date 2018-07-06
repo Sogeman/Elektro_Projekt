@@ -24,8 +24,8 @@ var ListHandler = {
             // Events for delete and edit buttons
 
             $(".edit-button").on("click", function() {
-                ModalManager.EditEntry($(this)); // wird für jeden Eintrag ausgeführt auch wenn nur einer geklickt ist, keine Ahung ob das anders geht
-            });
+                ModalManager.EditEntry($(this)); // wird für jeden Eintrag 3mal ausgeführt auch wenn nur einer geklickt ist, keine Ahung ob das anders geht
+            });                                    // sicher irgendwo ein [0] vergessen
             $(".delete-button").on("click", function() {
 
             })
