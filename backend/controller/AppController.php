@@ -16,7 +16,9 @@ class AppController {
             case "list":
                 $controller = new ListController();
                 break;
-            case "create": case "update": case "delete":
+            case "create":
+            case "update":
+            case "delete":
                 $controller = new ChangeController();
                 break;
             case "get-shoppinglist":

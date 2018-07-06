@@ -1,9 +1,12 @@
-﻿
+﻿var Controller = {
+    homepage: {action: "list", listtype: "projects", parentid: 0}
+};
+
 $(document).ready(function() {
-    var request = {action: "list", listtype: "projects", parentid: "1"};
-    queryManager.LoadData(request, queryManager.onInitialLoadSuccess, queryManager.onInitialLoadError)
+
+    queryManager.LoadData(Controller.homepage);
     $("#home").on("click", function () {
-        alert("test");
-        queryManager.LoadData(request, queryManager.onInitialLoadSuccess, queryManager.onInitialLoadError)
+        console.log("home clicked");
+        queryManager.LoadData(Controller.homepage);
     });
 });

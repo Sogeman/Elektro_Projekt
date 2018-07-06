@@ -6,8 +6,9 @@
     <script src="Scripts/popper.min.js"></script>
     <script src="Scripts/bootstrap.js"></script>
     <script src="Scripts/mycontroller.js"></script>
-    <script src="Scripts/mylogic.js"></script>
-    <script src="Scripts/mydataqueries.js"></script>
+    <script src="Scripts/listHandler.js"></script>
+    <script src="Scripts/queryManager.js"></script>
+    <script src="Scripts/modal.js"></script>
     <script src="Scripts/switchView.js"></script>
     <link href="Content/bootstrap.css" rel="stylesheet" />
     <link href="Content/mystyles.css" rel="stylesheet" />
@@ -39,15 +40,17 @@
         <div class="container">
             <div class="row my-3">
                 <div class="col-6 offset-1">
-                    <h2 id="page-title">Projekte</h2> <!-- hier gehört der Name des angeklickten Projekts rein -->
+                    <h2 id="page-title">Projekte</h2>
+                    <!-- hier gehört der Name des angeklickten Projekts rein -->
                 </div>
                 <div class="col-3 offset-1">
                     <button type="button" id="add-item-button" class="btn btn-primary btn-lg btn-info" data-toggle="modal" data-target="#create-project-modal">
-                        + PROJEKT
-                    </button> <!-- Titel variabel ändern -->
+
+                    </button>
+                    <!-- Titel variabel ändern -->
                 </div>
             </div>
-    
+
             <div class="row my-3">
                 <div id="data-list" class="col">
                     <table class="table">
@@ -78,7 +81,7 @@
         <div class="container">
             <div class="row my-3">
                 <div class="col-6 offset-1">
-                    <h2>Shoppinglist</h2> 
+                    <h2>Shoppinglist</h2>
                 </div>
             </div>
             <div class="row my-3">
@@ -109,43 +112,12 @@
         </div>
     </div>
 
-    <!--Create Project Modal-->
+    <!--Create Entry Modal-->
     <div class="modal" id="create-project-modal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Projekt anlegen</h5>
-                    <!--Titel variabel-->
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="row">
-                            <div class="col-4">
-                                <p>Bezeichnung</p>
-                            </div>
-                            <div class="col-7">
-                                <input type="text" class="form-control" id="description" placeholder="Bezeichnung">
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" id="save-button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!--Entry Modal-->
-    <div class="modal" id="entry-modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Neues Element anlegen</h5>
+                    <h5 class="modal-title" id="modal-title"></h5>
                     <!--Titel variabel-->
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -184,9 +156,6 @@
                 </div>
             </div>
         </div>
-    </div>
-    </div>
-
     </div>
 
 </body>

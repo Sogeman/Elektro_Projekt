@@ -8,7 +8,7 @@ class ListModel {
     
     private $database;
     private $listType;
-    private $childListType;
+    private $currentListType;
     private $list;
     
     public function __construct() {
@@ -30,37 +30,38 @@ class ListModel {
         return $this->list;
     }
     
-    public function getChildListType() {
-        return $this->childListType;
+    public function getCurrentListType() {
+        return $this->currentListType;
     }
     
     public function listProjects() {
         $sql = "SELECT id, name, created FROM projects";
         $this->list = $this->getListFromDatabase($sql);
-        $this->childListType = "floors";
+        $this->currentListType = "projects";
     }
     
     public function listFloors($projectid) {
         $sql = "SELECT id, name, floor_count_from_basement FROM floors WHERE projects_id = {$projectid}";
         $this->list = $this->getListFromDatabase($sql);
-        $this->childListType = "rooms";
+        $this->currentListType = "floors";
     }
     
     public function listRooms($floorid) {
         $sql = "SELECT id, name FROM rooms WHERE floors_id = {$floorid}";
         $this->list = $this->getListFromDatabase($sql);
-        $this->childListType = "devices";
+        $this->currentListType = "rooms";
     }
     
     public function listDevices($roomid) {
         $sql = "SELECT id, name FROM devices WHERE rooms_id = {$roomid}";
         $this->list = $this->getListFromDatabase($sql);
+        $this->currentListType = "devices";
     }
     
     public function listSensors($deviceid) {
         $sql = "SELECT id, name, unit, value FROM sensors WHERE devices_id = {$deviceid}";
         $this->list = $this->getListFromDatabase($sql);
-        $this->childListType = false;
+        $this->currentListType = "sensors";
     }
     
     private function getListFromDatabase($sql){

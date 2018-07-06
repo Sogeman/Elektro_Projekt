@@ -40,9 +40,12 @@ class ListController implements ControllerInterface {
             case "sensors":
                 $this->listModel->listSensors($parentId);
                 break;
-            case "projects": default:
+            case "projects": 
                 $this->listModel->listProjects();
                 break;
+            default:
+               #error handling
+               break;
         }
     }
     
@@ -57,7 +60,7 @@ class ListController implements ControllerInterface {
             
         }
         $outputData = array (
-            "listtype" => $this->listModel->getChildListType(),
+            "listtype" => $this->listModel->getCurrentListType(),
             "items" => $itemList
         );
         $this->showResponse($outputData);
