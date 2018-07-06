@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 05. Jul 2018 um 08:33
+-- Erstellungszeit: 06. Jul 2018 um 20:13
 -- Server-Version: 10.1.31-MariaDB
 -- PHP-Version: 7.2.3
 
@@ -25,6 +25,20 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Tabellenstruktur für Tabelle `floors`
+--
+
+CREATE TABLE `floors` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `projects_id` int(11) UNSIGNED NOT NULL,
+  `floor_count_from_basement` int(11) DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `created` timestamp NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Tabellenstruktur für Tabelle `projects`
 --
 
@@ -39,11 +53,19 @@ CREATE TABLE `projects` (
 --
 
 INSERT INTO `projects` (`id`, `name`, `created`) VALUES
-(1, 'Testhaus', '2018-07-03 11:13:13');
+(1, 'Testhaus', '2018-07-03 11:13:13'),
+(2, 'Testhaus 2', '2018-07-06 16:24:21'),
+(3, 'Testhaus 3', '2018-07-06 16:24:21');
 
 --
 -- Indizes der exportierten Tabellen
 --
+
+--
+-- Indizes für die Tabelle `floors`
+--
+ALTER TABLE `floors`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indizes für die Tabelle `projects`
@@ -56,10 +78,16 @@ ALTER TABLE `projects`
 --
 
 --
+-- AUTO_INCREMENT für Tabelle `floors`
+--
+ALTER TABLE `floors`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT für Tabelle `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
