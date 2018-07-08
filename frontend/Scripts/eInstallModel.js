@@ -1,4 +1,5 @@
-//Klassen für die einzelnen Items weil nur data Objekt manipulieren nicht so sehr funktioniert
+//Klassen für die einzelnen Items weil nur data Objekt manipulieren nicht so sehr funktioniert. Glaub aber das is nicht notwendig
+// ich weiß eh nicht ganz wie ich es einsetzen würde
 
 class installationItem {
     constructor(data) {
