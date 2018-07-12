@@ -1,7 +1,7 @@
 ﻿var queryManager = {
     currentLevel: "",
     backendAddress: "http://localhost/Elektro_Projekt/backend/index.php",
-    currentItems: [],
+    currentItems: [], //useless?
     lastRequest: [] // speichert letzten request für reload nach Änderung
     , LoadData: function (request) {
         queryManager.lastRequest[0] = request; //nicht sicher ob das so funktioniert
@@ -15,8 +15,8 @@
                 viewSwitcher("homepage");
                 //console.log(list);
                 ListHandler.FillTable(data);
-                //queryManager.GetCurrentItems(data);
-                $("#add-item-button").text("+ " + queryManager.GetCurrentLevelName());
+                //queryManager.GetCurrentItems(data); useless?
+                $("#create-item-button").text("+ " + queryManager.GetCurrentLevelName());
                 ModalManager.Initialize(queryManager.currentLevel, data);
             }
             , error: function(errorMsg) {

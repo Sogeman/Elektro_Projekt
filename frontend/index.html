@@ -8,7 +8,7 @@
     <script src="Scripts/mycontroller.js"></script>
     <script src="Scripts/listHandler.js"></script>
     <script src="Scripts/queryManager.js"></script>
-    <script src="Scripts/modal.js"></script>
+    <script src="Scripts/modalManager.js"></script>
     <script src="Scripts/switchView.js"></script>
     <link href="Content/bootstrap.css" rel="stylesheet" />
     <link href="Content/mystyles.css" rel="stylesheet" />
@@ -44,7 +44,7 @@
                     <!-- hier gehört der Name des angeklickten Projekts rein -->
                 </div>
                 <div class="col-3 offset-1">
-                    <button type="button" id="add-item-button" class="btn btn-primary btn-lg btn-info" data-toggle="modal" data-target="#create-project-modal">
+                    <button type="button" id="create-item-button" class="btn btn-primary btn-lg btn-info" data-toggle="modal" data-target="#create-entry-modal">
 
                     </button>
                     <!-- Titel variabel ändern -->
@@ -84,36 +84,11 @@
                     <h2>Shoppinglist</h2>
                 </div>
             </div>
-            <div class="row my-3">
-                <div id="floor-list" class="col">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Erstellungsdatum</th>
-                                <th scope="col">Bezeichnung</th>
-                                <th scope="col">Stockwerk</th>
-                                <th scope="col">Optionen</th>
-                            </tr>
-                        </thead>
-                        <tbody id="floor-table">
-                            <tr class="single-floor">
-                                <th scope="row">1</th>
-                                <!--Variable id-->
-                                <td>01.01.1989</td>
-                                <td>3. Stock</td>
-                                <td>3</td>
-                                <td></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
         </div>
     </div>
 
     <!--Create Entry Modal-->
-    <div class="modal" id="create-project-modal" tabindex="-1" role="dialog">
+    <div class="modal" id="create-entry-modal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -127,7 +102,7 @@
                     <h3 class="dialog-item-name"></h3>
                     <input type="hidden" name="parent-id" />
                     <input type="hidden" name="item-listtype" />
-                    <input type="hidden" name="item-id" />
+                    <input type="hidden" id="item-id" value=""/>
 
                     <div class="form-group" id="form-name">
                         <label for="name">Bezeichnung</label>
