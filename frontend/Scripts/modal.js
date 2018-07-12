@@ -34,15 +34,23 @@ var ModalManager = {
                 break;
         }
     }
+
     , ResetModal: function () {
         ModalManager.formName.hide();
         ModalManager.formFloorCount.hide();
         ModalManager.formUnit.hide();
         ModalManager.formValue.hide();
     }
+
     , EditEntry: function (clickedButton) {
         var parentRow = clickedButton.closest("tr")[0];
         var clickedItemId = $(parentRow).attr("itemid");
+        console.log(clickedButton);
         //var clickedItem = // item in data suchen welches mit clickeditemid übereinstimmt
+    }
+
+    , DeleteEntry: function() {
+        // code
+        // sicherheitsabfrage vorm löschen
     }
 };

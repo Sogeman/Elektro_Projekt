@@ -1,8 +1,10 @@
 ﻿var queryManager = {
     currentLevel: "",
     backendAddress: "http://localhost/Elektro_Projekt/backend/index.php",
-    currentItems: []
+    currentItems: [],
+    lastRequest: [] // speichert letzten request für reload nach Änderung
     , LoadData: function (request) {
+        queryManager.lastRequest[0] = request; //nicht sicher ob das so funktioniert
         $.ajax({
             url: queryManager.backendAddress
             , method: "post"
@@ -25,6 +27,7 @@
     }
 
     , PostData: function(request) {
+        queryManager.lastRequest[0] = request;
         $.ajax({
             url: queryManager.backendAddress
             , method: "post"
@@ -33,6 +36,7 @@
             , cache: false
             , success: function(data) {
                 //stuff that happens when you send data
+                queryManager.LoadData(queryManager.lastRequest[0])
             }
             , error: function(errorMsg) {
                 console.log(errorMsg);

@@ -16,19 +16,21 @@ var ListHandler = {
             row += '<td class="py-0"><button class="btn btn-link edit-button"><img src="Content/images/icon_edit.png"></button>';
             row += '<button class="btn btn-link delete-button"><img src="Content/images/icon_delete.png"></td></tr>';
             $("#data-table").append(row);
+        });
+        
+        $(".single-entry").on("click", function(event) {
+            queryManager.currentLevel = $(this).attr("listtype"); // listtype wird gespeichert für Modal auf nächster Ebene
+            console.log(queryManager.currentLevel);
+        });
 
-            $(".single-entry").on("click", function(event) {
-                queryManager.currentLevel = $(this).attr("listtype"); // listtype wird gespeichert für Modal auf nächster Ebene
-            });
+        // Events for delete and edit buttons
 
-            // Events for delete and edit buttons
-
-            $(".edit-button").on("click", function() {
-                ModalManager.EditEntry($(this)); // wird für jeden Eintrag 3mal ausgeführt auch wenn nur einer geklickt ist, keine Ahung ob das anders geht
-            });                                    // sicher irgendwo ein [0] vergessen oder weil alle Knöpfe gleich heißen
-            $(".delete-button").on("click", function() { // oder vielleicht stoppropagation
-
-            })
+        $(".edit-button").on("click", function(event) {
+            event.stopPropagation();
+            ModalManager.EditEntry($(this));
+        });
+        $(".delete-button").on("click", function(event) { 
+            event.stopPropagation();
         });
     }
 };

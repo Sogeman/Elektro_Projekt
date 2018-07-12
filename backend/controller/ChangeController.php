@@ -60,7 +60,7 @@ class ChangeController {
                 break;
         }
         
-        if($newId != false) {
+        if(!is_null($newId)) {
             $this->result = array("status" => "OK", "new ID" => $newId);
         } else {
             $this->result = array("status" => "Error", "message" => "no new ID created");
@@ -72,29 +72,28 @@ class ChangeController {
         
         switch (strtolower($this->inputData->listtype)) {
             case "projects":
-                $newId = $updateModel->updateProject($this->inputData->itemId);
+                $rows = $updateModel->updateProject($this->inputData->specification, $this->inputData->itemId);
                 break;
             case "floors":
-                $newId = $updateModel->updateFloor($this->inputData->itemId);
+                $rows = $updateModel->updateFloor($this->inputData->specification, $this->inputData->itemId);
                 break;
             case "rooms":
-                $newId = $updateModel->updateRoom($this->inputData->itemId);
+                $rows = $updateModel->updateRoom($this->inputData->specification, $this->inputData->itemId);
                 break;
             case "devices":
-                $newId = $updateModel->updateDevice($this->inputData->itemId);
+                $rows = $updateModel->updateDevice($this->inputData->specification, $this->inputData->itemId);
                 break;
             case "sensors":
-                $newId = $updateModel->updateSensor($this->inputData->itemId);
+                $rows = $updateModel->updateSensor($this->inputData->specification, $this->inputData->itemId);
                 break;
             #FIs und Sicherungen ??
             default:
                 #error handling
-                $newId = false;
+                $rows = false;
                 break;
         }
-        
-        if($newId != false) {
-            $this->result = array("status" => "OK", "ID updated" => $this->inputData->itemId);
+        if($rows > 0) {
+            $this->result = array("status" => "OK");
         } else {
             $this->result = array("status" => "Error", "message" => "nothing was updated");
         }
@@ -105,27 +104,27 @@ class ChangeController {
         
         switch (strtolower($this->inputData->listtype)) {
             case "projects":
-                $newId = $deleteModel->deleteProject($this->inputData->itemId);
+                $rows = $deleteModel->deleteProject($this->inputData->itemId);
                 break;
             case "floors":
-                $newId = $deleteModel->deleteFloor($this->inputData->itemId);
+                $rows = $deleteModel->deleteFloor($this->inputData->itemId);
                 break;
             case "rooms":
-                $newId = $deleteModel->deleteRoom($this->inputData->itemId);
+                $rows = $deleteModel->deleteRoom($this->inputData->itemId);
                 break;
             case "devices":
-                $newId = $deleteModel->deleteDevice($this->inputData->itemId);
+                $rows = $deleteModel->deleteDevice($this->inputData->itemId);
                 break;
             case "sensors":
-                $newId = $deleteModel->deleteSensor($this->inputData->itemId);
+                $rows = $deleteModel->deleteSensor($this->inputData->itemId);
                 break;
             #FIs und Sicherungen ??
             default:
                 #error handling
-                $newId = false;
+                $rows = false;
                 break;
         }
-        if($newId != false) {
+        if($rows > 0) {
             $this->result = array("status" => "OK", "ID deleted" => $this->inputData->itemId);
         } else {
             $this->result = array("status" => "Error", "message" => "nothing was deleted");
