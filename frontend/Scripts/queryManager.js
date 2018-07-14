@@ -36,7 +36,7 @@
             , cache: false
             , success: function(data) {
                 //stuff that happens when you send data
-                queryManager.LoadData(queryManager.lastRequest[0])
+                queryManager.LoadData(queryManager.lastRequest[0]) // reload page after sending new data to database
             }
             , error: function(errorMsg) {
                 console.log(errorMsg);
