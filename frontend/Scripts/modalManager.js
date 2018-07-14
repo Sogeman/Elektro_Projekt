@@ -80,7 +80,7 @@ var ModalManager = {
         }
     }
 
-    , findClickedEntry: function (clickedButton, data) {
+    , findClickedEntry: function (clickedButton, data) { // move to ListHandler
         var parentRow = clickedButton.closest("tr")[0];
         var clickedItemId = $(parentRow).attr("itemid");
         var itemsObject = data["items"];
