@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 11. Jul 2018 um 10:06
+-- Erstellungszeit: 19. Jul 2018 um 15:23
 -- Server-Version: 10.1.31-MariaDB
 -- PHP-Version: 7.2.3
 
@@ -40,7 +40,7 @@ CREATE TABLE `devices` (
 --
 
 INSERT INTO `devices` (`id`, `rooms_id`, `name`, `created`) VALUES
-(1, 1, 'Testlicht', '2018-07-11 07:59:19');
+(1, 1, 'updated Testdevice', '2018-07-11 07:59:19');
 
 -- --------------------------------------------------------
 
@@ -51,7 +51,7 @@ INSERT INTO `devices` (`id`, `rooms_id`, `name`, `created`) VALUES
 CREATE TABLE `floors` (
   `id` int(11) UNSIGNED NOT NULL,
   `projects_id` int(11) UNSIGNED NOT NULL,
-  `floor_count_from_basement` int(11) DEFAULT NULL,
+  `floor_count_from_basement` int(11) NOT NULL,
   `name` varchar(255) CHARACTER SET utf8 NOT NULL,
   `created` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -61,7 +61,9 @@ CREATE TABLE `floors` (
 --
 
 INSERT INTO `floors` (`id`, `projects_id`, `floor_count_from_basement`, `name`, `created`) VALUES
-(4, 6, 1, 'Test-Erdgeschoss', '2018-07-11 07:50:36');
+(4, 6, 3, 'updated Testfloor', '2018-07-11 07:50:36'),
+(8, 1, 1, 'Erdgeschoss', '2018-07-19 12:39:45'),
+(9, 1, 2, 'Erster Stock', '2018-07-19 12:46:38');
 
 -- --------------------------------------------------------
 
@@ -82,8 +84,7 @@ CREATE TABLE `projects` (
 INSERT INTO `projects` (`id`, `name`, `created`) VALUES
 (1, 'Testhaus', '2018-07-03 11:13:13'),
 (2, 'Testhaus 2', '2018-07-06 16:24:21'),
-(3, 'Testhaus 3', '2018-07-06 16:24:21'),
-(6, 'Test-Projekt', '2018-07-11 07:33:39');
+(3, 'Testhaus 3', '2018-07-06 16:24:21');
 
 -- --------------------------------------------------------
 
@@ -103,7 +104,7 @@ CREATE TABLE `rooms` (
 --
 
 INSERT INTO `rooms` (`id`, `floors_id`, `name`, `created`) VALUES
-(1, 4, 'Testraum', '2018-07-11 07:55:56');
+(1, 4, 'updated Testroom', '2018-07-11 07:55:56');
 
 -- --------------------------------------------------------
 
@@ -125,7 +126,7 @@ CREATE TABLE `sensors` (
 --
 
 INSERT INTO `sensors` (`id`, `devices_id`, `name`, `unit`, `value`, `created`) VALUES
-(1, 1, 'Testschalter', 'ein/aus', 'aus', '2018-07-11 08:05:04');
+(1, 1, 'updated Testswitch', 'on/off', 'on', '2018-07-11 08:05:04');
 
 --
 -- Indizes der exportierten Tabellen
@@ -175,13 +176,13 @@ ALTER TABLE `devices`
 -- AUTO_INCREMENT für Tabelle `floors`
 --
 ALTER TABLE `floors`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT für Tabelle `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT für Tabelle `rooms`

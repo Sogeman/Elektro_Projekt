@@ -8,3 +8,38 @@
     left: 15px;
     top: 15px;
 }
+
+.single-entry:hover {
+    background-color: #85d8e5;
+    cursor: pointer;
+}
+
+#loading-screen {
+    left: 0;
+    top: 100px;
+    width: 100%;
+    height: 100%;
+    background: white;
+    position: absolute;
+    z-index: 1;
+    opacity: 1;
+    display: none;
+}
+
+#loading-image {
+    height: 100px;
+    width: 100px;
+    display: block;
+    margin: 0 auto;
+    animation: spin 3s linear infinite;
+
+}
+
+@keyframes spin{
+	from{transform:rotate(0deg)}
+	to{transform:rotate(360deg)}	
+}
+
+body {
+    overflow: auto;
+}

@@ -44,6 +44,16 @@
         });
     }
 
+    , LoadingScreen: function() {
+        $( document ).ajaxStart(function() {
+            $("#loading-screen").show();
+        });
+    
+        $( document ).ajaxStop(function() {
+            $("#loading-screen").hide();
+        });
+    }
+
     , GetCurrentLevelName: function () {
         var level;
         switch (queryManager.currentLevel.toUpperCase()) {

@@ -6,6 +6,8 @@ $(document).ready(function() {
 
     queryManager.LoadData(Controller.homepage);
     EventHandler.HomeEvent();
+    queryManager.LoadingScreen();
+
 });
 
 // {
