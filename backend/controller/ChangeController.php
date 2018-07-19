@@ -60,7 +60,7 @@ class ChangeController {
                 break;
         }
         
-        if(!is_null($newId)) {
+        if($newId > 0) {
             $this->result = array("status" => "OK", "new ID" => $newId);
         } else {
             $this->result = array("status" => "Error", "message" => "no new ID created");

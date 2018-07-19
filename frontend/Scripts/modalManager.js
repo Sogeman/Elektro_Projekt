@@ -53,15 +53,19 @@ var ModalManager = {
     }
 
     , EditEntry: function (clickedButton, data) {
-        var clickedEntry = ModalManager.findClickedEntry(clickedButton, data);
-        ModalManager.PrefillModal(clickedEntry);
+        var clickedItem = ListHandler.findClickedItem(clickedButton, data);
+        ModalManager.PrefillModal(clickedItem);
         $("#create-entry-modal").modal();
         //ajax call still missing
         //reload the table after ajax call
     }
 
-    , PrefillModal: function (clickedEntry) {
-        var entry = clickedEntry[0];
+    , DeleteEntry: function(clickedButton, data) {
+        var clickedItem = ListHandler.findClickedItem(clickedButton, data);
+    }
+
+    , PrefillModal: function (clickedItem) {
+        var entry = clickedItem[0];
         $("#item-id").attr("value", entry.id);
         console.log(entry.id);
         switch (queryManager.currentLevel) {
@@ -78,21 +82,6 @@ var ModalManager = {
                 ModalManager.formValue.find("input").val(entry.value);
                 break;
         }
-    }
-
-    , findClickedEntry: function (clickedButton, data) { // move to ListHandler
-        var parentRow = clickedButton.closest("tr")[0];
-        var clickedItemId = $(parentRow).attr("itemid");
-        var itemsObject = data["items"];
-        var allItemsArray = itemsObject.map(function (element) {
-            if (element.id == clickedItemId) {
-                return element
-            } else {
-                return null
-            }
-        }, []);
-        var clickedItem = allItemsArray.filter((obj) => obj);
-        return clickedItem;
     }
 
     , DeleteEntry: function () {

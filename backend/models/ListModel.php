@@ -41,25 +41,25 @@ class ListModel {
     }
     
     public function listFloors($projectid) {
-        $sql = "SELECT id, name, floor_count_from_basement FROM floors WHERE projects_id = {$projectid}";
+        $sql = "SELECT id, name, floor_count_from_basement, created FROM floors WHERE projects_id = {$projectid}";
         $this->list = $this->getListFromDatabase($sql);
         $this->currentListType = "floors";
     }
     
     public function listRooms($floorid) {
-        $sql = "SELECT id, name FROM rooms WHERE floors_id = {$floorid}";
+        $sql = "SELECT id, name, created FROM rooms WHERE floors_id = {$floorid}";
         $this->list = $this->getListFromDatabase($sql);
         $this->currentListType = "rooms";
     }
     
     public function listDevices($roomid) {
-        $sql = "SELECT id, name FROM devices WHERE rooms_id = {$roomid}";
+        $sql = "SELECT id, name, created FROM devices WHERE rooms_id = {$roomid}";
         $this->list = $this->getListFromDatabase($sql);
         $this->currentListType = "devices";
     }
     
     public function listSensors($deviceid) {
-        $sql = "SELECT id, name, unit, value FROM sensors WHERE devices_id = {$deviceid}";
+        $sql = "SELECT id, name, unit, value, created FROM sensors WHERE devices_id = {$deviceid}";
         $this->list = $this->getListFromDatabase($sql);
         $this->currentListType = "sensors";
     }
