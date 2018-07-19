@@ -44,7 +44,7 @@ class ListController implements ControllerInterface {
                 $this->listModel->listProjects();
                 break;
             default:
-               #error handling
+                $this->listModel->listProjects();
                break;
         }
     }

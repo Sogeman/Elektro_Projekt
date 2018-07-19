@@ -4,7 +4,7 @@
     currentItems: [], //useless?!
     lastRequest: [] // speichert letzten request für reload nach Änderung
     , LoadData: function (request) {
-        queryManager.lastRequest[0] = request; //nicht sicher ob das so funktioniert
+        queryManager.lastRequest[0] = request;
         $.ajax({
             url: queryManager.backendAddress
             , method: "post"

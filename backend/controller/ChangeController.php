@@ -27,7 +27,7 @@ class ChangeController {
                 $this->deleteItem();
                 break;
             default:
-                # Error
+                $this->result = array("status" => "Error", "message" => "supported actions: create, update or delete");
                 break;
         }
 
@@ -55,16 +55,16 @@ class ChangeController {
                 break;
             #FIs und Sicherungen ??
             default:
-                #error handling
                 $newId = false;
                 break;
         }
-        
         if($newId > 0) {
             $this->result = array("status" => "OK", "new ID" => $newId);
-        } else {
+        } else if ($newId <= 0 && $newId != false) {
             $this->result = array("status" => "Error", "message" => "no new ID created");
-        }
+        } else if ($newId === false) {
+            $this->result = array("status" => "Error", "message" => "unsupported projectlevel entered");
+        } 
     }
 
     private function updateItem() {
@@ -88,15 +88,16 @@ class ChangeController {
                 break;
             #FIs und Sicherungen ??
             default:
-                #error handling
                 $rows = false;
                 break;
         }
         if($rows > 0) {
             $this->result = array("status" => "OK");
-        } else {
+        } else if ($rows <= 0 && $rows != false) {
             $this->result = array("status" => "Error", "message" => "nothing was updated");
-        }
+        } else if ($rows == false) {
+            $this->result = array("status" => "Error", "message" => "unsupported projectlevel entered");
+        } 
     }
 
     private function deleteItem() {
@@ -120,15 +121,16 @@ class ChangeController {
                 break;
             #FIs und Sicherungen ??
             default:
-                #error handling
                 $rows = false;
                 break;
         }
         if($rows > 0) {
             $this->result = array("status" => "OK", "ID deleted" => $this->inputData->itemId);
-        } else {
+        } else if ($rows <= 0 && $rows != false) {
             $this->result = array("status" => "Error", "message" => "nothing was deleted");
-        }
+        } else if ($rows == false) {
+            $this->result = array("status" => "Error", "message" => "unsupported projectlevel entered");
+        } 
         
     }
 
