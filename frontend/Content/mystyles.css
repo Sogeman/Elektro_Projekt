@@ -1,6 +1,9 @@
-﻿.profile-picture {
-    height: 150px;
-    width: 150px;
+﻿body {
+    overflow: auto;
+}
+
+#shopping-list {
+    display: none;
 }
 
 .nav-menu {
@@ -12,6 +15,14 @@
 .single-entry:hover {
     background-color: #85d8e5;
     cursor: pointer;
+}
+
+.edit-button, .delete-button {
+    margin-top: 2px;
+    margin-right: 1px;
+}
+.edit-button:hover, .delete-button:hover {
+    border: 1px solid black;
 }
 
 #loading-screen {
@@ -40,6 +51,3 @@
 	to{transform:rotate(360deg)}	
 }
 
-body {
-    overflow: auto;
-}

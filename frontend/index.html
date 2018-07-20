@@ -53,7 +53,7 @@
                     <h2 id="page-title">Projekte</h2>
                 </div>
                 <div class="col-3 offset-1">
-                    <button type="button" id="create-item-button" class="btn btn-primary btn-lg btn-info" data-toggle="modal" data-target="#create-entry-modal"></button>
+                    <button type="button" id="create-item-button" class="btn btn-primary btn-lg btn-info"></button>
                 </div>
             </div>
 
@@ -106,9 +106,8 @@
                 </div>
                 <div class="modal-body">
                     <h3 class="dialog-item-name"></h3>
-                    <input type="hidden" name="parent-id" />
-                    <input type="hidden" name="item-listtype" />
-                    <input type="hidden" id="item-id" value="" />
+                    <input type="hidden" id="parent-id" value="0"/>
+                    <input type="hidden" id="item-id" value="0" />
 
                     <div class="form-group" id="form-name">
                         <label for="name">Bezeichnung</label>
@@ -132,13 +131,13 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" id="close-button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="button" id="save-button" class="btn btn-info">Save changes</button>
                 </div>
             </div>
         </div>
     </div>
-
+    
 </body>
 
 </html>
