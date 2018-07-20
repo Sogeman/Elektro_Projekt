@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 19. Jul 2018 um 15:23
+-- Erstellungszeit: 20. Jul 2018 um 12:10
 -- Server-Version: 10.1.31-MariaDB
 -- PHP-Version: 7.2.3
 
@@ -40,7 +40,8 @@ CREATE TABLE `devices` (
 --
 
 INSERT INTO `devices` (`id`, `rooms_id`, `name`, `created`) VALUES
-(1, 1, 'updated Testdevice', '2018-07-11 07:59:19');
+(1, 1, 'updated Testdevice', '2018-07-11 07:59:19'),
+(2, 3, 'Toilette', '2018-07-20 10:08:59');
 
 -- --------------------------------------------------------
 
@@ -62,8 +63,9 @@ CREATE TABLE `floors` (
 
 INSERT INTO `floors` (`id`, `projects_id`, `floor_count_from_basement`, `name`, `created`) VALUES
 (4, 6, 3, 'updated Testfloor', '2018-07-11 07:50:36'),
-(8, 1, 1, 'Erdgeschoss', '2018-07-19 12:39:45'),
-(9, 1, 2, 'Erster Stock', '2018-07-19 12:46:38');
+(8, 1, 0, 'Keller', '2018-07-19 12:39:45'),
+(9, 1, 1, 'Erster Stock', '2018-07-19 12:46:38'),
+(10, 3, 0, 'Keller', '2018-07-20 10:08:42');
 
 -- --------------------------------------------------------
 
@@ -82,9 +84,10 @@ CREATE TABLE `projects` (
 --
 
 INSERT INTO `projects` (`id`, `name`, `created`) VALUES
-(1, 'Testhaus', '2018-07-03 11:13:13'),
-(2, 'Testhaus 2', '2018-07-06 16:24:21'),
-(3, 'Testhaus 3', '2018-07-06 16:24:21');
+(1, 'Test alpha', '2018-07-03 11:13:13'),
+(2, 'Test 2.0', '2018-07-06 16:24:21'),
+(3, 'Test 3', '2018-07-06 16:24:21'),
+(6, 'Test 4.0', '2018-07-20 09:51:19');
 
 -- --------------------------------------------------------
 
@@ -104,7 +107,9 @@ CREATE TABLE `rooms` (
 --
 
 INSERT INTO `rooms` (`id`, `floors_id`, `name`, `created`) VALUES
-(1, 4, 'updated Testroom', '2018-07-11 07:55:56');
+(1, 4, 'updated Testroom', '2018-07-11 07:55:56'),
+(2, 8, 'Vorratsraum/', '2018-07-20 10:03:08'),
+(3, 10, 'Häusl', '2018-07-20 10:08:50');
 
 -- --------------------------------------------------------
 
@@ -126,7 +131,8 @@ CREATE TABLE `sensors` (
 --
 
 INSERT INTO `sensors` (`id`, `devices_id`, `name`, `unit`, `value`, `created`) VALUES
-(1, 1, 'updated Testswitch', 'on/off', 'on', '2018-07-11 08:05:04');
+(1, 1, 'updated Testswitch', 'on/off', 'on', '2018-07-11 08:05:04'),
+(2, 2, 'Spülungsschalter', 'Ein/Aus', 'Aus', '2018-07-20 10:09:16');
 
 --
 -- Indizes der exportierten Tabellen
@@ -170,31 +176,31 @@ ALTER TABLE `sensors`
 -- AUTO_INCREMENT für Tabelle `devices`
 --
 ALTER TABLE `devices`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT für Tabelle `floors`
 --
 ALTER TABLE `floors`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT für Tabelle `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT für Tabelle `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT für Tabelle `sensors`
 --
 ALTER TABLE `sensors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
