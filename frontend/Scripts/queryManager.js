@@ -1,7 +1,6 @@
 ﻿var queryManager = {
     currentLevel: "",
     backendAddress: "http://localhost/Elektro_Projekt/backend/index.php",
-    currentItems: [], //useless?!
     lastRequest: [] // speichert letzten request für reload nach Änderung
     , LoadData: function (request) {
         queryManager.lastRequest[0] = request;
@@ -15,7 +14,6 @@
                 viewSwitcher("homepage");
                 //console.log(data);
                 ListHandler.FillTable(data);
-                //queryManager.GetCurrentItems(data); useless?!
                 $("#create-item-button").text("+ " + queryManager.GetCurrentLevelName());
                 ModalManager.Initialize(queryManager.currentLevel, data);
             }
@@ -27,7 +25,7 @@
     }
 
     , PostData: function (request) {
-        queryManager.lastRequest[0] = request;
+        $("#save-button").unbind();
         $.ajax({
             url: queryManager.backendAddress
             , method: "post"
@@ -35,7 +33,13 @@
             , dataType: "json"
             , cache: false
             , success: function (data) {
-                //stuff that happens when you send data
+                // console.log("data ");
+                // console.log(data);
+                // console.log("request ");
+                // console.log(request);
+                // console.log("last request ");
+                // console.log(queryManager.lastRequest[0]);
+                $("#create-entry-modal").modal("hide"); // closes Modal after saving
                 queryManager.LoadData(queryManager.lastRequest[0]) // reload page after sending new data to database
             }
             , error: function (errorMsg) {
@@ -44,12 +48,12 @@
         });
     }
 
-    , LoadingScreen: function() {
-        $( document ).ajaxStart(function() {
+    , LoadingScreen: function () {
+        $(document).ajaxStart(function () {
             $("#loading-screen").show();
         });
-    
-        $( document ).ajaxStop(function() {
+
+        $(document).ajaxStop(function () {
             $("#loading-screen").hide();
         });
     }
@@ -102,7 +106,4 @@
         return level;
     }
 
-    , GetCurrentItems: function (data) {
-        // wahrscheinlich nicht notwendig
-    }
 };

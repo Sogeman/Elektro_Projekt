@@ -13,13 +13,11 @@ var ModalManager = {
         ModalManager.formValue = $("#form-value");
         ModalManager.data = data;
         ModalManager.ResetModal();
-        ModalManager.AddEntryFields(currentLevel, data);
-        $("#create-entry-modal").on("hidden.bs.modal", function (e) {
-            ModalManager.ClearModal();
-        });
-    },
+        ModalManager.AddEntryFields(currentLevel);
+        EventHandler.ClearModal();
+    }
 
-    AddEntryFields: function (currentLevel, data) {
+    , AddEntryFields: function (currentLevel) {
 
         $("#modal-title").text(queryManager.GetCurrentLevelName() + " anlegen");
         switch (currentLevel) {
@@ -52,16 +50,41 @@ var ModalManager = {
         ModalManager.formValue.find("input").val("");
     }
 
+    , CreateEntry: function () {
+        var listType = queryManager.currentLevel;
+        var data = {listtype: listType}
+        
+        EventHandler.SaveEvent(data, "create");
+       
+    }
+
     , EditEntry: function (clickedButton, data) {
         var clickedItem = ListHandler.findClickedItem(clickedButton, data);
         ModalManager.PrefillModal(clickedItem);
-        $("#create-entry-modal").modal();
-        //ajax call still missing
-        //reload the table after ajax call
+        $("#modal-title").text(queryManager.GetCurrentLevelName() + " aktualisieren")
+        $("#create-entry-modal").modal(); //enables modal manually
+        EventHandler.SaveEvent(data, "update");
+    }
+
+    , SaveEntry: function(data, action) {
+        var listType = data["listtype"];
+        var itemId = $("#item-id").val();
+        var parentId = $("#parent-id").val();
+        var name = ModalManager.formName.find("input").val();
+        console.log(name);
+        var count = ModalManager.formFloorCount.find("input").val();
+        var unit = ModalManager.formUnit.find("input").val();
+        var value = ModalManager.formValue.find("input").val();
+        var request = {action: action, listtype: listType, parentid: parentId, itemid: itemId, specification: {name: name, floor_count_from_basement: count, unit: unit, value: value}};
+        console.log(request);
+        queryManager.PostData(request);
+
     }
 
     , DeleteEntry: function(clickedButton, data) {
+        // sicherheitsabfrage vorm löschen implementieren
         var clickedItem = ListHandler.findClickedItem(clickedButton, data);
+
     }
 
     , PrefillModal: function (clickedItem) {
@@ -84,8 +107,4 @@ var ModalManager = {
         }
     }
 
-    , DeleteEntry: function () {
-        // code
-        // sicherheitsabfrage vorm löschen
-    }
 };

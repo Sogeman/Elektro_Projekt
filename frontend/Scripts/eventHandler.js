@@ -3,13 +3,15 @@ var EventHandler = {
     TableEvents: function(serverData) {
         // Event for going to the next level
         $(".single-entry").on("click", function(event) {
-            queryManager.currentLevel = $(this).attr("listtype"); // listtype wird gespeichert für Modal auf nächster Ebene
-            // console.log(queryManager.currentLevel);
+            event.stopPropagation();
+            queryManager.currentLevel = $(this).attr("listtype"); // listtype gets saved for Modal on next level
+            console.log(queryManager.currentLevel);
 
             var request;
             var nextLevel = queryManager.GetNextLevel();
             var clickedItem = ListHandler.findClickedItem($(this), serverData);
             var parentId = clickedItem[0].id;
+            $("#parent-id").attr("value", parentId);
             var name = clickedItem[0].name;
             request = {action: "list", listtype: nextLevel, parentid: parentId};
             //console.log(request);
@@ -34,6 +36,28 @@ var EventHandler = {
             console.log("home clicked");
             queryManager.LoadData(Controller.homepage);
             $("#page-title").text("Projekte");
+        });
+    }
+
+    , SaveEvent: function(data, action) {
+        $("#save-button").on("click", function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            ModalManager.SaveEntry(data, action);
+        });
+    }
+
+    , CreateEvent: function() {
+        $("#create-item-button").on("click", function(event) {
+            event.stopPropagation();
+            $("#create-entry-modal").modal(); //enables modal manually
+            ModalManager.CreateEntry();
+        });
+    }
+
+    , ClearModal: function() {
+        $("#create-entry-modal").on("hidden.bs.modal", function (e) {
+            ModalManager.ClearModal();
         });
     }
 
