@@ -63,7 +63,7 @@ class ChangeController {
         } else if ($newId <= 0 && $newId != false) {
             $this->result = array("status" => "Error", "message" => "no new ID created");
         } else if ($newId === false) {
-            $this->result = array("status" => "Error", "message" => "unsupported projectlevel entered");
+            $this->result = array("status" => "Error", "message" => "something is broken");
         } 
     }
 
@@ -72,19 +72,19 @@ class ChangeController {
         
         switch (strtolower($this->inputData->listtype)) {
             case "projects":
-                $rows = $updateModel->updateProject($this->inputData->specification, $this->inputData->itemId);
+                $rows = $updateModel->updateProject($this->inputData->specification, $this->inputData->itemid);
                 break;
             case "floors":
-                $rows = $updateModel->updateFloor($this->inputData->specification, $this->inputData->itemId);
+                $rows = $updateModel->updateFloor($this->inputData->specification, $this->inputData->itemid);
                 break;
             case "rooms":
-                $rows = $updateModel->updateRoom($this->inputData->specification, $this->inputData->itemId);
+                $rows = $updateModel->updateRoom($this->inputData->specification, $this->inputData->itemid);
                 break;
             case "devices":
-                $rows = $updateModel->updateDevice($this->inputData->specification, $this->inputData->itemId);
+                $rows = $updateModel->updateDevice($this->inputData->specification, $this->inputData->itemid);
                 break;
             case "sensors":
-                $rows = $updateModel->updateSensor($this->inputData->specification, $this->inputData->itemId);
+                $rows = $updateModel->updateSensor($this->inputData->specification, $this->inputData->itemid);
                 break;
             #FIs und Sicherungen ??
             default:
@@ -96,7 +96,7 @@ class ChangeController {
         } else if ($rows <= 0 && $rows != false) {
             $this->result = array("status" => "Error", "message" => "nothing was updated");
         } else if ($rows == false) {
-            $this->result = array("status" => "Error", "message" => "unsupported projectlevel entered");
+            $this->result = array("status" => "Error", "message" => "something is broken");
         } 
     }
 
@@ -105,19 +105,19 @@ class ChangeController {
         
         switch (strtolower($this->inputData->listtype)) {
             case "projects":
-                $rows = $deleteModel->deleteProject($this->inputData->itemId);
+                $rows = $deleteModel->deleteProject($this->inputData->itemid);
                 break;
             case "floors":
-                $rows = $deleteModel->deleteFloor($this->inputData->itemId);
+                $rows = $deleteModel->deleteFloor($this->inputData->itemid);
                 break;
             case "rooms":
-                $rows = $deleteModel->deleteRoom($this->inputData->itemId);
+                $rows = $deleteModel->deleteRoom($this->inputData->itemid);
                 break;
             case "devices":
-                $rows = $deleteModel->deleteDevice($this->inputData->itemId);
+                $rows = $deleteModel->deleteDevice($this->inputData->itemid);
                 break;
             case "sensors":
-                $rows = $deleteModel->deleteSensor($this->inputData->itemId);
+                $rows = $deleteModel->deleteSensor($this->inputData->itemid);
                 break;
             #FIs und Sicherungen ??
             default:
@@ -125,11 +125,11 @@ class ChangeController {
                 break;
         }
         if($rows > 0) {
-            $this->result = array("status" => "OK", "ID deleted" => $this->inputData->itemId);
+            $this->result = array("status" => "OK", "ID deleted" => $this->inputData->itemid);
         } else if ($rows <= 0 && $rows != false) {
             $this->result = array("status" => "Error", "message" => "nothing was deleted");
         } else if ($rows == false) {
-            $this->result = array("status" => "Error", "message" => "unsupported projectlevel entered");
+            $this->result = array("status" => "Error", "message" => "something is broken");
         } 
         
     }
