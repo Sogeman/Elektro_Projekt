@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 20. Jul 2018 um 12:10
+-- Erstellungszeit: 22. Jul 2018 um 20:23
 -- Server-Version: 10.1.31-MariaDB
 -- PHP-Version: 7.2.3
 
@@ -41,7 +41,8 @@ CREATE TABLE `devices` (
 
 INSERT INTO `devices` (`id`, `rooms_id`, `name`, `created`) VALUES
 (1, 1, 'updated Testdevice', '2018-07-11 07:59:19'),
-(2, 3, 'Toilette', '2018-07-20 10:08:59');
+(2, 3, 'Toilette', '2018-07-20 10:08:59'),
+(3, 2, 'Deckenlicht', '2018-07-20 17:34:26');
 
 -- --------------------------------------------------------
 
@@ -65,7 +66,8 @@ INSERT INTO `floors` (`id`, `projects_id`, `floor_count_from_basement`, `name`, 
 (4, 6, 3, 'updated Testfloor', '2018-07-11 07:50:36'),
 (8, 1, 0, 'Keller', '2018-07-19 12:39:45'),
 (9, 1, 1, 'Erster Stock', '2018-07-19 12:46:38'),
-(10, 3, 0, 'Keller', '2018-07-20 10:08:42');
+(10, 3, 0, 'Keller', '2018-07-20 10:08:42'),
+(11, 2, 0, 'Keller', '2018-07-20 17:34:26');
 
 -- --------------------------------------------------------
 
@@ -108,7 +110,7 @@ CREATE TABLE `rooms` (
 
 INSERT INTO `rooms` (`id`, `floors_id`, `name`, `created`) VALUES
 (1, 4, 'updated Testroom', '2018-07-11 07:55:56'),
-(2, 8, 'Vorratsraum/', '2018-07-20 10:03:08'),
+(2, 8, 'Vorratsraum', '2018-07-20 10:03:08'),
 (3, 10, 'Häusl', '2018-07-20 10:08:50');
 
 -- --------------------------------------------------------
@@ -132,7 +134,8 @@ CREATE TABLE `sensors` (
 
 INSERT INTO `sensors` (`id`, `devices_id`, `name`, `unit`, `value`, `created`) VALUES
 (1, 1, 'updated Testswitch', 'on/off', 'on', '2018-07-11 08:05:04'),
-(2, 2, 'Spülungsschalter', 'Ein/Aus', 'Aus', '2018-07-20 10:09:16');
+(2, 2, 'Spülungsschalter', 'Ein/Aus', 'Aus', '2018-07-20 10:09:16'),
+(3, 3, 'Deckenlichtschalter', 'ein/Au', 'Aus', '2018-07-20 17:34:41');
 
 --
 -- Indizes der exportierten Tabellen
@@ -176,13 +179,13 @@ ALTER TABLE `sensors`
 -- AUTO_INCREMENT für Tabelle `devices`
 --
 ALTER TABLE `devices`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT für Tabelle `floors`
 --
 ALTER TABLE `floors`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT für Tabelle `projects`
@@ -200,7 +203,7 @@ ALTER TABLE `rooms`
 -- AUTO_INCREMENT für Tabelle `sensors`
 --
 ALTER TABLE `sensors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
