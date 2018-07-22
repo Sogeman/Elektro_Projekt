@@ -17,9 +17,16 @@ var ModalManager = {
         EventHandler.ClearModal();
     }
 
+    , ResetModal: function () {
+        ModalManager.formName.hide();
+        ModalManager.formFloorCount.hide();
+        ModalManager.formUnit.hide();
+        ModalManager.formValue.hide();
+    }
+
     , AddEntryFields: function (currentLevel) {
 
-        $("#modal-title").text(queryManager.GetCurrentLevelName() + " anlegen");
+        $("#modal-title").text(QueryManager.GetCurrentLevelName() + " anlegen");
         switch (currentLevel) {
             case "floors":
                 ModalManager.formName.show();
@@ -36,13 +43,6 @@ var ModalManager = {
         }
     }
 
-    , ResetModal: function () {
-        ModalManager.formName.hide();
-        ModalManager.formFloorCount.hide();
-        ModalManager.formUnit.hide();
-        ModalManager.formValue.hide();
-    }
-
     , ClearModal: function(){
         ModalManager.formName.find("input").val("");
         ModalManager.formFloorCount.find("input").val("");
@@ -51,7 +51,7 @@ var ModalManager = {
     }
 
     , CreateEntry: function () {
-        var listType = queryManager.currentLevel;
+        var listType = QueryManager.currentLevel;
         var data = {listtype: listType}
         
         EventHandler.SaveEvent(data, "create");
@@ -61,37 +61,16 @@ var ModalManager = {
     , EditEntry: function (clickedButton, data) {
         var clickedItem = ListHandler.findClickedItem(clickedButton, data);
         ModalManager.PrefillModal(clickedItem);
-        $("#modal-title").text(queryManager.GetCurrentLevelName() + " aktualisieren")
+        $("#modal-title").text(QueryManager.GetCurrentLevelName() + " aktualisieren")
         $("#create-entry-modal").modal(); //enables modal manually
         EventHandler.SaveEvent(data, "update");
-    }
-
-    , SaveEntry: function(data, action) {
-        var listType = data["listtype"];
-        var itemId = $("#item-id").val();
-        var parentId = $("#parent-id").val();
-        var name = ModalManager.formName.find("input").val();
-        console.log(name);
-        var count = ModalManager.formFloorCount.find("input").val();
-        var unit = ModalManager.formUnit.find("input").val();
-        var value = ModalManager.formValue.find("input").val();
-        var request = {action: action, listtype: listType, parentid: parentId, itemid: itemId, specification: {name: name, floor_count_from_basement: count, unit: unit, value: value}};
-        console.log(request);
-        queryManager.PostData(request);
-
-    }
-
-    , DeleteEntry: function(clickedButton, data) {
-        // sicherheitsabfrage vorm löschen implementieren
-        var clickedItem = ListHandler.findClickedItem(clickedButton, data);
-
     }
 
     , PrefillModal: function (clickedItem) {
         var entry = clickedItem[0];
         $("#item-id").attr("value", entry.id);
         console.log(entry.id);
-        switch (queryManager.currentLevel) {
+        switch (QueryManager.currentLevel) {
             case "floors":
                 ModalManager.formName.find("input").val(entry.name);
                 ModalManager.formFloorCount.find("input").val(entry.floor_count_from_basement);
@@ -106,5 +85,33 @@ var ModalManager = {
                 break;
         }
     }
+
+    , SaveEntry: function(data, action) {
+        var listType = data["listtype"];
+        var itemId = $("#item-id").val();
+        var parentId = $("#parent-id").val();
+        var name = ModalManager.formName.find("input").val();
+        //console.log(name);
+        var count = ModalManager.formFloorCount.find("input").val();
+        var unit = ModalManager.formUnit.find("input").val();
+        var value = ModalManager.formValue.find("input").val();
+        var request = {action: action, listtype: listType, parentid: parentId, itemid: itemId, specification: {name: name, floor_count_from_basement: count, unit: unit, value: value}};
+        QueryManager.PostData(request);
+
+    }
+
+    , DeleteWarning: function(clickedButton, data) {
+        var clickedItem = ListHandler.findClickedItem(clickedButton, data);
+        var itemId = clickedItem[0].id;
+        var listType = data.listtype;
+        var request = {action: "delete", listtype: listType, itemid: itemId};
+        $("#delete-warning-modal").modal();
+        EventHandler.ConfirmDeletion(request);
+    }
+
+    , DeleteEntry: function(request) {
+        QueryManager.PostData(request);
+    }
+
 
 };

@@ -1,10 +1,10 @@
 var ListHandler = {
    
-    FillTable: function(serverData) {
+    FillTable: function(serverData) { // Add message to add stuff when nothing is returned from server
         $("#data-table").empty();
         var list = serverData["items"];
         var listtype = serverData["listtype"];
-        queryManager.currentLevel = listtype;
+        QueryManager.currentLevel = listtype;
 
         list.forEach(element => {
             var id = element.id;

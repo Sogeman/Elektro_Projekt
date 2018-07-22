@@ -1,21 +1,28 @@
-﻿var queryManager = {
+﻿var QueryManager = {
     currentLevel: "",
     backendAddress: "http://localhost/Elektro_Projekt/backend/index.php",
-    lastRequest: [] // speichert letzten request für reload nach Änderung
+    lastRequests: [] // saves last requests for backbutton and reload
     , LoadData: function (request) {
-        queryManager.lastRequest[0] = request;
+        if (QueryManager.lastRequests[QueryManager.lastRequests.length - 1] != request) {
+            QueryManager.lastRequests.push(request);
+        }
         $.ajax({
-            url: queryManager.backendAddress
+            url: QueryManager.backendAddress
             , method: "post"
             , data: { data: JSON.stringify(request) }
             , dataType: "json"
             , cache: false
             , success: function (data) {
+                if (request.listtype != "projects") {
+                    $("#back-button").show();
+                } else {
+                    $("#page-title").text("Projekte");
+                    $("#back-button").hide();
+                }
                 viewSwitcher("homepage");
-                //console.log(data);
                 ListHandler.FillTable(data);
-                $("#create-item-button").text("+ " + queryManager.GetCurrentLevelName());
-                ModalManager.Initialize(queryManager.currentLevel, data);
+                $("#create-item-button").text("+ " + QueryManager.GetCurrentLevelName());
+                ModalManager.Initialize(QueryManager.currentLevel, data);
             }
             , error: function (errorMsg) {
                 viewSwitcher("homepage");
@@ -26,21 +33,16 @@
 
     , PostData: function (request) {
         $("#save-button").unbind();
+        console.log(request);
         $.ajax({
-            url: queryManager.backendAddress
+            url: QueryManager.backendAddress
             , method: "post"
             , data: { data: JSON.stringify(request) }
             , dataType: "json"
             , cache: false
             , success: function (data) {
-                // console.log("data ");
-                // console.log(data);
-                // console.log("request ");
-                // console.log(request);
-                // console.log("last request ");
-                // console.log(queryManager.lastRequest[0]);
                 $("#create-entry-modal").modal("hide"); // closes Modal after saving
-                queryManager.LoadData(queryManager.lastRequest[0]) // reload page after sending new data to database
+                QueryManager.LoadData(QueryManager.lastRequests[QueryManager.lastRequests.length - 1]); // reload page after sending new data to database
             }
             , error: function (errorMsg) {
                 console.log(errorMsg);
@@ -60,7 +62,7 @@
 
     , GetCurrentLevelName: function () {
         var level;
-        switch (queryManager.currentLevel.toUpperCase()) {
+        switch (QueryManager.currentLevel.toUpperCase()) {
             case "PROJECTS":
                 level = "Projekt";
                 break;
@@ -84,7 +86,7 @@
 
     , GetNextLevel: function () {
         var level;
-        switch (queryManager.currentLevel.toUpperCase()) {
+        switch (QueryManager.currentLevel.toUpperCase()) {
             case "PROJECTS":
                 level = "floors";
                 break;
@@ -98,12 +100,19 @@
                 level = "sensors";
                 break;
             case "SENSORS":
-                level = "";
+                level = "sensors"; //otherwise it breaks when you click on a sensor
                 break;
             default:
                 break;
         }
         return level;
+    }
+
+    , GoBackToPreviousLevel: function () {
+        if (QueryManager.lastRequests.length > 1) {
+            QueryManager.lastRequests.pop();
+            QueryManager.LoadData(QueryManager.lastRequests[QueryManager.lastRequests.length - 1]);
+        }
     }
 
 };

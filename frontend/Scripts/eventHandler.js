@@ -4,19 +4,21 @@ var EventHandler = {
         // Event for going to the next level
         $(".single-entry").on("click", function(event) {
             event.stopPropagation();
-            queryManager.currentLevel = $(this).attr("listtype"); // listtype gets saved for Modal on next level
-            console.log(queryManager.currentLevel);
+            QueryManager.currentLevel = $(this).attr("listtype"); // listtype gets saved for Modal on next level
 
             var request;
-            var nextLevel = queryManager.GetNextLevel();
+            var nextLevel = QueryManager.GetNextLevel();
             var clickedItem = ListHandler.findClickedItem($(this), serverData);
             var parentId = clickedItem[0].id;
             $("#parent-id").attr("value", parentId);
             var name = clickedItem[0].name;
+
             request = {action: "list", listtype: nextLevel, parentid: parentId};
-            //console.log(request);
-            queryManager.LoadData(request);
-            $("#page-title").text(name);
+            QueryManager.LoadData(request);
+
+            if (QueryManager.currentLevel == "projects") {
+                $("#page-title").text(name);
+            }
         });
 
         // Events for delete and edit buttons
@@ -27,14 +29,25 @@ var EventHandler = {
         });
         $(".delete-button").on("click", function(event) { 
             event.stopPropagation();
-            ModalManager.DeleteEntry($(this), serverData); //vielleicht reicht weniger Daten mitzugeben, muss ich noch schauen
+            ModalManager.DeleteWarning($(this), serverData); 
         });
+    }
+
+    , ConfirmDeletion: function(request) {
+        $("#delete-warning-confirm").on("click", function() {
+            $("#delete-warning-modal").modal("hide");
+            $("#delete-confirm-modal").modal();
+            $("#delete-confirm").on("click", function() {
+                ModalManager.DeleteEntry(request);
+                $("#delete-confirm-modal").modal("hide");
+            })
+        })
     }
 
     , HomeEvent: function() {
         $("#home").on("click", function () {
             console.log("home clicked");
-            queryManager.LoadData(Controller.homepage);
+            QueryManager.LoadData(Controller.homepage);
             $("#page-title").text("Projekte");
         });
     }
@@ -60,5 +73,12 @@ var EventHandler = {
             ModalManager.ClearModal();
         });
     }
+
+    , BackButton: function() {
+        $("#back-button").on("click", function() {
+            QueryManager.GoBackToPreviousLevel();
+        });
+    }
+
 
 }

@@ -3,10 +3,11 @@
 };
 
 $(document).ready(function() {
-    queryManager.LoadingScreen();
-    queryManager.LoadData(Controller.homepage);
+    QueryManager.LoadingScreen();
+    QueryManager.LoadData(Controller.homepage);
     EventHandler.HomeEvent();
     EventHandler.CreateEvent();
+    EventHandler.BackButton();
 });
 
 // {
