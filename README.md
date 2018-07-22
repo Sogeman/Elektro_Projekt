@@ -2,7 +2,7 @@
 FH Web Dev Projekt
 
 
-Todo: Message für leere Liste anzeigen
-      Shoppinglist
-      FI/Sicherungen (keine Ahnung wie das aussehen soll, vielleicht weglassen)
+Todo: Message für leere Liste anzeigen, 
+      Shoppinglist, 
+      FI/Sicherungen (keine Ahnung wie das aussehen soll, vielleicht drauf scheissen), 
       Design verschönern??
