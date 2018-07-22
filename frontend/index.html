@@ -49,11 +49,16 @@
     <div id="homepage">
         <div class="container">
             <div class="row my-3">
-                <div class="col-6 offset-1">
+                <div class="col-5 offset-1">
                     <h2 id="page-title">Projekte</h2>
                 </div>
-                <div class="col-3 offset-1">
-                    <button type="button" id="create-item-button" class="btn btn-primary btn-lg btn-info"></button>
+                <div class="col-3 offset-1 text-center pr-0">
+                    <button type="button" id="create-item-button" class="btn btn-lg btn-info"></button>
+                </div>
+                <div class="col-2 text-center pl-0">
+                    <button type="button" id="back-button" class="btn btn-link btn-large">
+                        <img src="Content/images/back-arrow.png">
+                    </button>
                 </div>
             </div>
 
@@ -106,7 +111,7 @@
                 </div>
                 <div class="modal-body">
                     <h3 class="dialog-item-name"></h3>
-                    <input type="hidden" id="parent-id" value="0"/>
+                    <input type="hidden" id="parent-id" value="0" />
                     <input type="hidden" id="item-id" value="0" />
 
                     <div class="form-group" id="form-name">
@@ -137,7 +142,48 @@
             </div>
         </div>
     </div>
-    
+
+    <!-- Delete Warning Popup -->
+    <div class="modal" id="delete-warning-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Eintrag löschen</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Sind Sie absolut sicher, dass Sie den Eintrag löschen wollen?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="delete-warning-confirm" class="btn btn-primary">JA!!!!</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">NEIN, doch nicht</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Second Warning Popup -->
+    <div class="modal" id="delete-confirm-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Eintrag löschen</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Letzte Chance. Gelöschte Einträge sind unwiderruflich vernichtet.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="delete-confirm" class="btn btn-primary">JA!!!!</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">NEIN, doch nicht</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 
 </html>

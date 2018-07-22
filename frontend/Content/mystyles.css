@@ -12,6 +12,10 @@
     top: 15px;
 }
 
+#back-button {
+    display: none;
+}
+
 .single-entry:hover {
     background-color: #85d8e5;
     cursor: pointer;
