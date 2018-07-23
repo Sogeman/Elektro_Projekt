@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Rene
+ * @author Rene
  */
 
 class AppController {
@@ -32,5 +32,4 @@ class AppController {
         $controller->route($inputData);
         
     }
-
 }
