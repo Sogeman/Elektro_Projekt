@@ -1,7 +1,7 @@
 <?php
 
-/* 
- * Rene
+/**
+ * @author Rene
  */
 
 interface ControllerInterface {
