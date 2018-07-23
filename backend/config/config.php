@@ -1,7 +1,7 @@
 <?php
 
 /* 
- * Rene
+ * @author Rene
  */
 
 error_reporting(E_ALL);
