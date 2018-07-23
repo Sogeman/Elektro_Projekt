@@ -1,7 +1,7 @@
 <?php
 
 /* 
- * Rene test
+ * @author Rene
  */
 
 class ChangeController {
