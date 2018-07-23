@@ -1,7 +1,7 @@
 <?php
 
-/*
- * Rene
+/**
+ * @author Rene
  */
 
 // Nicht sicher ob das so funktioniert, muss ich noch testen
