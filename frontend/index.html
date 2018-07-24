@@ -1,6 +1,6 @@
 ﻿<!DOCTYPE html>
 <html>
-
+<!-- TODO: Modal fixen -->
 <head>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script>
@@ -114,6 +114,23 @@
 
                     <div class="form-group" id="form-name">
                         <label for="name">Bezeichnung</label>
+                        <select class="custom-select" id="devices-select">
+                            <option selected>Auswählen...</option>
+                            <option value="Leuchte E27">Leuchte E27</option>
+                            <option value="Leuchte E14">Leuchte E14</option>
+                            <option value="Leuchte GU10">Leuchte GU10</option>
+                            <option value="Leuchte GU5.3">Leuchte GU5.3</option>
+                            <option value="Steckdose 230V">Steckdose 230V</option>
+                            <option value="Rollo">Rollo</option>
+                        </select>
+                        <select class="custom-select" id="sensors-select">
+                            <option selected>Auswählen...</option>
+                            <option value="Lichtschalter">Lichtschalter</option>
+                            <option value="Lichtsensor">Lichtsensor</option>
+                            <option value="Rolloschalter">Rolloschalter</option>
+                            <option value="Feuchtigkeitssensor">Feuchtigkeitssensor</option>
+                            <option value="Bewegungsmelder">Bewegungsmelder</option>
+                        </select>
                         <input type="text" class="form-control" id="name" name="name" maxlength=40 placeholder="Name" required="required" />
                     </div>
                     <!-- nur bei Stockwerken -->

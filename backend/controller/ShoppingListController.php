@@ -1,26 +1,10 @@
 <?php
 
 /**
- * @author Rene
- */    
+ * @author Rene (teils)
+ */
+class ShoppingListController implements ControllerInterface {
 
- class ShoppingListController implements ControllerInterface {
-        
-        public function route($inputData) {
-        
-        }
-
-        public function showResponse($outputData) {
-        
-        }
-
-}
-
-
-/* class ShoppingListController implements ControllerInterface {
-
-    private $id;
-    private $name;
     private $jsonView;
     private $listModel;
     private $database;
@@ -31,37 +15,28 @@
         $this->database = new Database(DBHost, DBName, DBUser, DBPass);
     }
 
-    public function roue($inputData) {
-        $this->id = $inputData->itemid;
-
-        $this->listModel->createShoppinglist($this->id);
-        $this->formatAndDisplayShoppinglist();
+    public function route($inputData) {
+        $projectId = filter_var($inputData->projectid, FILTER_VALIDATE_INT);
+        $this->getShoppinglist($projectId);
     }
     
-    private function formatAndDisplayShoppinglist() {
-        $itemList = array();
-        $data = $this->listModel->getCurrentList();
+    private function getShoppingList($projectId){
+        $listModel = new ListModel();
         
-        foreach($data as $row){
-            
-            
-        }
-        $outputData = array (
-            
+        $devices = $listModel->getProjectDevices($projectId);
+        $sensors = $listModel->getProjectSensors($projectId);
+        
+        $outputData = array(
+            "Devices" => $devices,
+            "Sensors" => $sensors
         );
-        $this->showResponse($data);
+        
+        $this->showResponse($outputData);
     }
 
-    public function showReponse($output) {
+    public function showResponse($output) {
         $this->jsonView->streamOutput($output);
     }
 
-    public function route($inputData) {
-        
-    }
-
-    public function showResponse($outputData) {
-        
-    }
-
-} */
+    
+}

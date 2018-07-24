@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @author Rene
+ * @author Rene (teils)
  */
 
 class ListModel {
@@ -77,14 +77,113 @@ class ListModel {
         return $result;
     }
     
-    public function createShoppinglist($itemId) {
-        $sql = "SELECT projects.name, devices.name AS Devices, sensors.name AS Sensors FROM projects RIGHT JOIN floors on projects.id = floors.projects_id
-         RIGHT JOIN rooms on floors.id = rooms.floors_id 
-         RIGHT JOIN devices on rooms.id = devices.rooms_id 
-         RIGHT JOIN sensors on devices.id = sensors.devices_id 
-         WHERE projects.id = {$itemId}";
+    public function getProjectDevices($projectId) {
+        $sql = "SELECT devices.id, devices.name as Geraetename FROM devices JOIN rooms on devices.rooms_id = rooms.id JOIN floors on rooms.floors_id = floors.id JOIN projects on floors.projects_id = projects.id  
+                WHERE projects.id = $projectId";
+        
+//         $sql = "SELECT devices.id, devices.name as Geraetename from devices "
+//                 . "JOIN rooms on devices.rooms_id = rooms.id "
+//                 . "JOIN floors on rooms.floors_id = floors.id "
+//                 . "JOIN projects on floors.projects_id = projects.id "
+//                 . "WHERE projects.id = {$projectId};";
 
-        $this->list = $this->getListFromDatabase($sql);
+        $devices = $this->getListFromDatabase($sql);
+        $devicesList = $this->getUniqueDevices($devices);
+        
+        #$devicesList = $this->countDevicesAndSensors($devices);
+        return $devicesList;
     }
+    
+    private function getUniqueDevices($devices) {
+        $uniqueDevices = array();
+        
+        foreach ($devices as $device) {
+            
+            $uniqueIdentifier = md5( $device['Geraetename'].rand(0,100) );
+            
+            if (!isset($uniqueDevices[$uniqueIdentifier])) {
+                $uniqueDevices[$uniqueIdentifier] = array(
+                  "name" => $device["Geraetename"],
+                  "amount" => 1
+                );
+            } else {
+                $uniqueDevices[$uniqueIdentifier]["amount"]++;
+            }
+        }
+       return $uniqueDevices;
+    }
+    
+    public function getProjectSensors($projectId) {
+        
+       $sql = "SELECT sensors.id, sensors.name as Sensorname FROM sensors JOIN devices ON sensors.devices_id = devices.id JOIN rooms on devices.rooms_id = rooms.id JOIN floors on rooms.floors_id = floors.id JOIN projects on floors.projects_id = projects.id  
+        WHERE projects.id = $projectId";
+       
+//        $sql = "SELECT sensors.id, sensors.name as Sensorname from sensors "
+//                 . "JOIN devices on sensors.devices_id = sensors.id "
+//                 . "JOIN rooms on devices.rooms_id = rooms.id "
+//                 . "JOIN floors on rooms.floors_id = floors.id "
+//                 . "JOIN projects on floors.projects_id = projects.id "
+//                 . "WHERE projects.id = {$projectId};";
+
+        $sensors = $this->getListFromDatabase($sql);
+        $sensorList = $this->getUniqueSensors($sensors);
+        
+        return $sensorList;
+    }
+    
+    private function getUniqueSensors($sensors) {
+        $uniqueSensors = array();
+        
+        foreach ($sensors as $sensor) {
+            
+            $uniqueIdentifier = md5( $sensor['Sensorname'].rand(0,100) );
+            
+            if (!isset($uniqueSensors[$uniqueIdentifier])) {
+                $uniqueSensors[$uniqueIdentifier] = array(
+                  "name" => $sensor["Sensorname"],
+                  "amount" => 1
+                );
+            } else {
+                $uniqueSensors[$uniqueIdentifier]["amount"]++;
+            }
+        }
+       return $uniqueSensors;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+//    private function countDevicesAndSensors($listOfDevices) {
+//        
+//        $uniqueDevices = array();
+//        
+//        foreach ($listOfDevices as $device) {
+//            $currentSql = "SELECT name FROM sensors WHERE devices_id = " . $device['id'];
+//            $sensors = $this->getListFromDatabase($currentSql);
+//            
+//            $uniqueIdentifier = md5( $device['Name'].json_encode($sensors) );
+//            
+//            if (!isset($uniqueDevices[$uniqueIdentifier])) {
+//                $uniqueDevices[$uniqueIdentifier] = array(
+//                  "name" => $device["Name"],
+//                  "amount" => 1,
+//                  "sensors" => $sensors
+//                );
+//            } else {
+//                $uniqueDevices[$uniqueIdentifier]["amount"]++;
+//            }
+//        }
+//        return $uniqueDevices;
+//        
+//    }
+    
+    
 
 }

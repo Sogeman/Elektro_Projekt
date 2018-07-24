@@ -34,8 +34,10 @@ var ListHandler = {
 
     , DrawShoppingList: function(request, serverData) {
         viewSwitcher("shopping-list");
-        var name = serverData[0][0];
-        $("#shopping-list-title").text("Einkaufsliste für " + name);
+        console.log(request);
+        console.log(serverData);
+        // var name = serverData[0][0];
+        // $("#shopping-list-title").text("Einkaufsliste für " + name);
         // insert how shoppinglist looks
     }
 

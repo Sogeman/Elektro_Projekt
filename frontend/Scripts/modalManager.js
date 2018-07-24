@@ -1,9 +1,11 @@
 var ModalManager = {
-
+// missing: select übernehmen und in request einbauen, prefill, wenn dropdown nicht verwendet dann Namen eingeben lassen
     formName: null,
     formFloorCount: null,
     formUnit: null,
     formValue: null,
+    devicesSelect: null,
+    sensorsSelect: null,
     data: null,
 
     Initialize: function (currentLevel, data) {
@@ -11,6 +13,8 @@ var ModalManager = {
         ModalManager.formFloorCount = $("#form-floor-count");
         ModalManager.formUnit = $("#form-unit");
         ModalManager.formValue = $("#form-value");
+        ModalManager.devicesSelect = $("#devices-select");
+        ModalManager.sensorsSelect = $("#sensors-select");
         ModalManager.data = data;
         ModalManager.ResetModal();
         ModalManager.AddEntryFields(currentLevel);
@@ -19,6 +23,8 @@ var ModalManager = {
 
     , ResetModal: function () {
         ModalManager.formName.hide();
+        ModalManager.devicesSelect.hide();
+        ModalManager.sensorsSelect.hide();
         ModalManager.formFloorCount.hide();
         ModalManager.formUnit.hide();
         ModalManager.formValue.hide();
@@ -32,11 +38,16 @@ var ModalManager = {
                 ModalManager.formName.show();
                 ModalManager.formFloorCount.show();
                 break;
-            case "rooms": case "projects": case "devices":
+            case "rooms": case "projects":
                 ModalManager.formName.show();
+                break;
+            case "devices":
+                ModalManager.formName.show();
+                ModalManager.devicesSelect.show();
                 break;
             case "sensors":
                 ModalManager.formName.show();
+                ModalManager.sensorsSelect.show();
                 ModalManager.formUnit.show();
                 ModalManager.formValue.show();
                 break;
@@ -45,6 +56,8 @@ var ModalManager = {
 
     , ClearModal: function(){
         ModalManager.formName.find("input").val("");
+        ModalManager.devicesSelect[0].selectedIndex = 0; //val("Steckdose 230V"); zum prefillen
+        ModalManager.sensorsSelect[0].selectedIndex = 0;
         ModalManager.formFloorCount.find("input").val("");
         ModalManager.formUnit.find("input").val("");
         ModalManager.formValue.find("input").val("");
@@ -70,16 +83,20 @@ var ModalManager = {
         var entry = clickedItem[0];
         $("#item-id").attr("value", entry.id);
         console.log(entry.id);
-        switch (QueryManager.currentLevel) {
+        switch (QueryManager.currentLevel) {   //val("Steckdose 230V"); zum prefillen
             case "floors":
                 ModalManager.formName.find("input").val(entry.name);
                 ModalManager.formFloorCount.find("input").val(entry.floor_count_from_basement);
                 break;
-            case "rooms": case "projects": case "devices":
+            case "rooms": case "projects":
                 ModalManager.formName.find("input").val(entry.name);
+                break;
+            case "devices":
+                //
                 break;
             case "sensors":
                 ModalManager.formName.find("input").val(entry.name);
+                //
                 ModalManager.formUnit.find("input").val(entry.unit);
                 ModalManager.formValue.find("input").val(entry.value);
                 break;
