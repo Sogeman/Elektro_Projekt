@@ -1,0 +1,187 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    <script src="Scripts/mycontroller.js"></script>
+    <script src="Scripts/listHandler.js"></script>
+    <script src="Scripts/queryManager.js"></script>
+    <script src="Scripts/modalManager.js"></script>
+    <script src="Scripts/shoppingListHandler.js"></script>
+    <script src="Scripts/eventHandler.js"></script>
+    <script src="Scripts/switchView.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" crossorigin="anonymous">
+    <link href="Content/mystyles.css" rel="stylesheet" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title></title>
+</head>
+
+<body>
+    <div class="container">
+
+        <!-- Nav-menu -->
+        <div class="col-2 nav-menu">
+            <button id="home" class="btn btn-outline-info">Home</button>
+        </div>
+
+        <!-- Header -->
+        <div class=" text-center my-2">
+            <h1>
+                <strong>Elektroinstallationsmanager</strong>
+            </h1>
+        </div>
+    </div>
+
+    <div class="row my-4"></div>
+
+    <!-- Loading Screen -->
+
+    <div id="loading-screen">
+        <img id="loading-image" src="Content/images/loading.svg" alt="loading spinner">
+    </div>
+
+    <!-- Homepage -->
+    <div id="homepage">
+        <div class="container">
+            <div class="row my-3">
+                <div class="col-5 offset-1">
+                    <h2 id="page-title">Projekte</h2>
+                </div>
+                <div class="col-3 offset-1 text-center pr-0">
+                    <button type="button" id="create-item-button" class="btn btn-lg btn-info"></button>
+                </div>
+                <div class="col-2 text-center pl-0">
+                    <button type="button" id="back-button" class="btn btn-link btn-large">
+                        <img src="Content/images/back-arrow.png">
+                    </button>
+                </div>
+            </div>
+
+            <div class="row my-3">
+                <div id="data-list" class="col">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Erstellungsdatum</th>
+                                <th scope="col">Bezeichnung</th>
+                                <th scope="col" class="text-center">Optionen</th>
+                            </tr>
+                        </thead>
+                        <tbody id="data-table">
+                            <!-- <tr class="single">
+                                <th scope="row">1</th> Variable id
+                                <td>01.01.1989</td>
+                                <td>Haus</td>
+                                <td><button data-toggle="modal" data-target="#entry-modal">Neues Stockwerk</button></td>
+                            </tr> -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Shoppinglist -->
+    <div id="shopping-list">
+        <div class="container">
+            <div class="row my-3">
+                <div class="col-6 offset-1">
+                    <h2 id="shopping-list-title"></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Create Entry Modal-->
+    <div class="modal" id="create-entry-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-title"></h5>
+                    <!--Titel variabel-->
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h3 class="dialog-item-name"></h3>
+                    <input type="hidden" id="parent-id" value="0" />
+                    <input type="hidden" id="item-id" value="0" />
+
+                    <div class="form-group" id="form-name">
+                        <label for="name">Bezeichnung</label>
+                        <input type="text" class="form-control" id="name" name="name" maxlength=40 placeholder="Name" required="required" />
+                    </div>
+                    <!-- nur bei Stockwerken -->
+                    <div class="form-group" id="form-floor-count">
+                        <label for="floor-count">Stockwerk (0 ist Keller)</label>
+                        <input type="number" class="form-control" id="floor-count" name="count_from_basement" placeholder="0-n" min="0" max="99"
+                            required="required" />
+                    </div>
+                    <!-- nur bei Sensoren -->
+                    <div class="form-group" id="form-unit">
+                        <label for="unit">Einheit</label>
+                        <input type="text" class="form-control" id="unit" name="unit" placeholder="Ein/Aus, Lumen,..." />
+                    </div>
+
+                    <div class="form-group" id="form-value">
+                        <label for="value">Wert</label>
+                        <input type="text" class="form-control" id="value" name="value" placeholder="Ein, Aus,..." />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="close-button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" id="save-button" class="btn btn-info">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Warning Popup -->
+    <div class="modal" id="delete-warning-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Eintrag löschen</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Sind Sie absolut sicher, dass Sie den Eintrag löschen wollen?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="delete-warning-confirm" class="btn btn-primary">JA!!!!</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">NEIN, doch nicht</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Second Warning Popup -->
+    <div class="modal" id="delete-confirm-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Eintrag löschen</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Letzte Chance. Gelöschte Einträge sind unwiderruflich vernichtet.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="delete-confirm" class="btn btn-primary">JA!!!!</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">NEIN, doch nicht</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
