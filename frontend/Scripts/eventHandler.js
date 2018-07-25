@@ -1,7 +1,7 @@
 var EventHandler = {
 
     Initialize: function() {
-        $('[data-toggle="tooltip"]').tooltip(); 
+        $('[data-tooltip="tooltip"]').tooltip();
         //homeevent
         //createevent?
     }
