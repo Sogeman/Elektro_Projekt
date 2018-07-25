@@ -1,5 +1,5 @@
 var ListHandler = {
-   //check if tooltip works
+   //check if tooltip works, check best data-placement option
     FillTable: function(serverData) {
         $("#data-table").empty();
         var list = serverData["items"];
