@@ -5,6 +5,7 @@
 $(document).ready(function() {
     QueryManager.LoadingScreen();
     QueryManager.LoadData(Controller.homepage);
+    EventHandler.Initialize();
     EventHandler.HomeEvent();
     EventHandler.CreateEvent();
     EventHandler.BackButton();
