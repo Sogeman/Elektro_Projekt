@@ -1,5 +1,5 @@
 var ListHandler = {
-   
+   //check if tooltip works
     FillTable: function(serverData) {
         $("#data-table").empty();
         var list = serverData["items"];
@@ -10,7 +10,7 @@ var ListHandler = {
             var row = "";
             row = '<td colspan = 4 class="text-center"><h4>Nothing here, why not add something.</h4></td>';
             $("#data-table").append(row);
-        } else { data-tooltip="tooltip" title="Hooray!"
+        } else {
             list.forEach(element => {
                 var id = element.id;
                 var created = element.created;
