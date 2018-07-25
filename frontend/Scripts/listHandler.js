@@ -10,7 +10,7 @@ var ListHandler = {
             var row = "";
             row = '<td colspan = 4 class="text-center"><h4>Nothing here, why not add something.</h4></td>';
             $("#data-table").append(row);
-        } else {
+        } else { data-tooltip="tooltip" title="Hooray!"
             list.forEach(element => {
                 var id = element.id;
                 var created = element.created;
@@ -19,10 +19,10 @@ var ListHandler = {
                 row = '<tr class="single-entry" listtype="' + listtype + '" itemid="' + id + '"><th scope="row">' + id +'</th>';
                 row += '<td data="' +created+ '">' + created + '</td>';
                 row += '<td data="' +name+ '">' +name + '</td>';
-                row += '<td class="py-0 pl-0 text-center"><button class="btn btn-link edit-button" data-toggle="modal" data-target="#create-entry-modal"><img src="Content/images/icon_edit.png"></button>';
-                row += '<button class="btn btn-link delete-button"><img src="Content/images/icon_delete.png">';
+                row += '<td class="py-0 pl-0 text-center"><button class="btn btn-link edit-button" data-toggle="modal" data-target="#create-entry-modal" data-tooltip="tooltip" title="Eintrag bearbeiten"><img src="Content/images/icon_edit.png"></button>';
+                row += '<button class="btn btn-link delete-button" data-tooltip="tooltip" title="Eintrag löschen"><img src="Content/images/icon_delete.png">';
                 if (listtype == "projects") {
-                    row += '<button class="btn btn-link shopping-list-button"><img src="Content/images/shopping-cart.png">';
+                    row += '<button class="btn btn-link shopping-list-button" data-tooltip="tooltip" title="Einkaufsliste anzeigen"><img src="Content/images/shopping-cart.png">';
                 }
                 row += '</td></tr>';
                 $("#data-table").append(row);
