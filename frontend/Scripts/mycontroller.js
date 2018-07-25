@@ -1,7 +1,7 @@
 ﻿var Controller = {
     homepage: {action: "list", listtype: "projects", parentid: 0}
 };
-
+//make this shorter!!!
 $(document).ready(function() {
     QueryManager.LoadingScreen();
     QueryManager.LoadData(Controller.homepage);
