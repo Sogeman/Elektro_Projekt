@@ -1,6 +1,12 @@
 var EventHandler = {
 
-    TableEvents: function(serverData) {
+    Initialize: function() {
+        $('[data-toggle="tooltip"]').tooltip(); 
+        //homeevent
+        //createevent?
+    }
+    
+    , TableEvents: function(serverData) {
         // Event for going to the next level
         $(".single-entry").on("click", function(event) {
             event.stopPropagation();
