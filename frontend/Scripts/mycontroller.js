@@ -1,17 +1,12 @@
 ﻿var Controller = {
     homepage: {action: "list", listtype: "projects", parentid: 0}
 };
-//make this shorter, put stuff into initialize !!!
+
 $(document).ready(function() {
-    QueryManager.LoadingScreen();
-    QueryManager.LoadData(Controller.homepage);
-    EventHandler.Initialize();
-    EventHandler.HomeEvent();
-    EventHandler.CreateEvent();
-    EventHandler.BackButton();
+    EventHandler.Initialize()
 });
 
-// {
+// {;
 // 	"action": "create",
 // 	"listtype": "FLOORS",
 // 	"parentid": 1,
