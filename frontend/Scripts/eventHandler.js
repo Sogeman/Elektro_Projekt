@@ -1,9 +1,11 @@
 var EventHandler = {
 
     Initialize: function() {
-        $('[data-tooltip="tooltip"]').tooltip();
-        //homeevent
-        //createevent?
+        QueryManager.LoadingScreen();
+        QueryManager.LoadData(Controller.homepage);
+        EventHandler.HomeEvent();
+        EventHandler.CreateEvent();
+        EventHandler.BackButton();
     }
     
     , TableEvents: function(serverData) {
@@ -26,9 +28,13 @@ var EventHandler = {
                 $("#page-title").text(name);
             }
         });
+        // Tooltip 
+        $('[data-toggle="tooltip"]').tooltip({trigger: "hover"});
+        $('[data-toggle="tooltip"]').on("click", function() {
+            $(this).tooltip('hide');
+        })
 
         // Events for delete, edit and shopping list buttons
-
         $(".edit-button").on("click", function(event) {
             event.stopPropagation();
             ModalManager.EditEntry($(this), serverData);
@@ -43,7 +49,9 @@ var EventHandler = {
             event.stopPropagation();
             var clickedItem = EventHandler.FindClickedItem($(this), serverData);
             var id = clickedItem[0].id;
-            ShoppingListHandler.RequestShoppingList(id);
+            var name = clickedItem[0].name;
+            var item = {id: id, name: name};
+            ShoppingListHandler.RequestShoppingList(item);
             $(this).unbind();
         });
     }
