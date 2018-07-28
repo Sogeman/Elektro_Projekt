@@ -4,7 +4,7 @@ var ListHandler = {
         $("#data-table").empty();
         var list = serverData["items"];
         var listtype = serverData["listtype"];
-        QueryManager.currentLevel = listtype;
+        //QueryManager.currentLevel = listtype;
 
         if (list.length == 0) {
             var row = "";
@@ -16,9 +16,10 @@ var ListHandler = {
                 var created = element.created;
                 var name = element.name;
                 var row = "";
-                row = '<tr class="single-entry" listtype="' + listtype + '" itemid="' + id + '"><th scope="row">' + id +'</th>';
-                row += '<td>' + created + '</td>';
-                row += '<td>' +name + '</td>';
+                row = '<tr class="single-entry" listtype="' + listtype + '" itemid="' + id + '">';
+                row += '<th scope="row" class="clickable">' + id +'</th>'
+                row += '<td class="clickable">' + created + '</td>';
+                row += '<td class="clickable">' +name + '</td>';
                 row += '<td class="py-0 pl-0 text-center"><button class="btn btn-link edit-button" data-toggle="tooltip" title="Eintrag bearbeiten"><img src="Content/images/icon_edit.png"></button>';
                 row += '<button class="btn btn-link delete-button" data-toggle="tooltip" title="Eintrag löschen"><img src="Content/images/icon_delete.png">';
                 if (listtype == "projects") {

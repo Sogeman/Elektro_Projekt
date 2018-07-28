@@ -10,9 +10,9 @@ var EventHandler = {
     
     , TableEvents: function(serverData) {
         // Event for going to the next level
-        $(".single-entry").on("click", function(event) {
+        $(".clickable").on("click", function(event) {
             event.stopPropagation();
-            QueryManager.currentLevel = $(this).attr("listtype"); // listtype gets saved for Modal on next level
+            //QueryManager.currentLevel = $(this).attr("listtype"); // listtype gets saved for Modal on next level
 
             var request;
             var nextLevel = QueryManager.GetNextLevel();
@@ -79,8 +79,8 @@ var EventHandler = {
     , SaveEvent: function(data, action) {
         $("#save-button").on("click", function(event) {
             event.stopPropagation();
-            ModalManager.SaveEntry(data, action);
             $("#save-button").unbind();
+            ModalManager.SaveEntry(data, action);
         });
     }
 
@@ -88,6 +88,22 @@ var EventHandler = {
         $("#create-item-button").on("click", function(event) {
             event.stopPropagation();
             $("#create-entry-modal").modal(); //enables modal manually
+            switch (QueryManager.currentLevel) {
+                case "devices":
+                ModalManager.devicesSelect.change(function() {
+                    var value = ModalManager.devicesSelect.val();
+                    ModalManager.formName.find("input").val(value);
+                });
+                    break;
+                case "sensors":
+                ModalManager.sensorsSelect.change(function() {
+                    var value = ModalManager.sensorsSelect.val();
+                    ModalManager.formName.find("input").val(value);
+                });
+                    break;
+                default:
+                    break;
+            }
             ModalManager.CreateEntry();
         });
     }

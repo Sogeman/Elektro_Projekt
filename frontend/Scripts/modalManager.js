@@ -1,5 +1,5 @@
 var ModalManager = {
-// missing: select übernehmen und in request einbauen, prefill, wenn dropdown nicht verwendet dann Namen eingeben lassen
+    // missing: select übernehmen und in request einbauen, prefill, wenn dropdown nicht verwendet dann Namen eingeben lassen
     formName: null,
     formFloorCount: null,
     formUnit: null,
@@ -54,9 +54,9 @@ var ModalManager = {
         }
     }
 
-    , ClearModal: function(){
+    , ClearModal: function () {
         ModalManager.formName.find("input").val("");
-        ModalManager.devicesSelect[0].selectedIndex = 0; 
+        ModalManager.devicesSelect[0].selectedIndex = 0;
         ModalManager.sensorsSelect[0].selectedIndex = 0;
         ModalManager.formFloorCount.find("input").val("");
         ModalManager.formUnit.find("input").val("");
@@ -65,10 +65,21 @@ var ModalManager = {
 
     , CreateEntry: function () {
         var listType = QueryManager.currentLevel;
-        var data = {listtype: listType}
-        
+        var data = { listtype: listType }
+
         EventHandler.SaveEvent(data, "create");
-       
+    }
+
+    , SaveEntry: function (data, action) {
+        var listType = QueryManager.currentLevel;
+        var itemId = $("#item-id").val();
+        var parentId = $("#parent-id").val();
+        var name = ModalManager.formName.find("input").val();
+        var count = ModalManager.formFloorCount.find("input").val();
+        var unit = ModalManager.formUnit.find("input").val();
+        var value = ModalManager.formValue.find("input").val();
+        var request = { action: action, listtype: listType, parentid: parentId, itemid: itemId, specification: { name: name, floor_count_from_basement: count, unit: unit, value: value } };
+        QueryManager.PostData(request);
     }
 
     , EditEntry: function (clickedButton, data) {
@@ -83,7 +94,7 @@ var ModalManager = {
         var entry = clickedItem[0];
         $("#item-id").attr("value", entry.id);
         console.log(entry.id);
-        switch (QueryManager.currentLevel) {   //val("Steckdose 230V"); zum prefillen
+        switch (QueryManager.currentLevel) {
             case "floors":
                 ModalManager.formName.find("input").val(entry.name);
                 ModalManager.formFloorCount.find("input").val(entry.floor_count_from_basement);
@@ -92,40 +103,34 @@ var ModalManager = {
                 ModalManager.formName.find("input").val(entry.name);
                 break;
             case "devices":
-                //
+                ModalManager.formName.find("input").val(entry.name);
+                ModalManager.devicesSelect.change(function() {
+                    var value = ModalManager.devicesSelect.val();
+                    ModalManager.formName.find("input").val(value);
+                });
                 break;
             case "sensors":
                 ModalManager.formName.find("input").val(entry.name);
-                //
+                ModalManager.sensorsSelect.change(function() {
+                    var value = ModalManager.sensorsSelect.val();
+                    ModalManager.formName.find("input").val(value);
+                });
                 ModalManager.formUnit.find("input").val(entry.unit);
                 ModalManager.formValue.find("input").val(entry.value);
                 break;
         }
     }
 
-    , SaveEntry: function(data, action) {
-        var listType = data["listtype"];
-        var itemId = $("#item-id").val();
-        var parentId = $("#parent-id").val();
-        var name = ModalManager.formName.find("input").val();
-        //console.log(name);
-        var count = ModalManager.formFloorCount.find("input").val();
-        var unit = ModalManager.formUnit.find("input").val();
-        var value = ModalManager.formValue.find("input").val();
-        var request = {action: action, listtype: listType, parentid: parentId, itemid: itemId, specification: {name: name, floor_count_from_basement: count, unit: unit, value: value}};
-        QueryManager.PostData(request);
-    }
-
-    , DeleteWarning: function(clickedButton, data) {
+    , DeleteWarning: function (clickedButton, data) {
         var clickedItem = EventHandler.FindClickedItem(clickedButton, data);
         var itemId = clickedItem[0].id;
         var listType = data.listtype;
-        var request = {action: "delete", listtype: listType, itemid: itemId};
+        var request = { action: "delete", listtype: listType, itemid: itemId };
         $("#delete-warning-modal").modal();
         EventHandler.ConfirmDeletion(request);
     }
 
-    , DeleteEntry: function(request) {
+    , DeleteEntry: function (request) {
         QueryManager.PostData(request);
     }
 

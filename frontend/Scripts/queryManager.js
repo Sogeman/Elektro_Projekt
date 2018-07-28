@@ -3,9 +3,10 @@
     backendAddress: "http://localhost/Elektro_Projekt/backend/index.php",
     lastRequests: [] // saves last requests for backbutton and reload
     , LoadData: function (request) {
-        if (QueryManager.lastRequests[QueryManager.lastRequests.length - 1] != request) {
+        if(!QueryManager.lastRequests.some(item => JSON.stringify(item) === JSON.stringify(request))) {
             QueryManager.lastRequests.push(request);
         }
+       
         $.ajax({
             url: QueryManager.backendAddress
             , method: "post"
@@ -20,6 +21,7 @@
                     $("#back-button").hide();
                 }
                 viewSwitcher("homepage");
+                QueryManager.currentLevel = request.listtype;
                 ListHandler.FillTable(data);
                 $("#create-item-button").text("+ " + QueryManager.GetCurrentLevelName());
                 ModalManager.Initialize(QueryManager.currentLevel, data);

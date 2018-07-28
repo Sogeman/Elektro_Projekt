@@ -21,7 +21,7 @@ thead tr th {
     display: none;
 }
 
-.single-entry:hover {
+.single-entry:hover .clickable {
     background-color: #85d8e5;
     cursor: pointer;
 }
