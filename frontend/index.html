@@ -1,6 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <!-- TODO: Modal fixen -->
+
 <head>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script>
@@ -28,7 +29,7 @@
         </div>
 
         <!-- Header -->
-        <div class=" text-center my-2">
+        <div class="text-center my-2" id="main-title">
             <h1>
                 <strong>Elektroinstallationsmanager</strong>
             </h1>
@@ -72,12 +73,7 @@
                             </tr>
                         </thead>
                         <tbody id="data-table">
-                            <!-- <tr class="single">
-                                <th scope="row">1</th> Variable id
-                                <td>01.01.1989</td>
-                                <td>Haus</td>
-                                <td><button data-toggle="modal" data-target="#entry-modal">Neues Stockwerk</button></td>
-                            </tr> -->
+                            <!-- Insert point for server data -->
                         </tbody>
                     </table>
                 </div>
@@ -89,10 +85,53 @@
     <div id="shopping-list">
         <div class="container">
             <div class="row my-3">
-                <div class="col-6 offset-1">
+                <div class="col-6 mx-auto">
                     <h2 id="shopping-list-title"></h2>
                 </div>
             </div>
+
+            <!-- Geräte -->
+            <div class="row my-3">
+                <div class="col-3">
+                    <h4>Geräte</h4>
+                </div>
+            </div>
+            <div class="row my-3">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Menge</th>
+                        </tr>
+                    </thead>
+                    <tbody id="shopping-list-devices">
+                        <!-- Insert point for shoppinglist -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Sensoren -->
+            <div class="row my-3">
+                <div class="col-3">
+                    <h4>Sensoren</h4>
+                </div>
+            </div>
+            <div class="row my-3">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Menge</th>
+                        </tr>
+                    </thead>
+                    <tbody id="shopping-list-sensors">
+                        <!-- Insert point for shoppinglist -->
+                    </tbody>
+                </table>
+            </div>
+
         </div>
     </div>
 

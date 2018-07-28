@@ -52,7 +52,7 @@
             , dataType: "json"
             , cache: false
             , success: function(data) {
-                ListHandler.DrawShoppingList(request, data);
+                ShoppingListHandler.DrawShoppingList(request, data);
             }
             , error: QueryManager.ErrorMessage
         });
