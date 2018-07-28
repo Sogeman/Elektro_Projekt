@@ -20,8 +20,8 @@
                     $("#page-title").text("Projekte");
                     $("#back-button").hide();
                 }
-                viewSwitcher("homepage");
                 QueryManager.currentLevel = request.listtype;
+                viewSwitcher("homepage");
                 ListHandler.FillTable(data);
                 $("#create-item-button").text("+ " + QueryManager.GetCurrentLevelName());
                 ModalManager.Initialize(QueryManager.currentLevel, data);
@@ -31,7 +31,6 @@
     }
 
     , PostData: function (request) {
-        $("#save-button").unbind();
         $.ajax({
             url: QueryManager.backendAddress
             , method: "post"

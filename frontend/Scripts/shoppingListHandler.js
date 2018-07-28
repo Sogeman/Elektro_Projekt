@@ -10,7 +10,7 @@ var ShoppingListHandler = {
         $("#shopping-list-devices").empty();
         $("#shopping-list-sensors").empty();
         viewSwitcher("shopping-list");
-
+        console.log(serverData);
         $("#shopping-list-title").text("Einkaufsliste für " + request.projectname);
         var devices = serverData["Devices"];
         var sensors = serverData["Sensors"];

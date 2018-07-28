@@ -99,7 +99,7 @@ class ListModel {
         
         foreach ($devices as $device) {
             
-            $uniqueIdentifier = md5( $device['Geraetename'].rand(0,100) );
+            $uniqueIdentifier = md5( $device['Geraetename']);
             
             if (!isset($uniqueDevices[$uniqueIdentifier])) {
                 $uniqueDevices[$uniqueIdentifier] = array(

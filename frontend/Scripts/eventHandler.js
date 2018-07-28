@@ -10,9 +10,8 @@ var EventHandler = {
     
     , TableEvents: function(serverData) {
         // Event for going to the next level
-        $(".clickable").on("click", function(event) {
+        $(".clickable").off().on("click", function(event) {
             event.stopPropagation();
-            //QueryManager.currentLevel = $(this).attr("listtype"); // listtype gets saved for Modal on next level
 
             var request;
             var nextLevel = QueryManager.GetNextLevel();
@@ -27,65 +26,68 @@ var EventHandler = {
             if (QueryManager.currentLevel == "projects") {
                 $("#page-title").text(name);
             }
+            
         });
         // Tooltip 
         $('[data-toggle="tooltip"]').tooltip({trigger: "hover"});
-        $('[data-toggle="tooltip"]').on("click", function() {
-            $(this).tooltip('hide');
+        $('[data-toggle="tooltip"]').off().on("click", function() {
+            $(this).tooltip('hide');  
         })
 
         // Events for delete, edit and shopping list buttons
-        $(".edit-button").on("click", function(event) {
+        $(".edit-button").off().on("click", function(event) {
             event.stopPropagation();
             ModalManager.EditEntry($(this), serverData);
-            $(this).unbind();
         });
-        $(".delete-button").on("click", function(event) { 
+        $(".delete-button").off().on("click", function(event) { 
             event.stopPropagation();
-            ModalManager.DeleteWarning($(this), serverData); 
-            $(this).unbind();
+            ModalManager.DeleteWarning($(this), serverData);
+            
         });
-        $(".shopping-list-button").on("click", function(event) {
+        $(".shopping-list-button").off().on("click", function(event) {
             event.stopPropagation();
             var clickedItem = EventHandler.FindClickedItem($(this), serverData);
             var id = clickedItem[0].id;
             var name = clickedItem[0].name;
             var item = {id: id, name: name};
             ShoppingListHandler.RequestShoppingList(item);
-            $(this).unbind();
+            
         });
     }
 
     , ConfirmDeletion: function(request) {
-        $("#delete-warning-confirm").on("click", function(event) {
+        $("#delete-warning-confirm").off().on("click", function(event) {
             event.stopPropagation();
             $("#delete-warning-modal").modal("hide");
             $("#delete-confirm-modal").modal();
-            $("#delete-confirm").on("click", function() {
+            $("#delete-confirm").off().on("click", function(event) {
+                event.stopPropagation();
                 ModalManager.DeleteEntry(request);
                 $("#delete-confirm-modal").modal("hide");
-            })
-        })
+                
+            });
+        
+        });
     }
 
     , HomeEvent: function() {
         $("#home").on("click", function (event) {
             event.stopPropagation();
             QueryManager.LoadData(Controller.homepage);
-            $("#page-title").text("Projekte");
+            $("#page-title").text("Projekte");  
         });
     }
 
     , SaveEvent: function(data, action) {
-        $("#save-button").on("click", function(event) {
+        $("#save-button").off().on("click", function(event) {
             event.stopPropagation();
-            $("#save-button").unbind();
             ModalManager.SaveEntry(data, action);
+            
         });
     }
 
     , CreateEvent: function() {
-        $("#create-item-button").on("click", function(event) {
+        $("#create-item-button").off().on("click", function(event) {
             event.stopPropagation();
             $("#create-entry-modal").modal(); //enables modal manually
             switch (QueryManager.currentLevel) {
@@ -104,19 +106,18 @@ var EventHandler = {
                 default:
                     break;
             }
-            ModalManager.CreateEntry();
+            ModalManager.CreateEntry();  
         });
     }
 
     , ClearModal: function() {
-        $("#create-entry-modal").on("hidden.bs.modal", function (event) {
-            event.stopPropagation();
+        $("#create-entry-modal").off().on("hidden.bs.modal", function (event) {
             ModalManager.ClearModal();
         });
     }
 
     , BackButton: function() {
-        $("#back-button").on("click", function(event) {
+        $("#back-button").off().on("click", function(event) {
             event.stopPropagation();
             QueryManager.GoBackToPreviousLevel();
         });
