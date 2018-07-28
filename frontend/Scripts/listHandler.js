@@ -1,5 +1,5 @@
 var ListHandler = {
-   //check if tooltip works, check best data-placement option
+   
     FillTable: function(serverData) {
         $("#data-table").empty();
         var list = serverData["items"];
@@ -17,12 +17,12 @@ var ListHandler = {
                 var name = element.name;
                 var row = "";
                 row = '<tr class="single-entry" listtype="' + listtype + '" itemid="' + id + '"><th scope="row">' + id +'</th>';
-                row += '<td data="' +created+ '">' + created + '</td>';
-                row += '<td data="' +name+ '">' +name + '</td>';
-                row += '<td class="py-0 pl-0 text-center"><button class="btn btn-link edit-button" data-toggle="modal" data-target="#create-entry-modal" data-tooltip="tooltip" title="Eintrag bearbeiten"><img src="Content/images/icon_edit.png"></button>';
-                row += '<button class="btn btn-link delete-button" data-tooltip="tooltip" title="Eintrag löschen"><img src="Content/images/icon_delete.png">';
+                row += '<td>' + created + '</td>';
+                row += '<td>' +name + '</td>';
+                row += '<td class="py-0 pl-0 text-center"><button class="btn btn-link edit-button" data-toggle="tooltip" title="Eintrag bearbeiten"><img src="Content/images/icon_edit.png"></button>';
+                row += '<button class="btn btn-link delete-button" data-toggle="tooltip" title="Eintrag löschen"><img src="Content/images/icon_delete.png">';
                 if (listtype == "projects") {
-                    row += '<button class="btn btn-link shopping-list-button" data-tooltip="tooltip" title="Einkaufsliste anzeigen"><img src="Content/images/shopping-cart.png">';
+                    row += '<button class="btn btn-link shopping-list-button" data-toggle="tooltip" title="Einkaufsliste anzeigen"><img src="Content/images/shopping-cart.png">';
                 }
                 row += '</td></tr>';
                 $("#data-table").append(row);
@@ -30,15 +30,6 @@ var ListHandler = {
             
             EventHandler.TableEvents(serverData);
         }
-    }
-
-    , DrawShoppingList: function(request, serverData) {
-        viewSwitcher("shopping-list");
-        console.log(request);
-        console.log(serverData);
-        // var name = serverData[0][0];
-        // $("#shopping-list-title").text("Einkaufsliste für " + name);
-        // insert how shoppinglist looks
     }
 
 };

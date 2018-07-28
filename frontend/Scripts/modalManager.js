@@ -56,7 +56,7 @@ var ModalManager = {
 
     , ClearModal: function(){
         ModalManager.formName.find("input").val("");
-        ModalManager.devicesSelect[0].selectedIndex = 0; //val("Steckdose 230V"); zum prefillen
+        ModalManager.devicesSelect[0].selectedIndex = 0; 
         ModalManager.sensorsSelect[0].selectedIndex = 0;
         ModalManager.formFloorCount.find("input").val("");
         ModalManager.formUnit.find("input").val("");
