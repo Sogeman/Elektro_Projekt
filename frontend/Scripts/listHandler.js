@@ -20,10 +20,10 @@ var ListHandler = {
                 row += '<th scope="row" class="clickable">' + id +'</th>'
                 row += '<td class="clickable">' + created + '</td>';
                 row += '<td class="clickable">' +name + '</td>';
-                row += '<td class="py-0 pl-0 text-center"><button class="btn btn-link edit-button" data-toggle="tooltip" title="Eintrag bearbeiten"><img src="Content/images/icon_edit.png"></button>';
-                row += '<button class="btn btn-link delete-button" data-toggle="tooltip" title="Eintrag löschen"><img src="Content/images/icon_delete.png">';
+                row += '<td class="py-0 pl-0 text-center"><button class="btn btn-link edit-button" title="Eintrag bearbeiten"><img src="Content/images/icon_edit.png"></button>';
+                row += '<button class="btn btn-link delete-button" title="Eintrag löschen"><img src="Content/images/icon_delete.png">';
                 if (listtype == "projects") {
-                    row += '<button class="btn btn-link shopping-list-button" data-toggle="tooltip" title="Einkaufsliste anzeigen"><img src="Content/images/shopping-cart.png">';
+                    row += '<button class="btn btn-link shopping-list-button" title="Einkaufsliste anzeigen"><img src="Content/images/shopping-cart.png">';
                 }
                 row += '</td></tr>';
                 $("#data-table").append(row);

@@ -16,9 +16,11 @@
             , success: function (data) {
                 if (request.listtype != "projects") {
                     $("#back-button").show();
+                    $(".nav-menu").show();
                 } else {
                     $("#page-title").text("Projekte");
                     $("#back-button").hide();
+                    $(".nav-menu").hide();
                 }
                 QueryManager.currentLevel = request.listtype;
                 viewSwitcher("homepage");

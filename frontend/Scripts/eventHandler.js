@@ -28,11 +28,6 @@ var EventHandler = {
             }
             
         });
-        // Tooltip 
-        $('[data-toggle="tooltip"]').tooltip({trigger: "hover"});
-        $('[data-toggle="tooltip"]').off().on("click", function() {
-            $(this).tooltip('hide');  
-        })
 
         // Events for delete, edit and shopping list buttons
         $(".edit-button").off().on("click", function(event) {
@@ -137,4 +132,11 @@ var EventHandler = {
         var clickedItem = allItemsArray.filter((obj) => obj);
         return clickedItem;
     }
+
+    // , CloseEvent: function() {
+    //     $(".close-button").off().on("click", function(event) {
+    //         event.stopPropagation();
+    //         $('[data-toggle="tooltip"]').tooltip({trigger: "hover"});
+    //     });
+    // }
 }

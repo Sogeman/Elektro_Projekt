@@ -1,5 +1,5 @@
 var ModalManager = {
-    // missing: select übernehmen und in request einbauen, prefill, wenn dropdown nicht verwendet dann Namen eingeben lassen
+    
     formName: null,
     formFloorCount: null,
     formUnit: null,
