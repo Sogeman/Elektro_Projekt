@@ -2,8 +2,7 @@
 FH Web Dev Projekt
 
 
-<strong>Todo</strong>:  Add circuitbreakers to floors, fuses to rooms in database<br>
-                        add models and change controllers for both<br>
+<strong>Todo</strong>:  add models and change controllers for cb and fuses<br>   
                         change existing models for new table columns<br>
                         figure out how to implement both into the listing<br>
                         add both to modal
