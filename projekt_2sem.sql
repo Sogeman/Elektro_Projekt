@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 29. Jul 2018 um 20:21
+-- Erstellungszeit: 05. Aug 2018 um 20:15
 -- Server-Version: 10.1.31-MariaDB
 -- PHP-Version: 7.2.3
 
@@ -35,6 +35,14 @@ CREATE TABLE `circuitbreakers` (
   `created` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Daten für Tabelle `circuitbreakers`
+--
+
+INSERT INTO `circuitbreakers` (`id`, `floors_id`, `name`, `created`) VALUES
+(1, 1, 'test FI', '2018-08-02 13:48:55'),
+(2, 4, 'FI Keller', '2018-08-05 16:40:15');
+
 -- --------------------------------------------------------
 
 --
@@ -53,11 +61,11 @@ CREATE TABLE `devices` (
 --
 
 INSERT INTO `devices` (`id`, `rooms_id`, `name`, `created`) VALUES
-(1, 1, 'Leuchte E27', '2018-07-24 15:56:03'),
+(1, 1, 'Leuchte GU5.3', '2018-07-24 15:56:03'),
 (2, 2, 'Gerät 2.2', '2018-07-24 15:56:54'),
 (3, 2, 'Gerät 2.2.2', '2018-07-24 15:57:47'),
 (4, 3, 'Gerät 1.1.1', '2018-07-24 15:58:21'),
-(5, 1, 'Leuchte E27', '2018-07-28 17:24:38'),
+(5, 1, 'Leuchte E2', '2018-07-28 17:24:38'),
 (10, 1, 'Leuchte E14', '2018-07-28 17:37:39'),
 (13, 1, 'Rollo', '2018-07-28 17:43:22'),
 (14, 1, 'Leuchte E27', '2018-07-28 17:46:50'),
@@ -76,6 +84,7 @@ CREATE TABLE `floors` (
   `projects_id` int(11) UNSIGNED NOT NULL,
   `floor_count_from_basement` int(11) NOT NULL,
   `name` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `circuitbreakers_id` int(11) UNSIGNED NOT NULL,
   `created` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -83,11 +92,14 @@ CREATE TABLE `floors` (
 -- Daten für Tabelle `floors`
 --
 
-INSERT INTO `floors` (`id`, `projects_id`, `floor_count_from_basement`, `name`, `created`) VALUES
-(1, 1, 0, 'Stockwerk 0', '2018-07-24 15:46:49'),
-(2, 2, 0, 'Stockwerk 2', '2018-07-24 15:46:59'),
-(3, 3, 0, 'Keller, Haus 3', '2018-07-28 17:50:39'),
-(4, 1, 0, 'Keller', '2018-07-29 06:34:22');
+INSERT INTO `floors` (`id`, `projects_id`, `floor_count_from_basement`, `name`, `circuitbreakers_id`, `created`) VALUES
+(1, 1, 0, 'Stockwerk 0', 0, '2018-07-24 15:46:49'),
+(2, 2, 0, 'Stockwerk 2', 0, '2018-07-24 15:46:59'),
+(3, 3, 0, 'Keller, Haus 3', 0, '2018-07-28 17:50:39'),
+(4, 1, 0, 'Kellero', 0, '2018-07-29 06:34:22'),
+(5, 3, 1, 'Erster Stock', 0, '2018-07-31 00:20:09'),
+(6, 2, 99, '100. Stock', 0, '2018-07-31 00:22:57'),
+(7, 1, 1, 'Stockwerk 1', 0, '2018-07-31 00:30:09');
 
 -- --------------------------------------------------------
 
@@ -102,6 +114,14 @@ CREATE TABLE `fuses` (
   `name` varchar(255) CHARACTER SET utf8 NOT NULL,
   `created` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Daten für Tabelle `fuses`
+--
+
+INSERT INTO `fuses` (`id`, `circuitbreakers_id`, `rooms_id`, `name`, `created`) VALUES
+(1, 1, 1, 'test sicherung', '2018-08-02 13:56:56'),
+(2, 2, 3, 'Sicherung Steckdosen Keller', '2018-08-05 16:57:56');
 
 -- --------------------------------------------------------
 
@@ -122,7 +142,8 @@ CREATE TABLE `projects` (
 INSERT INTO `projects` (`id`, `name`, `created`) VALUES
 (1, 'Haus 1', '2018-07-24 15:46:22'),
 (2, 'Haus 2', '2018-07-24 15:46:36'),
-(3, 'Haus 3', '2018-07-28 17:50:19');
+(3, 'Haus 3', '2018-07-28 17:50:19'),
+(4, 'jlksdkjldsfjskdlfjlksdjflksdjflksdjflsdj', '2018-08-05 17:03:45');
 
 -- --------------------------------------------------------
 
@@ -134,6 +155,7 @@ CREATE TABLE `rooms` (
   `id` int(11) UNSIGNED NOT NULL,
   `floors_id` int(11) UNSIGNED NOT NULL,
   `name` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `fuses_id` int(11) UNSIGNED NOT NULL,
   `created` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -141,12 +163,12 @@ CREATE TABLE `rooms` (
 -- Daten für Tabelle `rooms`
 --
 
-INSERT INTO `rooms` (`id`, `floors_id`, `name`, `created`) VALUES
-(1, 1, 'Zimmer 1 ', '2018-07-24 15:47:30'),
-(2, 2, 'Zimmer 2', '2018-07-24 15:47:43'),
-(3, 1, 'Zimmer 11', '2018-07-24 15:58:10'),
-(4, 3, 'Folterkammer, Haus 3', '2018-07-28 17:50:56'),
-(5, 2, 'test', '2018-07-28 21:38:47');
+INSERT INTO `rooms` (`id`, `floors_id`, `name`, `fuses_id`, `created`) VALUES
+(1, 1, 'Zimmer 1 ', 0, '2018-07-24 15:47:30'),
+(2, 2, 'Zimmer 2', 0, '2018-07-24 15:47:43'),
+(3, 1, 'Zimmer 11', 0, '2018-07-24 15:58:10'),
+(4, 3, 'Folterkammer, Haus 3', 0, '2018-07-28 17:50:56'),
+(5, 2, 'test', 0, '2018-07-28 21:38:47');
 
 -- --------------------------------------------------------
 
@@ -176,7 +198,8 @@ INSERT INTO `sensors` (`id`, `devices_id`, `name`, `unit`, `value`, `created`) V
 (7, 3, 'Feuchtigkeitssensor', '', '', '2018-07-28 17:47:49'),
 (8, 4, 'Bewegungsmelder', '', '', '2018-07-28 17:48:29'),
 (9, 15, 'Bewegungsmelder', 'Ein/Aus', 'Ein', '2018-07-28 17:51:31'),
-(10, 13, 'Rolloschalter', '', '', '2018-07-28 21:13:31');
+(10, 13, 'Rolloschalter', '', '', '2018-07-28 21:13:31'),
+(11, 10, 'Lichtsenso', '', '', '2018-07-31 00:24:36');
 
 --
 -- Indizes der exportierten Tabellen
@@ -232,7 +255,7 @@ ALTER TABLE `sensors`
 -- AUTO_INCREMENT für Tabelle `circuitbreakers`
 --
 ALTER TABLE `circuitbreakers`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT für Tabelle `devices`
@@ -244,19 +267,19 @@ ALTER TABLE `devices`
 -- AUTO_INCREMENT für Tabelle `floors`
 --
 ALTER TABLE `floors`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT für Tabelle `fuses`
 --
 ALTER TABLE `fuses`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT für Tabelle `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT für Tabelle `rooms`
@@ -268,7 +291,7 @@ ALTER TABLE `rooms`
 -- AUTO_INCREMENT für Tabelle `sensors`
 --
 ALTER TABLE `sensors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
