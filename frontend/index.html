@@ -1,6 +1,5 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
-<!-- TODO: Modal fixen -->
 
 <head>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
@@ -13,27 +12,29 @@
     <script src="Scripts/shoppingListHandler.js"></script>
     <script src="Scripts/eventHandler.js"></script>
     <script src="Scripts/switchView.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" crossorigin="anonymous">
     <link href="Content/mystyles.css" rel="stylesheet" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title></title>
+    <title>Elektroinstallationsmanager</title>
 </head>
 
 <body>
     <div class="container">
 
-        <!-- Nav-menu -->
-        <div class="col-2 nav-menu">
-            <button id="home" class="btn btn-link btn-large"><img src="Content/images/home-button.png"></button>
-        </div>
-
         <!-- Header -->
-        <div class="text-center my-2" id="main-title">
-            <h1>
-                <strong>Elektroinstallationsmanager</strong>
-            </h1>
+        <div class="row my-2">
+            <div class="col-2" id="nav-menu">
+                <button id="home" class="btn btn-link img-responsive">
+                    <img class="img-responsive" src="Content/images/home-button.png">
+                </button>
+            </div>
+            <div class="col-10 mt-3 text-center" id="main-title">
+                <h1>
+                    <strong>Elektroinstallationsmanager</strong>
+                </h1>
+            </div>
         </div>
     </div>
 
@@ -49,14 +50,20 @@
     <div id="homepage">
         <div class="container">
             <div class="row my-3">
-                <div class="col-5 offset-1">
+                <div class="col-2 offset-1">
                     <h2 id="page-title">Projekte</h2>
                 </div>
-                <div class="col-3 offset-1 text-center pr-0">
+                <div class="col-2 text-center">
+                    <button type="button" id="circuitbreaker-button" class="btn btn-info btn-lg">FIs</button>
+                </div>
+                <div class="col-2 text-center">
+                    <button type="button" id="fuse-button" class="btn btn-info btn-lg">Sicherungen</button>
+                </div>
+                <div class="col-2 offset-1 text-center">
                     <button type="button" id="create-item-button" class="btn btn-lg btn-info"></button>
                 </div>
-                <div class="col-2 text-center pl-0">
-                    <button type="button" id="back-button" class="btn btn-link btn-large">
+                <div class="col-2 text-center">
+                    <button type="button" id="back-button" class="btn btn-link">
                         <img src="Content/images/back-arrow.png">
                     </button>
                 </div>
@@ -65,11 +72,19 @@
             <div class="row my-3">
                 <div id="data-list" class="col">
                     <table class="table">
-                        <thead>
+                        <thead id="normal-table-head">
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Erstellungsdatum</th>
                                 <th scope="col">Bezeichnung</th>
+                                <th scope="col" class="text-center">Optionen</th>
+                            </tr>
+                        </thead>
+                        <thead id="fuses-table-head">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Bezeichnung</th>
+                                <th scope="col">FI</th>
                                 <th scope="col" class="text-center">Optionen</th>
                             </tr>
                         </thead>
@@ -88,6 +103,9 @@
             <div class="row my-3">
                 <div class="col-6 mx-auto">
                     <h2 id="shopping-list-title"></h2>
+                </div>
+                <div class="col-2">
+                    <button class="btn btn-info" onclick="window.print();">Drucken</button>
                 </div>
             </div>
 
@@ -141,8 +159,8 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modal-title"></h5>
                     <!--Titel variabel-->
+                    <h5 class="modal-title" id="modal-title"></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -151,7 +169,7 @@
                     <h3 class="dialog-item-name"></h3>
                     <input type="hidden" id="parent-id" value="0" />
                     <input type="hidden" id="item-id" value="0" />
-
+                    <!-- Select derzeit hardcoded -->
                     <div class="form-group" id="form-name">
                         <label for="name">Bezeichnung</label>
                         <select class="custom-select" id="devices-select">
@@ -171,7 +189,7 @@
                             <option value="Feuchtigkeitssensor">Feuchtigkeitssensor</option>
                             <option value="Bewegungsmelder">Bewegungsmelder</option>
                         </select>
-                        <input type="text" class="form-control" id="name" name="name" maxlength=40 placeholder="Name" required="required" />
+                        <input type="text" class="form-control mt-2" id="name" name="name" maxlength=40 placeholder="Name" required="required" />
                     </div>
                     <!-- nur bei Stockwerken -->
                     <div class="form-group" id="form-floor-count">
@@ -189,6 +207,20 @@
                         <label for="value">Wert</label>
                         <input type="text" class="form-control" id="value" name="value" placeholder="Ein, Aus,..." />
                     </div>
+                    <!-- nur bei FIs -->
+                    <select class="custom-select" id="form-floors-select">
+                        <option id="floors-select" selected>Stockwerk für FI auswählen</option>
+                        <!-- Variabel Stockwerke einfügen -->
+                    </select>
+                    <!-- nur bei Sicherungen -->
+                    <select class="custom-select" id="form-rooms-select">
+                        <option id="rooms-select" selected>Zimmer für Sicherung auswählen</option>
+                        <!-- Variabel Zimmer einfügen -->
+                    </select>
+                    <select class="custom-select" id="form-circuitbreakers-select">
+                        <option id="circuitbreakers-select" selected>FI für Sicherung auswählen</option>
+                        <!-- Variabel FI einfügen -->
+                    </select>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary close-button" data-dismiss="modal">Close</button>
@@ -241,4 +273,5 @@
 
 </body>
 <!-- icons: https://www.iconfinder.com/iconsets/app-custom-ui-1  -->
+
 </html>
