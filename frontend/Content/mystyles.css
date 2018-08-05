@@ -3,7 +3,15 @@
     font-family: 'Montserrat', sans-serif;
 }
 
-#shopping-list {
+#page-title {
+    overflow-x: auto;
+}
+
+#nav-menu {
+    height: 80px;
+}
+
+#shopping-list, #fuses-table-head, #circuitbreaker-button, #fuse-button {
     display: none;
 }
 
@@ -12,17 +20,12 @@ thead tr th {
     color: white;
 }
 
-.nav-menu {
-    z-index: 1000;
-    position: absolute;
-    left: 15px;
-    top: 15px;
+#home {
     display: none;
 }
 
-#home {
-    background-color: blue;
-    color: white;
+#home:hover, #back-button:hover, .edit-button:hover, .delete-button:hover, .shopping-list-button:hover{
+    background-color: #85d8e5;
 }
 
 #back-button {
@@ -37,10 +40,6 @@ thead tr th {
 .edit-button, .delete-button, .shopping-list-button {
     margin-top: 2px;
     margin-right: 1px;
-}
-.edit-button:hover, .delete-button:hover, .shopping-list-button:hover {
-    border: 1px solid black;
-    background-color: #85d8e5;
 }
 
 #loading-screen {
@@ -64,7 +63,7 @@ thead tr th {
 
 }
 
-@keyframes spin{
+@keyframes spin {
 	from{transform:rotate(0deg)}
 	to{transform:rotate(360deg)}	
 }
@@ -75,7 +74,7 @@ thead tr th {
         color: black;
     }
 
-    #home, #main-title {
+    #home, #main-title, thead>tr>th:first-child, tbody>tr>th:first-child {
         display: none;
     }
 }
