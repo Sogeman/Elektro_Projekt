@@ -102,6 +102,10 @@ var EventHandler = {
             ModalManager.ClearModal();
             $("#create-entry-modal").modal(); //enables modal manually
             switch (QueryManager.currentLevel) {
+                case "floors":
+                    var request = { action: "list", listtype: "circuitbreakers", parentid: QueryManager.projectId };
+                    QueryManager.LoadDataSimple(request);
+                    break;
                 case "devices":
                     ModalManager.devicesSelect.change(function () {
                         var value = ModalManager.devicesSelect.val();
@@ -119,7 +123,7 @@ var EventHandler = {
                     QueryManager.LoadDataSimple(request);
                     break;
                 case "fuses":
-                    var request = { action: "list", listtype: "rooms", parentid: QueryManager.projectId };
+                    var request = { action: "list", listtype: "projectrooms", parentid: QueryManager.projectId };
                     QueryManager.LoadDataSimple(request);
                     request = { action: "list", listtype: "circuitbreakers", parentid: QueryManager.projectId };
                     QueryManager.LoadDataSimple(request);

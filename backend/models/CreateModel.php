@@ -30,13 +30,15 @@ class CreateModel {
     public function createFloor($specification, $projectsid) {
         $name = $specification->name;
         $count = $specification->floor_count_from_basement;
+        $cbid = $specification->circuitbreakerid;
 
         try {
-            $sql = "INSERT into floors (projects_id, floor_count_from_basement, name) VALUES (:id, :count, :name)";
+            $sql = "INSERT into floors (projects_id, floor_count_from_basement, name, circuitbreakers_id) VALUES (:id, :count, :name, :cbid)";
             $stmt = $this->database->prepare($sql);
             $stmt->bindParam(":id", $projectsid);
             $stmt->bindParam(":count", $count);
             $stmt->bindParam(":name", $name);
+            $stmt->bindParam(":cbid", $cbid);
             $stmt->execute();
             return $this->database->lastInsertedId(); 
         } catch (PDOException $e) {

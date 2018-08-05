@@ -34,6 +34,9 @@
             case "rooms":
                 $this->listModel->listRooms($parentId);
                 break;
+            case "projectrooms":
+                $this->listModel->listRoomsOfProject($parentId);
+                break;
             case "devices":
                 $this->listModel->listDevices($parentId);
                 break;

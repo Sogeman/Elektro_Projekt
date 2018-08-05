@@ -43,6 +43,7 @@ var ModalManager = {
             case "floors":
                 ModalManager.formName.show();
                 ModalManager.formFloorCount.show();
+                ModalManager.formCircuitbreakersSelect.show()
                 break;
             case "rooms": case "projects":
                 ModalManager.formName.show();
@@ -152,10 +153,6 @@ var ModalManager = {
                 // code
                 break;
         }
-    }
-
-    , DrawOptionSelect: function() {
-
     }
 
     , DeleteWarning: function (clickedButton, data) {

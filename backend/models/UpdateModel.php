@@ -32,12 +32,14 @@ class UpdateModel {
     public function updateFloor($specification, $id) {
         $name = $specification->name;
         $count = $specification->floor_count_from_basement;
+        $cbid = $specification->circuitbreakerid;
 
         try {
-            $sql = "UPDATE floors SET floor_count_from_basement = :count, name = :name  WHERE id = :id";
+            $sql = "UPDATE floors SET floor_count_from_basement = :count, name = :name, circuitbreakers_id = :cbid WHERE id = :id";
             $stmt = $this->database->prepare($sql);
             $stmt->bindParam(":count", $count);
             $stmt->bindParam(":name", $name);
+            $stmt->bindParam(":cbid", $cbid);
             $stmt->bindParam(":id", $id);
             $stmt->execute();
             $rowsAffected = $stmt->rowCount();

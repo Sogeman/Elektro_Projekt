@@ -52,6 +52,13 @@ class ListModel {
         $this->currentListType = "rooms";
     }
     
+    public function listRoomsOfProject($projectid) {
+        $sql = "SELECT rooms.id, rooms.name, rooms.fuses_id, rooms.created FROM rooms join floors on rooms.floors_id = floors.id join projects "
+                . "on floors.projects_id = projects_id WHERE projects.id = {$projectid}";
+        $this->list = $this->getListFromDatabase($sql);
+        $this->currentListType = "rooms";
+    }
+    
     public function listDevices($roomid) {
         $sql = "SELECT id, name, created FROM devices WHERE rooms_id = {$roomid}";
         $this->list = $this->getListFromDatabase($sql);
