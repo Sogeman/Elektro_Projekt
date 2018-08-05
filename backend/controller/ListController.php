@@ -43,7 +43,14 @@
             case "projects": 
                 $this->listModel->listProjects();
                 break;
+            case "circuitbreakers":
+                $this->listModel->listCircuitbreakers($parentId);
+                break;
+            case "fuses":
+                $this->listModel->listFuses($parentId);
+                break;
             default:
+                $this->showResponse(array("Message" => "wrong level name"));
                break;
         }
     }
@@ -55,9 +62,9 @@
         foreach($data as $row){
             $specification = $this->getSpecificationTable($row);
             
-            $itemList[] = $specification;
-            
+            $itemList[] = $specification;   
         }
+        
         $outputData = array (
             "listtype" => $this->listModel->getCurrentListType(),
             "items" => $itemList

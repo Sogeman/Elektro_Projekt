@@ -31,6 +31,14 @@ class DeleteModel {
     public function deleteSensor($id) {
         return $this->deleteFromTable("sensors", $id);
     }
+    
+    public function deleteCircuitBreaker($id) {
+        return $this->deleteFromTable("circuitbreakers", $id);
+    }
+    
+    public function deleteFuse($id) {
+        return $this->deleteFromTable("fuses", $id);
+    }
 
     private function deleteFromTable($tableName, $id) {
         $sql = "DELETE FROM $tableName WHERE id = :id LIMIT 1";

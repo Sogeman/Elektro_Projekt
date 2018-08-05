@@ -96,5 +96,41 @@ class CreateModel {
             return false;
         }
     }
+    
+    public function createCircuitbreaker($specification) {
+        $name = $specification->name;
+        $floorId = $specification->floorid;
+        
+        try {
+            $sql = "INSERT into circuitbreakers (floors_id, name) VALUES (:floorId, :name)";
+            $stmt = $this->database->prepare($sql);
+            $stmt->bindParam(":floorId", $floorId);
+            $stmt->bindParam(":name", $name);
+            $stmt->execute();
+            return $this->database->lastInsertedId(); 
+        } catch (PDOException $e) {
+            echo $e->getTraceAsString();
+            return false;
+        }
+    }
+    
+    public function createFuse($specification) {
+        $name = $specification->name;
+        $roomId = $specification->roomid;
+        $cbId = $specification->circuitbreakerid;
+        
+        try {
+            $sql = "INSERT into fuses (circuitbreakers_id, rooms_id, name) VALUES (:cbid, :roomsId, :name)";
+            $stmt = $this->database->prepare($sql);
+            $stmt->bindParam(":cbid", $cbId);
+            $stmt->bindParam(":roomsId", $roomId);
+            $stmt->bindParam(":name", $name);
+            $stmt->execute();
+            return $this->database->lastInsertedId(); 
+        } catch (PDOException $e) {
+            echo $e->getTraceAsString();
+            return false;
+        }
+    }
 
 }

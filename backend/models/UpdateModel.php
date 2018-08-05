@@ -102,5 +102,13 @@ class UpdateModel {
             return false;
         }
     }
+    
+    public function updateCircuitBreaker($specification, $id) {
+                ##### code #######
+    }
+    
+    public function updateFuse($specification, $id) {
+        ##### code #######
+    }
 
 }

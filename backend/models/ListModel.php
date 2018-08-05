@@ -41,13 +41,13 @@ class ListModel {
     }
     
     public function listFloors($projectid) {
-        $sql = "SELECT id, name, floor_count_from_basement, created FROM floors WHERE projects_id = {$projectid}";
+        $sql = "SELECT id, name, floor_count_from_basement, circuitbreakers_id, created FROM floors WHERE projects_id = {$projectid}";
         $this->list = $this->getListFromDatabase($sql);
         $this->currentListType = "floors";
     }
     
     public function listRooms($floorid) {
-        $sql = "SELECT id, name, created FROM rooms WHERE floors_id = {$floorid}";
+        $sql = "SELECT id, name, fuses_id, created FROM rooms WHERE floors_id = {$floorid}";
         $this->list = $this->getListFromDatabase($sql);
         $this->currentListType = "rooms";
     }
@@ -62,6 +62,22 @@ class ListModel {
         $sql = "SELECT id, name, unit, value, created FROM sensors WHERE devices_id = {$deviceid}";
         $this->list = $this->getListFromDatabase($sql);
         $this->currentListType = "sensors";
+    }
+    
+    public function listCircuitbreakers($projectid) {
+        $sql = "SELECT c.id, c.floors_id, c.name, c.created FROM circuitbreakers AS c JOIN floors on c.floors_id"
+                . " = floors.id JOIN projects on floors.projects_id = projects.id"
+                . " WHERE projects_id = {$projectid}";
+        $this->list = $this->getListFromDatabase($sql);
+        $this->currentListType = "circuitbreakers";
+    }
+    
+    public function listFuses($projectid) {
+        $sql = "SELECT f.id, f.circuitbreakers_id, f.rooms_id, f.name, rooms.name AS roomname, c.name AS fi_name, f.created FROM fuses AS f "
+                . "JOIN rooms on f.rooms_id = rooms.id JOIN circuitbreakers as c on f.circuitbreakers_id = c.id "
+                . "JOIN floors on c.floors_id = floors.id JOIN projects ON floors.projects_id = projects.id WHERE projects_id = {$projectid}";
+        $this->list = $this->getListFromDatabase($sql);
+        $this->currentListType = "fuses";
     }
     
     private function getListFromDatabase($sql){
@@ -81,16 +97,9 @@ class ListModel {
         $sql = "SELECT devices.id, devices.name as Geraetename FROM devices JOIN rooms on devices.rooms_id = rooms.id JOIN floors on rooms.floors_id = floors.id JOIN projects on floors.projects_id = projects.id  
                 WHERE projects.id = $projectId";
         
-//         $sql = "SELECT devices.id, devices.name as Geraetename from devices "
-//                 . "JOIN rooms on devices.rooms_id = rooms.id "
-//                 . "JOIN floors on rooms.floors_id = floors.id "
-//                 . "JOIN projects on floors.projects_id = projects.id "
-//                 . "WHERE projects.id = {$projectId};";
-
         $devices = $this->getListFromDatabase($sql);
         $devicesList = $this->getUniqueDevices($devices);
         
-        #$devicesList = $this->countDevicesAndSensors($devices);
         return $devicesList;
     }
     
@@ -117,13 +126,6 @@ class ListModel {
         
        $sql = "SELECT sensors.id, sensors.name as Sensorname FROM sensors JOIN devices ON sensors.devices_id = devices.id JOIN rooms on devices.rooms_id = rooms.id JOIN floors on rooms.floors_id = floors.id JOIN projects on floors.projects_id = projects.id  
         WHERE projects.id = $projectId";
-       
-//        $sql = "SELECT sensors.id, sensors.name as Sensorname from sensors "
-//                 . "JOIN devices on sensors.devices_id = sensors.id "
-//                 . "JOIN rooms on devices.rooms_id = rooms.id "
-//                 . "JOIN floors on rooms.floors_id = floors.id "
-//                 . "JOIN projects on floors.projects_id = projects.id "
-//                 . "WHERE projects.id = {$projectId};";
 
         $sensors = $this->getListFromDatabase($sql);
         $sensorList = $this->getUniqueSensors($sensors);
@@ -136,7 +138,7 @@ class ListModel {
         
         foreach ($sensors as $sensor) {
             
-            $uniqueIdentifier = md5( $sensor['Sensorname'].rand(0,100) );
+            $uniqueIdentifier = md5( $sensor['Sensorname']);
             
             if (!isset($uniqueSensors[$uniqueIdentifier])) {
                 $uniqueSensors[$uniqueIdentifier] = array(
@@ -149,41 +151,5 @@ class ListModel {
         }
        return $uniqueSensors;
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-//    private function countDevicesAndSensors($listOfDevices) {
-//        
-//        $uniqueDevices = array();
-//        
-//        foreach ($listOfDevices as $device) {
-//            $currentSql = "SELECT name FROM sensors WHERE devices_id = " . $device['id'];
-//            $sensors = $this->getListFromDatabase($currentSql);
-//            
-//            $uniqueIdentifier = md5( $device['Name'].json_encode($sensors) );
-//            
-//            if (!isset($uniqueDevices[$uniqueIdentifier])) {
-//                $uniqueDevices[$uniqueIdentifier] = array(
-//                  "name" => $device["Name"],
-//                  "amount" => 1,
-//                  "sensors" => $sensors
-//                );
-//            } else {
-//                $uniqueDevices[$uniqueIdentifier]["amount"]++;
-//            }
-//        }
-//        return $uniqueDevices;
-//        
-//    }
-    
-    
 
 }

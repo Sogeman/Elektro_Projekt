@@ -53,7 +53,12 @@ class ChangeController implements ControllerInterface {
             case "sensors":
                 $newId = $createModel->createSensor($this->inputData->specification, $this->inputData->parentid);
                 break;
-            #FIs und Sicherungen ??
+            case "circuitbreakers":
+                $newId = $createModel->createCircuitbreaker($this->inputData->specification);
+                break;
+            case "fuses":
+                $newId = $createModel->createFuse($this->inputData->specification);
+                break;
             default:
                 $newId = false;
                 break;
@@ -86,7 +91,12 @@ class ChangeController implements ControllerInterface {
             case "sensors":
                 $rows = $updateModel->updateSensor($this->inputData->specification, $this->inputData->itemid);
                 break;
-            #FIs und Sicherungen ??
+            case "circuitbreakers":
+                $rows = $updateModel->updateCircuitbreaker($this->inputData->specification, $this->inputData->itemid);
+                break;
+            case "fuses":
+                $rows = $updateModel->updateFuse($this->inputData->specification, $this->inputData->itemid);
+                break;
             default:
                 $rows = false;
                 break;
@@ -119,7 +129,12 @@ class ChangeController implements ControllerInterface {
             case "sensors":
                 $rows = $deleteModel->deleteSensor($this->inputData->itemid);
                 break;
-            #FIs und Sicherungen ??
+            case "circuitbreakers":
+                $rows = $deleteModel->deleteCircuitbreaker($this->inputData->itemid);
+                break;
+            case "fuses":
+                $rows = $deleteModel->deleteFuse($this->inputData->itemid);
+                break;
             default:
                 $rows = false;
                 break;
