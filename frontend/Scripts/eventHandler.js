@@ -76,7 +76,6 @@ var EventHandler = {
                 $("#delete-confirm-modal").modal("hide");
 
             });
-
         });
     }
 
