@@ -74,23 +74,19 @@
         if (listtype == "circuitbreakers") {
             $("#fuse-button").show();
             $("#circuitbreaker-button").hide();
-            $("#back-button").show();
             $("#home").show();
         } else if (listtype =="fuses") {
             $("#circuitbreaker-button").show();
             $("#fuse-button").hide();
-            $("#back-button").show();
             $("#home").show();
         } else if (listtype == "projects") {
             $("#page-title").text("Projekte");
             $("#circuitbreaker-button").hide();
             $("#fuse-button").hide();
-            $("#back-button").hide();
             $("#home").hide();
         } else {
             $("#circuitbreaker-button").show();
             $("#fuse-button").show();
-            $("#back-button").show();
             $("#home").show();
         }
     }

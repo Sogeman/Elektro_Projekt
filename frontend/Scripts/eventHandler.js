@@ -5,7 +5,6 @@ var EventHandler = {
         QueryManager.LoadData(Controller.homepage);
         EventHandler.HomeEvent();
         EventHandler.CreateEvent();
-        EventHandler.BackButton();
     }
 
     , TableEvents: function (serverData) {
@@ -40,6 +39,9 @@ var EventHandler = {
             ModalManager.DeleteWarning($(this), serverData);
 
         });
+
+        EventHandler.BackButton(); //backbutton event, different because older
+
         $(".shopping-list-button").off().on("click", function (event) {
             event.stopPropagation();
             var clickedItem = EventHandler.FindClickedItem($(this), serverData);
@@ -141,7 +143,7 @@ var EventHandler = {
     }
 
     , BackButton: function () {
-        $("#back-button").off().on("click", function (event) {
+        $(".back-button").off().on("click", function (event) {
             event.stopPropagation();
             QueryManager.GoBackToPreviousLevel();
         });

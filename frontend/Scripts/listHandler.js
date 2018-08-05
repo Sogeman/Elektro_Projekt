@@ -61,6 +61,8 @@ var ListHandler = {
         row += '<button class="btn btn-link delete-button" title="Eintrag löschen"><img src="Content/images/icon_delete.png">';
         if (listtype == "projects") {
             row += '<button class="btn btn-link shopping-list-button" title="Einkaufsliste anzeigen"><img src="Content/images/shopping-cart.png">';
+        } else {
+            row += '<button class="btn btn-link back-button" title="zurück"><img src="Content/images/back-arrow.png">';
         }
         row += '</td></tr>';
         return row;

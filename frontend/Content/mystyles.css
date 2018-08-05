@@ -24,12 +24,8 @@ thead tr th {
     display: none;
 }
 
-#home:hover, #back-button:hover, .edit-button:hover, .delete-button:hover, .shopping-list-button:hover{
+#home:hover, .back-button:hover, .edit-button:hover, .delete-button:hover, .shopping-list-button:hover{
     background-color: #85d8e5;
-}
-
-#back-button {
-    display: none;
 }
 
 .single-entry:hover .clickable {
