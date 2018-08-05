@@ -1,11 +1,14 @@
 var ModalManager = {
-    
+
     formName: null,
     formFloorCount: null,
     formUnit: null,
     formValue: null,
     devicesSelect: null,
     sensorsSelect: null,
+    formFloorsSelect: null,
+    formRoomsSelect: null,
+    formCircuitbreakersSelect: null,
     data: null,
 
     Initialize: function (currentLevel, data) {
@@ -15,7 +18,9 @@ var ModalManager = {
         ModalManager.formValue = $("#form-value");
         ModalManager.devicesSelect = $("#devices-select");
         ModalManager.sensorsSelect = $("#sensors-select");
-        ModalManager.data = data;
+        ModalManager.formFloorsSelect = $("#form-floors-select");
+        ModalManager.formRoomsSelect = $("#form-rooms-select");
+        ModalManager.formCircuitbreakersSelect = $("#form-circuitbreakers-select");
         ModalManager.ResetModal();
         ModalManager.AddEntryFields(currentLevel);
         EventHandler.ClearModal();
@@ -28,11 +33,12 @@ var ModalManager = {
         ModalManager.formFloorCount.hide();
         ModalManager.formUnit.hide();
         ModalManager.formValue.hide();
+        ModalManager.formFloorsSelect.hide();
+        ModalManager.formRoomsSelect.hide();
+        ModalManager.formCircuitbreakersSelect.hide();
     }
 
     , AddEntryFields: function (currentLevel) {
-
-        $("#modal-title").text(QueryManager.GetCurrentLevelName() + " anlegen");
         switch (currentLevel) {
             case "floors":
                 ModalManager.formName.show();
@@ -51,6 +57,15 @@ var ModalManager = {
                 ModalManager.formUnit.show();
                 ModalManager.formValue.show();
                 break;
+            case "circuitbreakers":
+                ModalManager.formName.show();
+                ModalManager.formFloorsSelect.show();
+                break;
+            case "fuses":
+                ModalManager.formName.show();
+                ModalManager.formRoomsSelect.show();
+                ModalManager.formCircuitbreakersSelect.show();
+                break;
         }
     }
 
@@ -61,16 +76,19 @@ var ModalManager = {
         ModalManager.formFloorCount.find("input").val("");
         ModalManager.formUnit.find("input").val("");
         ModalManager.formValue.find("input").val("");
+        $("#floors-select")[0].selectedIndex = 0;
+        $("#rooms-select")[0].selectedIndex = 0;
+        $("#circuitbreakers-select")[0].selectedIndex = 0;
     }
 
     , CreateEntry: function () {
-        var listType = QueryManager.currentLevel;
-        var data = { listtype: listType }
-
-        EventHandler.SaveEvent(data, "create");
+        $("#modal-title").text(QueryManager.GetCurrentLevelName() + " anlegen");
+        EventHandler.SaveEvent("create");
+        // just uses SaveEntry
     }
 
-    , SaveEntry: function (data, action) {
+    , SaveEntry: function (action) {
+        // code for circuitbr. and fuses
         var listType = QueryManager.currentLevel;
         var itemId = $("#item-id").val();
         var parentId = $("#parent-id").val();
@@ -78,7 +96,14 @@ var ModalManager = {
         var count = ModalManager.formFloorCount.find("input").val();
         var unit = ModalManager.formUnit.find("input").val();
         var value = ModalManager.formValue.find("input").val();
-        var request = { action: action, listtype: listType, parentid: parentId, itemid: itemId, specification: { name: name, floor_count_from_basement: count, unit: unit, value: value } };
+        var floorId = ModalManager.formFloorsSelect.val();
+        var roomId = ModalManager.formRoomsSelect.val();
+        var circuitbreakerId = ModalManager.formCircuitbreakersSelect.val();
+        if (action == "create") {
+            var request = { action: action, listtype: listType, parentid: parentId, specification: { name: name, floor_count_from_basement: count, unit: unit, value: value, floorid: floorId, roomid: roomId, circuitbreakerid: circuitbreakerId} };
+        } else {
+            var request = { action: action, listtype: listType, parentid: parentId, itemid: itemId, specification: { name: name, floor_count_from_basement: count, unit: unit, value: value } };
+        }
         QueryManager.PostData(request);
     }
 
@@ -87,7 +112,7 @@ var ModalManager = {
         ModalManager.PrefillModal(clickedItem);
         $("#modal-title").text(QueryManager.GetCurrentLevelName() + " aktualisieren")
         $("#create-entry-modal").modal(); //enables modal manually
-        EventHandler.SaveEvent(data, "update");
+        EventHandler.SaveEvent("update");
     }
 
     , PrefillModal: function (clickedItem) {
@@ -104,21 +129,33 @@ var ModalManager = {
                 break;
             case "devices":
                 ModalManager.formName.find("input").val(entry.name);
-                ModalManager.devicesSelect.change(function() {
+                ModalManager.devicesSelect.change(function () {
                     var value = ModalManager.devicesSelect.val();
                     ModalManager.formName.find("input").val(value);
                 });
                 break;
             case "sensors":
                 ModalManager.formName.find("input").val(entry.name);
-                ModalManager.sensorsSelect.change(function() {
+                ModalManager.sensorsSelect.change(function () {
                     var value = ModalManager.sensorsSelect.val();
                     ModalManager.formName.find("input").val(value);
                 });
                 ModalManager.formUnit.find("input").val(entry.unit);
                 ModalManager.formValue.find("input").val(entry.value);
                 break;
+            case "circuitbreakers":
+                ModalManager.formName.find("input").val(entry.name);
+                // code 
+                break;
+            case "fuses":
+                ModalManager.formName.find("input").val(entry.name);
+                // code
+                break;
         }
+    }
+
+    , DrawOptionSelect: function() {
+
     }
 
     , DeleteWarning: function (clickedButton, data) {
