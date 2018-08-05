@@ -1,12 +1,12 @@
 ﻿var QueryManager = {
     currentLevel: "",
     backendAddress: "http://localhost/Elektro_Projekt/backend/index.php",
-    lastRequests: [] // saves last requests for backbutton and reload
+    lastRequests: [], // saves last requests for backbutton and reload
+    projectId: 0
     , LoadData: function (request) {
-        if(!QueryManager.lastRequests.some(item => JSON.stringify(item) === JSON.stringify(request))) {
+        if (!QueryManager.lastRequests.some(item => JSON.stringify(item) === JSON.stringify(request))) {
             QueryManager.lastRequests.push(request);
         }
-       
         $.ajax({
             url: QueryManager.backendAddress
             , method: "post"
@@ -14,22 +14,30 @@
             , dataType: "json"
             , cache: false
             , success: function (data) {
-                if (request.listtype != "projects") {
-                    $("#back-button").show();
-                    $(".nav-menu").show();
-                } else {
-                    $("#page-title").text("Projekte");
-                    $("#back-button").hide();
-                    $(".nav-menu").hide();
-                }
+                QueryManager.showHideButtons(request.listtype);
                 QueryManager.currentLevel = request.listtype;
                 viewSwitcher("homepage");
                 ListHandler.FillTable(data);
                 $("#create-item-button").text("+ " + QueryManager.GetCurrentLevelName());
+                EventHandler.cbAndFuseButtons();
                 ModalManager.Initialize(QueryManager.currentLevel, data);
             }
             , error: QueryManager.ErrorMessage
         });
+    }
+
+    , LoadDataSimple: function (request) {
+        $.ajax({
+            url: QueryManager.backendAddress
+            , method: "post"
+            , data: { data: JSON.stringify(request) }
+            , dataType: "json"
+            , cache: false
+            , success: function (data) {
+                ListHandler.CreateSelectOption(data);
+            }
+            , error: QueryManager.ErrorMessage
+        }); 
     }
 
     , PostData: function (request) {
@@ -47,22 +55,49 @@
         });
     }
 
-    , LoadShoppingList: function(request) {
+    , LoadShoppingList: function (request) {
         $.ajax({
             url: QueryManager.backendAddress
             , method: "post"
-            , data: {data: JSON.stringify(request)}
+            , data: { data: JSON.stringify(request) }
             , dataType: "json"
             , cache: false
-            , success: function(data) {
+            , success: function (data) {
                 ShoppingListHandler.DrawShoppingList(request, data);
+                $("#home").show();
             }
             , error: QueryManager.ErrorMessage
         });
     }
 
-    , ErrorMessage: function(errorMsg) {
+    , showHideButtons: function(listtype) {
+        if (listtype == "circuitbreakers") {
+            $("#fuse-button").show();
+            $("#circuitbreaker-button").hide();
+            $("#back-button").show();
+            $("#home").show();
+        } else if (listtype =="fuses") {
+            $("#circuitbreaker-button").show();
+            $("#fuse-button").hide();
+            $("#back-button").show();
+            $("#home").show();
+        } else if (listtype == "projects") {
+            $("#page-title").text("Projekte");
+            $("#circuitbreaker-button").hide();
+            $("#fuse-button").hide();
+            $("#back-button").hide();
+            $("#home").hide();
+        } else {
+            $("#circuitbreaker-button").show();
+            $("#fuse-button").show();
+            $("#back-button").show();
+            $("#home").show();
+        }
+    }
+
+    , ErrorMessage: function (errorMsg) {
         alert("something went wrong, redirecting to homepage");
+        QueryManager.LoadData(Controller.homepage);
         viewSwitcher("homepage");
         console.log(errorMsg);
     }
@@ -95,6 +130,12 @@
             case "SENSORS":
                 level = "Sensor";
                 break;
+            case "CIRCUITBREAKERS":
+                level = "FI";
+                break;
+            case "FUSES":
+                level = "Sicherung";
+                break;
             default:
                 break;
         }
@@ -117,7 +158,13 @@
                 level = "sensors";
                 break;
             case "SENSORS":
-                level = "sensors"; //otherwise it breaks when you click on a sensor
+                level = "circuitbreakers"
+                break;
+            case "CIRCUITBREAKERS":
+                level = "fuses";
+                break;
+            case "FUSES": 
+                level = "fuses";
                 break;
             default:
                 break;
