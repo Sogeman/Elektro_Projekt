@@ -8,7 +8,7 @@ class AppController {
 
     public function route() {
 
-        $jsonInput = filter_input(INPUT_POST, 'data');
+        $jsonInput = filter_input(INPUT_POST, 'data', FILTER_SANITIZE_STRING);
 
         $inputData = json_decode($jsonInput);
 
