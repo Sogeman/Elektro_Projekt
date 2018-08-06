@@ -122,9 +122,9 @@ class CreateModel {
         $cbId = $specification->circuitbreakerid;
         
         try {
-            $sql = "INSERT into fuses (circuitbreakers_id, rooms_id, name) VALUES (:cbid, :roomsId, :name)";
+            $sql = "INSERT into fuses (circuitbreakers_id, rooms_id, name) VALUES (:cbId, :roomsId, :name)";
             $stmt = $this->database->prepare($sql);
-            $stmt->bindParam(":cbid", $cbId);
+            $stmt->bindParam(":cbId", $cbId);
             $stmt->bindParam(":roomsId", $roomId);
             $stmt->bindParam(":name", $name);
             $stmt->execute();

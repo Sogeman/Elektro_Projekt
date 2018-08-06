@@ -72,7 +72,7 @@ class ListModel {
     }
     
     public function listCircuitbreakers($projectid) {
-        $sql = "SELECT c.id, c.floors_id, c.name, c.created FROM circuitbreakers AS c JOIN floors on c.floors_id"
+        $sql = "SELECT c.id, c.floors_id, c.name, floors.name as Stockwerkname, c.created FROM circuitbreakers AS c JOIN floors on c.floors_id"
                 . " = floors.id JOIN projects on floors.projects_id = projects.id"
                 . " WHERE projects_id = {$projectid}";
         $this->list = $this->getListFromDatabase($sql);
