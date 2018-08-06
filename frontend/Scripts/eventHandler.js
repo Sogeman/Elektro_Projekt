@@ -9,6 +9,16 @@ var EventHandler = {
 
     , TableEvents: function (serverData) {
         // Event for going to the next level
+        EventHandler.ClickableRow(serverData);
+        // Events for delete, edit, shopping list and back buttons
+        EventHandler.EditButton(serverData);
+        EventHandler.DeleteButton(serverData);
+        EventHandler.BackButton();
+        EventHandler.ShoppingListButton(serverData);
+
+    }
+
+    , ClickableRow: function (serverData) {
         $(".clickable").off().on("click", function (event) {
             event.stopPropagation();
 
@@ -28,20 +38,34 @@ var EventHandler = {
                 QueryManager.LoadData(request);
             }
         });
+    }
 
-        // Events for delete, edit and shopping list buttons
+    , EditButton: function (serverData) {
         $(".edit-button").off().on("click", function (event) {
             event.stopPropagation();
+            ModalManager.ClearModal();
+            ModalManager.DecideWhichLoadDataSimple();
             ModalManager.EditEntry($(this), serverData);
         });
+    }
+
+    , DeleteButton: function (serverData) {
         $(".delete-button").off().on("click", function (event) {
             event.stopPropagation();
             ModalManager.DeleteWarning($(this), serverData);
 
         });
 
-        EventHandler.BackButton(); //backbutton event, different because older
+    }
 
+    , BackButton: function () {
+        $(".back-button").off().on("click", function (event) {
+            event.stopPropagation();
+            QueryManager.GoBackToPreviousLevel();
+        });
+    }
+
+    , ShoppingListButton: function (serverData) {
         $(".shopping-list-button").off().on("click", function (event) {
             event.stopPropagation();
             var clickedItem = EventHandler.FindClickedItem($(this), serverData);
@@ -101,37 +125,8 @@ var EventHandler = {
         $("#create-item-button").off().on("click", function (event) {
             event.stopPropagation();
             ModalManager.ClearModal();
+            ModalManager.DecideWhichLoadDataSimple();
             $("#create-entry-modal").modal(); //enables modal manually
-            switch (QueryManager.currentLevel) {
-                case "floors":
-                    var request = { action: "list", listtype: "circuitbreakers", parentid: QueryManager.projectId };
-                    QueryManager.LoadDataSimple(request);
-                    break;
-                case "devices":
-                    ModalManager.devicesSelect.change(function () {
-                        var value = ModalManager.devicesSelect.val();
-                        ModalManager.formName.find("input").val(value);
-                    });
-                    break;
-                case "sensors":
-                    ModalManager.sensorsSelect.change(function () {
-                        var value = ModalManager.sensorsSelect.val();
-                        ModalManager.formName.find("input").val(value);
-                    });
-                    break;
-                case "circuitbreakers":
-                    var request = { action: "list", listtype: "floors", parentid: QueryManager.projectId };
-                    QueryManager.LoadDataSimple(request);
-                    break;
-                case "fuses":
-                    var request = { action: "list", listtype: "projectrooms", parentid: QueryManager.projectId };
-                    QueryManager.LoadDataSimple(request);
-                    request = { action: "list", listtype: "circuitbreakers", parentid: QueryManager.projectId };
-                    QueryManager.LoadDataSimple(request);
-                    break;
-                default:
-                    break;
-            }
             ModalManager.CreateEntry();
         });
     }
@@ -139,13 +134,6 @@ var EventHandler = {
     , ClearModal: function () { // clears Modal when it's closed
         $("#create-entry-modal").off().on("hidden.bs.modal", function (event) {
             ModalManager.ClearModal();
-        });
-    }
-
-    , BackButton: function () {
-        $(".back-button").off().on("click", function (event) {
-            event.stopPropagation();
-            QueryManager.GoBackToPreviousLevel();
         });
     }
 
