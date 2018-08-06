@@ -69,12 +69,13 @@ var ListHandler = {
     } 
 
     , ListIsEmpty: function () {
-        var row = "";
-        row = '<td colspan = 4 class="text-center"><h4>Nothing here, why not add something.</h4></td>';
+        row = '<td colspan = 3 class="text-center"><h4>Nothing here, why not add something.</h4></td>';
+        row += '<td><button class="btn btn-link back-button" title="zurück"><img src="Content/images/back-arrow.png"></td>';
         $("#data-table").append(row);
     }
 
     , CreateSelectOption: function (serverData) {
+        console.log("test");
         var level = serverData["listtype"];
         $('#' + level + '-select').siblings().remove();
         var list = serverData["items"];
