@@ -1,6 +1,12 @@
 ﻿body {
     overflow: auto;
     font-family: 'Montserrat', sans-serif;
+    background-color: darkslategray;
+    color: white;
+}
+
+.modal {
+    color: black;
 }
 
 #page-title {
@@ -9,6 +15,12 @@
 
 #nav-menu {
     height: 80px;
+}
+
+.edit-button, .delete-button, .shopping-list-button, .back-button {
+    margin-top: 4px;
+    margin-right: 4px;
+    background-color: white;
 }
 
 #shopping-list, #fuses-table-head, #circuitbreaker-button, #fuse-button {
@@ -21,21 +33,17 @@ thead tr th {
 }
 
 #home {
+    background-color: white;
     display: none;
 }
 
 #home:hover, .back-button:hover, .edit-button:hover, .delete-button:hover, .shopping-list-button:hover{
-    background-color: #85d8e5;
+    background-color: #5bb7c5;
 }
 
 .single-entry:hover .clickable {
-    background-color: #85d8e5;
+    background-color: #5bb7c5;
     cursor: pointer;
-}
-
-.edit-button, .delete-button, .shopping-list-button {
-    margin-top: 2px;
-    margin-right: 1px;
 }
 
 #loading-screen {
@@ -43,7 +51,7 @@ thead tr th {
     top: 100px;
     width: 100%;
     height: 100%;
-    background: white;
+    background: darkslategrey;
     position: absolute;
     z-index: 1;
     opacity: 1;
