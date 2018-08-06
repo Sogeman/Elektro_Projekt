@@ -20,6 +20,7 @@
                 ListHandler.FillTable(data);
                 $("#create-item-button").text("+ " + QueryManager.GetCurrentLevelName());
                 EventHandler.cbAndFuseButtons();
+                ModalManager.DecideWhichLoadDataSimple();
                 ModalManager.Initialize(QueryManager.currentLevel, data);
             }
             , error: QueryManager.ErrorMessage
@@ -104,7 +105,7 @@
         });
 
         $(document).ajaxStop(function () {
-            $("#loading-screen").delay(2000).hide(0);
+            $("#loading-screen").delay(100).hide(0);
         });
     }
 

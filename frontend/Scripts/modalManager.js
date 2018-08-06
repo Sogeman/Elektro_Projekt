@@ -9,9 +9,10 @@ var ModalManager = {
     formFloorsSelect: null,
     formRoomsSelect: null,
     formCircuitbreakersSelect: null,
-    data: null,
+    formCurrentChoice1: null,
+    formCurrentChoice2: null
 
-    Initialize: function (currentLevel, data) {
+    , Initialize: function (currentLevel, data) {
         ModalManager.formName = $("#form-name");
         ModalManager.formFloorCount = $("#form-floor-count");
         ModalManager.formUnit = $("#form-unit");
@@ -21,6 +22,8 @@ var ModalManager = {
         ModalManager.formFloorsSelect = $("#form-floors-select");
         ModalManager.formRoomsSelect = $("#form-rooms-select");
         ModalManager.formCircuitbreakersSelect = $("#form-circuitbreakers-select");
+        ModalManager.formCurrentChoice1 = $("#form-current-choice-1");
+        ModalManager.formCurrentChoice2 = $("#form-current-choice-2");
         ModalManager.ResetModal();
         ModalManager.AddEntryFields(currentLevel);
         EventHandler.ClearModal();
@@ -36,6 +39,8 @@ var ModalManager = {
         ModalManager.formFloorsSelect.hide();
         ModalManager.formRoomsSelect.hide();
         ModalManager.formCircuitbreakersSelect.hide();
+        ModalManager.formCurrentChoice1.hide();
+        ModalManager.formCurrentChoice2.hide();
     }
 
     , AddEntryFields: function (currentLevel) {
@@ -44,6 +49,7 @@ var ModalManager = {
                 ModalManager.formName.show();
                 ModalManager.formFloorCount.show();
                 ModalManager.formCircuitbreakersSelect.show()
+                ModalManager.formCurrentChoice1.show();
                 break;
             case "rooms": case "projects":
                 ModalManager.formName.show();
@@ -61,11 +67,14 @@ var ModalManager = {
             case "circuitbreakers":
                 ModalManager.formName.show();
                 ModalManager.formFloorsSelect.show();
+                ModalManager.formCurrentChoice1.show();
                 break;
             case "fuses":
                 ModalManager.formName.show();
                 ModalManager.formRoomsSelect.show();
                 ModalManager.formCircuitbreakersSelect.show();
+                ModalManager.formCurrentChoice1.show();
+                ModalManager.formCurrentChoice2.show();
                 break;
         }
     }
@@ -77,19 +86,58 @@ var ModalManager = {
         ModalManager.formFloorCount.find("input").val("");
         ModalManager.formUnit.find("input").val("");
         ModalManager.formValue.find("input").val("");
-        $("#floors-select")[0].selectedIndex = 0;
-        $("#rooms-select")[0].selectedIndex = 0;
-        $("#circuitbreakers-select")[0].selectedIndex = 0;
+        ModalManager.formCurrentChoice1.find("input").val("");
+        ModalManager.formCurrentChoice2.find("input").val("");
+        $("#floors-select").siblings().remove();
+        $("#rooms-select").siblings().remove();
+        $("#circuitbreakers-select").siblings().remove();
     }
 
     , CreateEntry: function () {
         $("#modal-title").text(QueryManager.GetCurrentLevelName() + " anlegen");
+        switch (QueryManager.currentLevel) {
+            case "floors":
+                ModalManager.formCircuitbreakersSelect.change(function () {
+                    var text = $("#form-circuitbreakers-select option:selected").text();
+                    ModalManager.formCurrentChoice1.find("input").val(text);
+                });
+                break;
+            case "devices":
+                ModalManager.devicesSelect.change(function () {
+                    var value = ModalManager.devicesSelect.val();
+                    ModalManager.formName.find("input").val(value);
+                });
+                break;
+            case "sensors":
+                ModalManager.sensorsSelect.change(function () {
+                    var value = ModalManager.sensorsSelect.val();
+                    ModalManager.formName.find("input").val(value);
+                });
+                break;
+            case "circuitbreakers":
+                ModalManager.formFloorsSelect.change(function () {
+                    var text = $("#form-floors-select option:selected").text();
+                    ModalManager.formCurrentChoice1.find("input").val(text);
+                });
+                break;
+            case "fuses":
+                ModalManager.formRoomsSelect.change(function () {
+                    var text = $("#form-rooms-select option:selected").text();
+                    ModalManager.formCurrentChoice1.find("input").val(text);
+                });
+                ModalManager.formCircuitbreakersSelect.change(function () {
+                    var text = $("#form-circuitbreakers-select option:selected").text();
+                    ModalManager.formCurrentChoice2.find("input").val(text);
+                });
+                break;
+            default:
+                break;
+        }
         EventHandler.SaveEvent("create");
         // just uses SaveEntry
     }
 
     , SaveEntry: function (action) {
-        // code for circuitbr. and fuses
         var listType = QueryManager.currentLevel;
         var itemId = $("#item-id").val();
         var parentId = $("#parent-id").val();
@@ -101,7 +149,7 @@ var ModalManager = {
         var roomId = ModalManager.formRoomsSelect.val();
         var circuitbreakerId = ModalManager.formCircuitbreakersSelect.val();
         if (action == "create") {
-            var request = { action: action, listtype: listType, parentid: parentId, specification: { name: name, floor_count_from_basement: count, unit: unit, value: value, floorid: floorId, roomid: roomId, circuitbreakerid: circuitbreakerId} };
+            var request = { action: action, listtype: listType, parentid: parentId, specification: { name: name, floor_count_from_basement: count, unit: unit, value: value, floorid: floorId, roomid: roomId, circuitbreakerid: circuitbreakerId } };
         } else {
             var request = { action: action, listtype: listType, parentid: parentId, itemid: itemId, specification: { name: name, floor_count_from_basement: count, unit: unit, value: value } };
         }
@@ -110,6 +158,7 @@ var ModalManager = {
 
     , EditEntry: function (clickedButton, data) {
         var clickedItem = EventHandler.FindClickedItem(clickedButton, data);
+        console.log(clickedItem);
         ModalManager.PrefillModal(clickedItem);
         $("#modal-title").text(QueryManager.GetCurrentLevelName() + " aktualisieren")
         $("#create-entry-modal").modal(); //enables modal manually
@@ -119,7 +168,7 @@ var ModalManager = {
     , PrefillModal: function (clickedItem) {
         var entry = clickedItem[0];
         $("#item-id").attr("value", entry.id);
-        console.log(entry.id);
+        console.log(entry);
         switch (QueryManager.currentLevel) {
             case "floors":
                 ModalManager.formName.find("input").val(entry.name);
@@ -146,11 +195,31 @@ var ModalManager = {
                 break;
             case "circuitbreakers":
                 ModalManager.formName.find("input").val(entry.name);
+                ModalManager.formFloorsSelect.val(entry.floors_id); //change
                 // code 
                 break;
             case "fuses":
                 ModalManager.formName.find("input").val(entry.name);
                 // code
+                break;
+        }
+    }
+
+    , DecideWhichLoadDataSimple: function () {
+        switch (QueryManager.currentLevel) {
+            case "floors":
+                var request = { action: "list", listtype: "circuitbreakers", parentid: QueryManager.projectId };
+                QueryManager.LoadDataSimple(request);
+                break;
+            case "circuitbreakers":
+                var request = { action: "list", listtype: "floors", parentid: QueryManager.projectId };
+                QueryManager.LoadDataSimple(request);
+                break;
+            case "fuses":
+                var request = { action: "list", listtype: "projectrooms", parentid: QueryManager.projectId };
+                QueryManager.LoadDataSimple(request);
+                request = { action: "list", listtype: "circuitbreakers", parentid: QueryManager.projectId };
+                QueryManager.LoadDataSimple(request);
                 break;
         }
     }
