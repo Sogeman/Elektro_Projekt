@@ -41,7 +41,8 @@ class ListModel {
     }
     
     public function listFloors($projectid) {
-        $sql = "SELECT id, name, floor_count_from_basement, circuitbreakers_id, created FROM floors WHERE projects_id = {$projectid}";
+        $sql = "SELECT floors.id, floors.name as name, floor_count_from_basement, circuitbreakers.name as circuitbreakername, circuitbreakers_id, floors.created FROM floors left join circuitbreakers on floors.circuitbreakers_id = "
+                . "circuitbreakers.id WHERE projects_id = {$projectid}";
         $this->list = $this->getListFromDatabase($sql);
         $this->currentListType = "floors";
     }
@@ -54,7 +55,7 @@ class ListModel {
     
     public function listRoomsOfProject($projectid) {
         $sql = "SELECT rooms.id, rooms.name, rooms.fuses_id, rooms.created FROM rooms join floors on rooms.floors_id = floors.id join projects "
-                . "on floors.projects_id = projects_id WHERE projects.id = {$projectid}";
+                . "on floors.projects_id = projects.id WHERE projects.id = {$projectid}";
         $this->list = $this->getListFromDatabase($sql);
         $this->currentListType = "rooms";
     }
@@ -72,7 +73,7 @@ class ListModel {
     }
     
     public function listCircuitbreakers($projectid) {
-        $sql = "SELECT c.id, c.floors_id, c.name, floors.name as Stockwerkname, c.created FROM circuitbreakers AS c JOIN floors on c.floors_id"
+        $sql = "SELECT c.id, c.floors_id, c.name, floors.name as floorname, c.created FROM circuitbreakers AS c JOIN floors on c.floors_id"
                 . " = floors.id JOIN projects on floors.projects_id = projects.id"
                 . " WHERE projects_id = {$projectid}";
         $this->list = $this->getListFromDatabase($sql);
@@ -80,7 +81,7 @@ class ListModel {
     }
     
     public function listFuses($projectid) {
-        $sql = "SELECT f.id, f.circuitbreakers_id, f.rooms_id, f.name, rooms.name AS roomname, c.name AS fi_name, f.created FROM fuses AS f "
+        $sql = "SELECT f.id, f.circuitbreakers_id, f.rooms_id, f.name, rooms.name AS roomname, c.name AS circuitbreakername, f.created FROM fuses AS f "
                 . "JOIN rooms on f.rooms_id = rooms.id JOIN circuitbreakers as c on f.circuitbreakers_id = c.id "
                 . "JOIN floors on c.floors_id = floors.id JOIN projects ON floors.projects_id = projects.id WHERE projects_id = {$projectid}";
         $this->list = $this->getListFromDatabase($sql);
