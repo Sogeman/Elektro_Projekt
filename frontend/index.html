@@ -6,6 +6,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" crossorigin="anonymous"></script>
     <script src="Scripts/mycontroller.js"></script>
+    <script src="Scripts/miscLogic.js"></script>
     <script src="Scripts/listHandler.js"></script>
     <script src="Scripts/queryManager.js"></script>
     <script src="Scripts/modalManager.js"></script>
@@ -49,8 +50,8 @@
     <!-- Homepage -->
     <div id="homepage">
         <div class="container">
-            <div class="row my-3">
-                <div class="col-7">
+            <div class="row my-3 main-buttons">
+                <div class="col-6">
                     <h2 id="page-title">Projekte</h2>
                 </div>
                 <div class="col-1 ml-auto">
@@ -203,14 +204,6 @@
                         <label for="value">Wert</label>
                         <input type="text" class="form-control" id="value" name="value" placeholder="Ein, Aus,..." />
                     </div>
-                    <div class="form-group" id="form-current-choice-1">
-                        <label for="unit">Derzeitige Auswahl</label>
-                        <input type="text" class="form-control" id="current-choice-1" name="choice1" />
-                    </div>
-                    <div class="form-group" id="form-current-choice-2">
-                        <label for="unit">Derzeitige Auswahl</label>
-                        <input type="text" class="form-control" id="current-choice-2" name="choice2" />
-                    </div>
                     <!-- nur bei FIs -->
                     <select class="custom-select" id="form-floors-select">
                         <option id="floors-select" selected>Stockwerk auswählen</option>
@@ -225,6 +218,14 @@
                         <option id="circuitbreakers-select" selected>FI auswählen</option>
                         <!-- Variabel FI einfügen -->
                     </select>
+                    <div class="form-group" id="form-current-choice-1">
+                        <label for="unit">Derzeitige Auswahl</label>
+                        <input type="text" class="form-control" id="current-choice-1" name="choice1" />
+                    </div>
+                    <div class="form-group" id="form-current-choice-2">
+                        <label for="unit">Derzeitige Auswahl</label>
+                        <input type="text" class="form-control" id="current-choice-2" name="choice2" />
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary close-button" data-dismiss="modal">Close</button>
@@ -268,8 +269,8 @@
                     <p>Letzte Chance. Gelöschte Einträge sind unwiderruflich vernichtet.</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="delete-confirm" class="btn btn-primary">JA!!!!</button>
                     <button type="button" class="btn btn-secondary close-button" data-dismiss="modal">NEIN, doch nicht</button>
+                    <button type="button" id="delete-confirm" class="btn btn-primary">JA!!!!</button>
                 </div>
             </div>
         </div>
