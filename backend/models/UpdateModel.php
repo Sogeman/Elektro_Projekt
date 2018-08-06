@@ -13,7 +13,7 @@ class UpdateModel {
     }
 
     public function updateProject($specification, $id) {
-        $name = $specification->name;
+        $name = filter_var($specification->name, FILTER_SANITIZE_SPECIAL_CHARS);
 
         try {
             $sql = "UPDATE projects SET name = :name WHERE id = :id";
@@ -30,9 +30,9 @@ class UpdateModel {
     }
 
     public function updateFloor($specification, $id) {
-        $name = $specification->name;
-        $count = $specification->floor_count_from_basement;
-        $cbid = $specification->circuitbreakerid;
+        $name = filter_var($specification->name, FILTER_SANITIZE_SPECIAL_CHARS);
+        $count = filter_var($specification->floor_count_from_basement, FILTER_SANITIZE_SPECIAL_CHARS);
+        $cbid = filter_var($specification->circuitbreakerid, FILTER_SANITIZE_SPECIAL_CHARS);
 
         try {
             $sql = "UPDATE floors SET floor_count_from_basement = :count, name = :name, circuitbreakers_id = :cbid WHERE id = :id";
@@ -51,7 +51,7 @@ class UpdateModel {
     }
 
     public function updateRoom($specification, $id) {
-        $name = $specification->name;
+        $name = filter_var($specification->name, FILTER_SANITIZE_SPECIAL_CHARS);
 
         try {
             $sql = "UPDATE rooms SET name = :name WHERE id = :id";
@@ -68,7 +68,7 @@ class UpdateModel {
     }
 
     public function updateDevice($specification, $id) {
-        $name = $specification->name;
+        $name = filter_var($specification->name, FILTER_SANITIZE_SPECIAL_CHARS);
 
         try {
             $sql = "UPDATE devices SET name = :name WHERE id = :id";
@@ -85,9 +85,9 @@ class UpdateModel {
     }
 
     public function updateSensor($specification, $id) {
-        $name = $specification->name;
-        $unit = $specification->unit;
-        $value = $specification->value;
+        $name = filter_var($specification->name, FILTER_SANITIZE_SPECIAL_CHARS);
+        $unit = filter_var($specification->unit, FILTER_SANITIZE_SPECIAL_CHARS);
+        $value = filter_var($specification->value, FILTER_SANITIZE_SPECIAL_CHARS);
 
         try {
             $sql = "UPDATE sensors SET name = :name, unit = :unit, value = :value WHERE id = :id";
@@ -106,8 +106,8 @@ class UpdateModel {
     }
     
     public function updateCircuitBreaker($specification, $id) {
-        $name = $specification->name;
-        $floorId = $specification->floorid;
+        $name = filter_var($specification->name, FILTER_SANITIZE_SPECIAL_CHARS);
+        $floorId = filter_var($specification->floorid, FILTER_SANITIZE_SPECIAL_CHARS);
         
         try {
             $sql = "UPDATE circuitbreakers SET floors_id = :floorId, name = :name WHERE id = :id";
@@ -125,9 +125,9 @@ class UpdateModel {
     }
     
     public function updateFuse($specification, $id) {
-        $name = $specification->name;
-        $roomId = $specification->roomid;
-        $cbId = $specification->circuitbreakerid;
+        $name = filter_var($specification->name, FILTER_SANITIZE_SPECIAL_CHARS);
+        $roomId = filter_var($specification->roomid, FILTER_SANITIZE_SPECIAL_CHARS);
+        $cbId = filter_var($specification->circuitbreakerid, FILTER_SANITIZE_SPECIAL_CHARS);
         
         try {
             $sql = "UPDATE fuses SET circuitbreakers_id = :cbId, rooms_id = :roomId, name = :name WHERE id = :id";

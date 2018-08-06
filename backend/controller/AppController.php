@@ -8,11 +8,11 @@ class AppController {
 
     public function route() {
 
-        $jsonInput = filter_input(INPUT_POST, 'data', FILTER_SANITIZE_STRING);
+        $jsonInput = filter_input(INPUT_POST, 'data');
 
         $inputData = json_decode($jsonInput);
-
-        switch ($inputData->action) {
+        
+        switch (filter_var($inputData->action, FILTER_SANITIZE_SPECIAL_CHARS)) {
             case "list":
                 $controller = new ListController();
                 break;

@@ -26,8 +26,7 @@
     }
     
     private function createRequestedList($parentId) {
-        
-        switch ($this->listType) {
+        switch (filter_var($this->listType, FILTER_SANITIZE_SPECIAL_CHARS)) {
             case "floors":
                 $this->listModel->listFloors($parentId);
                 break;

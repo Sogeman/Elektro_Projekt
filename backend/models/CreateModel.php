@@ -13,7 +13,7 @@ class CreateModel {
     }
 
     public function createProject($specification) {
-        $name = $specification->name;
+        $name = filter_var($specification->name, FILTER_SANITIZE_SPECIAL_CHARS);
 
         try {
             $sql = "INSERT into projects (name) VALUES (:name)";
@@ -28,9 +28,9 @@ class CreateModel {
     }
 
     public function createFloor($specification, $projectsid) {
-        $name = $specification->name;
-        $count = $specification->floor_count_from_basement;
-        $cbid = $specification->circuitbreakerid;
+        $name = filter_var($specification->name, FILTER_SANITIZE_SPECIAL_CHARS);
+        $count = filter_var($specification->floor_count_from_basement, FILTER_SANITIZE_SPECIAL_CHARS);
+        $cbid = filter_var($specification->circuitbreakerid, FILTER_SANITIZE_SPECIAL_CHARS);
 
         try {
             $sql = "INSERT into floors (projects_id, floor_count_from_basement, name, circuitbreakers_id) VALUES (:id, :count, :name, :cbid)";
@@ -48,7 +48,7 @@ class CreateModel {
     }
     
     public function createRoom($specification, $floorsid) {
-        $name = $specification->name;
+        $name = filter_var($specification->name, FILTER_SANITIZE_SPECIAL_CHARS);
 
         try {
             $sql = "INSERT into rooms (floors_id, name) VALUES (:id, :name)";
@@ -64,7 +64,7 @@ class CreateModel {
     }
     
     public function createDevice($specification, $roomsid) {
-        $name = $specification->name;
+        $name = filter_var($specification->name, FILTER_SANITIZE_SPECIAL_CHARS);
 
         try {
             $sql = "INSERT into devices (rooms_id, name) VALUES (:id, :name)";
@@ -80,9 +80,9 @@ class CreateModel {
     }
     
     public function createSensor($specification, $devicesid) {
-        $name = $specification->name;
-        $unit = $specification->unit;
-        $value = $specification->value;
+        $name = filter_var($specification->name, FILTER_SANITIZE_SPECIAL_CHARS);
+        $unit = filter_var($specification->unit, FILTER_SANITIZE_SPECIAL_CHARS);
+        $value = filter_var($specification->value, FILTER_SANITIZE_SPECIAL_CHARS);
 
         try {
             $sql = "INSERT into sensors (devices_id, name, unit, value) VALUES (:id, :name, :unit, :value)";
@@ -100,8 +100,8 @@ class CreateModel {
     }
     
     public function createCircuitbreaker($specification) {
-        $name = $specification->name;
-        $floorId = $specification->floorid;
+        $name = filter_var($specification->name, FILTER_SANITIZE_SPECIAL_CHARS);
+        $floorId = filter_var($specification->floorid, FILTER_SANITIZE_SPECIAL_CHARS);
         
         try {
             $sql = "INSERT into circuitbreakers (floors_id, name) VALUES (:floorId, :name)";
@@ -117,9 +117,9 @@ class CreateModel {
     }
     
     public function createFuse($specification) {
-        $name = $specification->name;
-        $roomId = $specification->roomid;
-        $cbId = $specification->circuitbreakerid;
+        $name = filter_var($specification->name, FILTER_SANITIZE_SPECIAL_CHARS);
+        $roomId = filter_var($specification->roomid, FILTER_SANITIZE_SPECIAL_CHARS);
+        $cbId = filter_var($specification->circuitbreakerid, FILTER_SANITIZE_SPECIAL_CHARS);
         
         try {
             $sql = "INSERT into fuses (circuitbreakers_id, rooms_id, name) VALUES (:cbId, :roomsId, :name)";

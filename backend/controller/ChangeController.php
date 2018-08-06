@@ -16,7 +16,7 @@ class ChangeController implements ControllerInterface {
 
     public function route($inputData) {
         $this->inputData = $inputData;
-        switch ($this->inputData->action) {
+        switch (filter_var($this->inputData->action, FILTER_SANITIZE_SPECIAL_CHARS)) {
             case "create":
                 $this->createItem();
                 break;
@@ -37,7 +37,7 @@ class ChangeController implements ControllerInterface {
     private function createItem() {
         $createModel = new CreateModel();
         
-        switch (strtolower($this->inputData->listtype)) {
+        switch (strtolower(filter_var($this->inputData->listtype, FILTER_SANITIZE_SPECIAL_CHARS))) {
             case "projects":
                 $newId = $createModel->createProject($this->inputData->specification);
                 break;
@@ -75,7 +75,7 @@ class ChangeController implements ControllerInterface {
     private function updateItem() {
         $updateModel = new UpdateModel();
         
-        switch (strtolower($this->inputData->listtype)) {
+        switch (strtolower(filter_var($this->inputData->listtype, FILTER_SANITIZE_SPECIAL_CHARS))) {
             case "projects":
                 $rows = $updateModel->updateProject($this->inputData->specification, $this->inputData->itemid);
                 break;
@@ -113,7 +113,7 @@ class ChangeController implements ControllerInterface {
     private function deleteItem() {
        $deleteModel = new DeleteModel();
         
-        switch (strtolower($this->inputData->listtype)) {
+        switch (strtolower(filter_var($this->inputData->listtype, FILTER_SANITIZE_SPECIAL_CHARS))) {
             case "projects":
                 $rows = $deleteModel->deleteProject($this->inputData->itemid);
                 break;
