@@ -106,11 +106,43 @@ class UpdateModel {
     }
     
     public function updateCircuitBreaker($specification, $id) {
-                ##### code #######
+        $name = $specification->name;
+        $floorId = $specification->floorid;
+        
+        try {
+            $sql = "UPDATE circuitbreakers SET floors_id = :floorId, name = :name WHERE id = :id";
+            $stmt = $this->database->prepare($sql);
+            $stmt->bindParam(":name", $name);
+            $stmt->bindParam(":floorId", $floorId);
+            $stmt->bindParam(":id", $id);
+            $stmt->execute();
+            $rowsAffected = $stmt->rowCount();
+            return $rowsAffected;
+        } catch (PDOException $e) {
+            echo $e->getTraceAsString();
+            return false;
+        }
     }
     
     public function updateFuse($specification, $id) {
-        ##### code #######
+        $name = $specification->name;
+        $roomId = $specification->roomid;
+        $cbId = $specification->circuitbreakerid;
+        
+        try {
+            $sql = "UPDATE fuses SET circuitbreakers_id = :cbId, rooms_id = :roomId, name = :name WHERE id = :id";
+            $stmt = $this->database->prepare($sql);
+            $stmt->bindParam(":name", $name);
+            $stmt->bindParam(":cbId", $cbId);
+            $stmt->bindParam(":roomId", $roomId);
+            $stmt->bindParam(":id", $id);
+            $stmt->execute();
+            $rowsAffected = $stmt->rowCount();
+            return $rowsAffected;
+        } catch (PDOException $e) {
+            echo $e->getTraceAsString();
+            return false;
+        }
     }
 
 }
