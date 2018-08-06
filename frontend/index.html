@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" crossorigin="anonymous"></script>
     <script src="Scripts/mycontroller.js"></script>
@@ -13,7 +13,7 @@
     <script src="Scripts/eventHandler.js"></script>
     <script src="Scripts/switchView.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" crossorigin="anonymous">
     <link href="Content/mystyles.css" rel="stylesheet" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -164,6 +164,7 @@
                     <h3 class="dialog-item-name"></h3>
                     <input type="hidden" id="parent-id" value="0" />
                     <input type="hidden" id="item-id" value="0" />
+
                     <!-- Select derzeit hardcoded -->
                     <div class="form-group" id="form-name">
                         <label for="name">Bezeichnung</label>
@@ -202,18 +203,26 @@
                         <label for="value">Wert</label>
                         <input type="text" class="form-control" id="value" name="value" placeholder="Ein, Aus,..." />
                     </div>
+                    <div class="form-group" id="form-current-choice-1">
+                        <label for="unit">Derzeitige Auswahl</label>
+                        <input type="text" class="form-control" id="current-choice-1" name="choice1" />
+                    </div>
+                    <div class="form-group" id="form-current-choice-2">
+                        <label for="unit">Derzeitige Auswahl</label>
+                        <input type="text" class="form-control" id="current-choice-2" name="choice2" />
+                    </div>
                     <!-- nur bei FIs -->
                     <select class="custom-select" id="form-floors-select">
-                        <option id="floors-select" selected>Stockwerk für FI auswählen</option>
+                        <option id="floors-select" selected>Stockwerk auswählen</option>
                         <!-- Variabel Stockwerke einfügen -->
                     </select>
                     <!-- nur bei Sicherungen -->
                     <select class="custom-select" id="form-rooms-select">
-                        <option id="rooms-select" selected>Zimmer für Sicherung auswählen</option>
+                        <option id="rooms-select" selected>Zimmer auswählen</option>
                         <!-- Variabel Zimmer einfügen -->
                     </select>
                     <select class="custom-select" id="form-circuitbreakers-select">
-                        <option id="circuitbreakers-select" selected>FI für Sicherung auswählen</option>
+                        <option id="circuitbreakers-select" selected>FI auswählen</option>
                         <!-- Variabel FI einfügen -->
                     </select>
                 </div>
