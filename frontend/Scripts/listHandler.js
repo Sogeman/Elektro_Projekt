@@ -36,6 +36,7 @@ var ListHandler = {
     }
     
     , FillFusesTable: function (serverData) {
+        console.log(serverData);
         $("#data-table").empty();
         var list = serverData["items"];
         var listtype = serverData["listtype"];
@@ -45,11 +46,11 @@ var ListHandler = {
             list.forEach(element => {
                 var id = element.id;
                 var name = element.name;
-                var room = element.fi_name;
+                var circuitbreaker = element.circuitbreakername;
                 var row = '<tr class="single-entry" listtype="' + listtype + '" itemid="' + id + '">';
                 row += '<th scope="row" class="clickable">' + id + '</th>'
                 row += '<td class="clickable">' + name + '</td>';
-                row += '<td class="clickable">' + room + '</td>';
+                row += '<td class="clickable">' + circuitbreaker + '</td>';
                 row += ListHandler.AddOptionButtons(listtype);
                 $("#data-table").append(row);
             });

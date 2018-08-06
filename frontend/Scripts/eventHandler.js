@@ -23,8 +23,8 @@ var EventHandler = {
             event.stopPropagation();
 
             var request;
-            var nextLevel = QueryManager.GetNextLevel();
-            var clickedItem = EventHandler.FindClickedItem($(this), serverData);
+            var nextLevel = MiscLogic.GetNextLevel();
+            var clickedItem = MiscLogic.FindClickedItem($(this), serverData);
             var parentId = clickedItem[0].id;
             $("#parent-id").attr("value", parentId);
             var name = clickedItem[0].name;
@@ -44,7 +44,7 @@ var EventHandler = {
         $(".edit-button").off().on("click", function (event) {
             event.stopPropagation();
             ModalManager.ClearModal();
-            ModalManager.DecideWhichLoadDataSimple();
+            MiscLogic.DecideWhichLoadDataSimple();
             ModalManager.EditEntry($(this), serverData);
         });
     }
@@ -68,7 +68,7 @@ var EventHandler = {
     , ShoppingListButton: function (serverData) {
         $(".shopping-list-button").off().on("click", function (event) {
             event.stopPropagation();
-            var clickedItem = EventHandler.FindClickedItem($(this), serverData);
+            var clickedItem = MiscLogic.FindClickedItem($(this), serverData);
             var id = clickedItem[0].id;
             var name = clickedItem[0].name;
             var item = { id: id, name: name };
@@ -125,7 +125,7 @@ var EventHandler = {
         $("#create-item-button").off().on("click", function (event) {
             event.stopPropagation();
             ModalManager.ClearModal();
-            ModalManager.DecideWhichLoadDataSimple();
+            MiscLogic.DecideWhichLoadDataSimple();
             $("#create-entry-modal").modal(); //enables modal manually
             ModalManager.CreateEntry();
         });
@@ -137,18 +137,4 @@ var EventHandler = {
         });
     }
 
-    , FindClickedItem: function (clickedButton, data) {
-        var parentRow = clickedButton.closest("tr")[0];
-        var clickedItemId = $(parentRow).attr("itemid");
-        var itemsObject = data["items"];
-        var allItemsArray = itemsObject.map(function (element) {
-            if (element.id == clickedItemId) {
-                return element
-            } else {
-                return null
-            }
-        }, []);
-        var clickedItem = allItemsArray.filter((obj) => obj);
-        return clickedItem;
-    }
 }

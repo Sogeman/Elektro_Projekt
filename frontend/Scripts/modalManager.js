@@ -93,8 +93,8 @@ var ModalManager = {
         $("#circuitbreakers-select").siblings().remove();
     }
 
-    , CreateEntry: function () {
-        $("#modal-title").text(QueryManager.GetCurrentLevelName() + " anlegen");
+    , CreateEntry: function () { // Befehle im Switch in funktion rausbrechen
+        $("#modal-title").text(MiscLogic.GetCurrentLevelName() + " anlegen");
         switch (QueryManager.currentLevel) {
             case "floors":
                 ModalManager.formCircuitbreakersSelect.change(function () {
@@ -133,8 +133,7 @@ var ModalManager = {
             default:
                 break;
         }
-        EventHandler.SaveEvent("create");
-        // just uses SaveEntry
+        EventHandler.SaveEvent("create"); // just uses SaveEntry
     }
 
     , SaveEntry: function (action) {
@@ -151,28 +150,32 @@ var ModalManager = {
         if (action == "create") {
             var request = { action: action, listtype: listType, parentid: parentId, specification: { name: name, floor_count_from_basement: count, unit: unit, value: value, floorid: floorId, roomid: roomId, circuitbreakerid: circuitbreakerId } };
         } else {
-            var request = { action: action, listtype: listType, parentid: parentId, itemid: itemId, specification: { name: name, floor_count_from_basement: count, unit: unit, value: value } };
+            var request = { action: action, listtype: listType, parentid: parentId, itemid: itemId, specification: { name: name, floor_count_from_basement: count, unit: unit, value: value,  floorid: floorId, roomid: roomId, circuitbreakerid: circuitbreakerId } };
         }
         QueryManager.PostData(request);
     }
 
     , EditEntry: function (clickedButton, data) {
-        var clickedItem = EventHandler.FindClickedItem(clickedButton, data);
-        console.log(clickedItem);
+        var clickedItem = MiscLogic.FindClickedItem(clickedButton, data);
         ModalManager.PrefillModal(clickedItem);
-        $("#modal-title").text(QueryManager.GetCurrentLevelName() + " aktualisieren")
+        $("#modal-title").text(MiscLogic.GetCurrentLevelName() + " aktualisieren")
         $("#create-entry-modal").modal(); //enables modal manually
         EventHandler.SaveEvent("update");
     }
 
-    , PrefillModal: function (clickedItem) {
+    , PrefillModal: function (clickedItem) { 
         var entry = clickedItem[0];
         $("#item-id").attr("value", entry.id);
-        console.log(entry);
+        // console.log(entry);
         switch (QueryManager.currentLevel) {
             case "floors":
                 ModalManager.formName.find("input").val(entry.name);
                 ModalManager.formFloorCount.find("input").val(entry.floor_count_from_basement);
+                ModalManager.formCurrentChoice1.find("input").val(entry.circuitbreakername);
+                ModalManager.formCircuitbreakersSelect.change(function () {
+                    var value = $("#form-circuitbreakers-select option:selected").text();
+                    ModalManager.formCurrentChoice1.find("input").val(value);
+                });
                 break;
             case "rooms": case "projects":
                 ModalManager.formName.find("input").val(entry.name);
@@ -195,37 +198,30 @@ var ModalManager = {
                 break;
             case "circuitbreakers":
                 ModalManager.formName.find("input").val(entry.name);
-                ModalManager.formFloorsSelect.val(entry.floors_id); //change
-                // code 
+                ModalManager.formCurrentChoice1.find("input").val(entry.floorname);
+                ModalManager.formFloorsSelect.change(function () {
+                    var value = $("#form-floors-select option:selected").text();
+                    ModalManager.formCurrentChoice1.find("input").val(value);
+                });
                 break;
             case "fuses":
                 ModalManager.formName.find("input").val(entry.name);
-                // code
-                break;
-        }
-    }
-
-    , DecideWhichLoadDataSimple: function () {
-        switch (QueryManager.currentLevel) {
-            case "floors":
-                var request = { action: "list", listtype: "circuitbreakers", parentid: QueryManager.projectId };
-                QueryManager.LoadDataSimple(request);
-                break;
-            case "circuitbreakers":
-                var request = { action: "list", listtype: "floors", parentid: QueryManager.projectId };
-                QueryManager.LoadDataSimple(request);
-                break;
-            case "fuses":
-                var request = { action: "list", listtype: "projectrooms", parentid: QueryManager.projectId };
-                QueryManager.LoadDataSimple(request);
-                request = { action: "list", listtype: "circuitbreakers", parentid: QueryManager.projectId };
-                QueryManager.LoadDataSimple(request);
+                ModalManager.formCurrentChoice1.find("input").val(entry.roomname);
+                ModalManager.formRoomsSelect.change(function () {
+                    var value = $("#form-rooms-select option:selected").text();
+                    ModalManager.formCurrentChoice1.find("input").val(value);
+                });
+                ModalManager.formCurrentChoice2.find("input").val(entry.circuitbreakername);
+                ModalManager.formCircuitbreakersSelect.change(function () {
+                    var value = $("#form-circuitbreakers-select option:selected").text();
+                    ModalManager.formCurrentChoice2.find("input").val(value);
+                });
                 break;
         }
     }
 
     , DeleteWarning: function (clickedButton, data) {
-        var clickedItem = EventHandler.FindClickedItem(clickedButton, data);
+        var clickedItem = MiscLogic.FindClickedItem(clickedButton, data);
         var itemId = clickedItem[0].id;
         var listType = data.listtype;
         var request = { action: "delete", listtype: listType, itemid: itemId };

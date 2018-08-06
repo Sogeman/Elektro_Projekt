@@ -14,13 +14,13 @@
             , dataType: "json"
             , cache: false
             , success: function (data) {
-                QueryManager.showHideButtons(request.listtype);
+                MiscLogic.showHideButtons(request.listtype);
                 QueryManager.currentLevel = request.listtype;
                 viewSwitcher("homepage");
                 ListHandler.FillTable(data);
-                $("#create-item-button").text("+ " + QueryManager.GetCurrentLevelName());
+                $("#create-item-button").text("+ " + MiscLogic.GetCurrentLevelName());
                 EventHandler.cbAndFuseButtons();
-                ModalManager.DecideWhichLoadDataSimple();
+                MiscLogic.DecideWhichLoadDataSimple();
                 ModalManager.Initialize(QueryManager.currentLevel, data);
             }
             , error: QueryManager.ErrorMessage
@@ -71,27 +71,6 @@
         });
     }
 
-    , showHideButtons: function(listtype) {
-        if (listtype == "circuitbreakers") {
-            $("#fuse-button").show();
-            $("#circuitbreaker-button").hide();
-            $("#home").show();
-        } else if (listtype =="fuses") {
-            $("#circuitbreaker-button").show();
-            $("#fuse-button").hide();
-            $("#home").show();
-        } else if (listtype == "projects") {
-            $("#page-title").text("Projekte");
-            $("#circuitbreaker-button").hide();
-            $("#fuse-button").hide();
-            $("#home").hide();
-        } else {
-            $("#circuitbreaker-button").show();
-            $("#fuse-button").show();
-            $("#home").show();
-        }
-    }
-
     , ErrorMessage: function (errorMsg) {
         alert("something went wrong, redirecting to homepage");
         QueryManager.LoadData(Controller.homepage);
@@ -107,66 +86,6 @@
         $(document).ajaxStop(function () {
             $("#loading-screen").delay(100).hide(0);
         });
-    }
-
-    , GetCurrentLevelName: function () {
-        var level;
-        switch (QueryManager.currentLevel.toUpperCase()) {
-            case "PROJECTS":
-                level = "Projekt";
-                break;
-            case "FLOORS":
-                level = "Stockwerk";
-                break;
-            case "ROOMS":
-                level = "Zimmer";
-                break;
-            case "DEVICES":
-                level = "Gerät";
-                break;
-            case "SENSORS":
-                level = "Sensor";
-                break;
-            case "CIRCUITBREAKERS":
-                level = "FI";
-                break;
-            case "FUSES":
-                level = "Sicherung";
-                break;
-            default:
-                break;
-        }
-        return level;
-    }
-
-    , GetNextLevel: function () {
-        var level;
-        switch (QueryManager.currentLevel.toUpperCase()) {
-            case "PROJECTS":
-                level = "floors";
-                break;
-            case "FLOORS":
-                level = "rooms";
-                break;
-            case "ROOMS":
-                level = "devices";
-                break;
-            case "DEVICES":
-                level = "sensors";
-                break;
-            case "SENSORS":
-                level = "circuitbreakers"
-                break;
-            case "CIRCUITBREAKERS":
-                level = "fuses";
-                break;
-            case "FUSES": 
-                level = "fuses";
-                break;
-            default:
-                break;
-        }
-        return level;
     }
 
     , GoBackToPreviousLevel: function () {
