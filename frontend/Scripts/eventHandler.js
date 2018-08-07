@@ -10,11 +10,12 @@ var EventHandler = {
     , TableEvents: function (serverData) {
         // Event for going to the next level
         EventHandler.ClickableRow(serverData);
-        // Events for delete, edit, shopping list and back buttons
+        // Events for delete, edit, shopping list, back and schematic buttons
         EventHandler.EditButton(serverData);
         EventHandler.DeleteButton(serverData);
         EventHandler.BackButton();
         EventHandler.ShoppingListButton(serverData);
+        EventHandler.SchematicButton(serverData);
 
     }
 
@@ -68,12 +69,17 @@ var EventHandler = {
     , ShoppingListButton: function (serverData) {
         $(".shopping-list-button").off().on("click", function (event) {
             event.stopPropagation();
-            var clickedItem = MiscLogic.FindClickedItem($(this), serverData);
-            var id = clickedItem[0].id;
-            var name = clickedItem[0].name;
-            var item = { id: id, name: name };
+            var item = ShoppingListAndSchematicRequest($(this), serverData);
             ShoppingListHandler.RequestShoppingList(item);
 
+        });
+    }
+
+    , SchematicButton: function(serverData) {
+        $(".schematic-button").off().on("click", function(event) {
+            event.stopPropagation();
+            var item = ShoppingListAndSchematicRequest($(this), serverData);
+            SchematicHandler.RequestSchematic(item);
         });
     }
 

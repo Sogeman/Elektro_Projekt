@@ -38,7 +38,7 @@
                 ListHandler.CreateSelectOption(data);
             }
             , error: QueryManager.ErrorMessage
-        }); 
+        });
     }
 
     , PostData: function (request) {
@@ -56,7 +56,7 @@
         });
     }
 
-    , LoadShoppingList: function (request) {
+    , LoadProjectData: function (request) {
         $.ajax({
             url: QueryManager.backendAddress
             , method: "post"
@@ -64,7 +64,11 @@
             , dataType: "json"
             , cache: false
             , success: function (data) {
-                ShoppingListHandler.DrawShoppingList(request, data);
+                if(request.action == "get-shoppinglist") {
+                    ShoppingListHandler.DrawShoppingList(request, data);
+                } else {
+                    SchematicHandler.DrawSchematic(request, data);
+                }
                 $("#home").show();
             }
             , error: QueryManager.ErrorMessage
@@ -84,7 +88,7 @@
         });
 
         $(document).ajaxStop(function () {
-            $("#loading-screen").delay(100).hide(0);
+            $("#loading-screen").delay(130).hide(0);
         });
     }
 
