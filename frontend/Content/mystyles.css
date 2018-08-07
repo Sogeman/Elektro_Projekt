@@ -17,10 +17,10 @@
     height: 80px;
 }
 
-.edit-button, .delete-button, .shopping-list-button, .back-button {
+.edit-button, .delete-button, .shopping-list-button, .back-button, .schematic-button {
     margin-top: 4px;
     margin-right: 4px;
-    background-color: white;
+    background-color: #17a2b8;
 }
 
 #shopping-list, #fuses-table-head, #circuitbreaker-button, #fuse-button {
@@ -33,12 +33,12 @@ thead tr th {
 }
 
 #home {
-    background-color: white;
+    background-color: #17a2b8;
     display: none;
 }
 
-#home:hover, .back-button:hover, .edit-button:hover, .delete-button:hover, .shopping-list-button:hover{
-    background-color: #5bb7c5;
+#home:hover, .back-button:hover, .edit-button:hover, .delete-button:hover, .shopping-list-button:hover, .schematic-button:hover{
+    background-color: #117a8b;
 }
 
 .single-entry:hover .clickable {
@@ -48,10 +48,10 @@ thead tr th {
 
 #loading-screen {
     left: 0;
-    top: 100px;
+    top: 130px;
     width: 100%;
     height: 100%;
-    background: darkslategrey;
+    background: #2f4f4f;
     position: absolute;
     z-index: 1;
     opacity: 1;
@@ -59,11 +59,11 @@ thead tr th {
 }
 
 #loading-image {
-    height: 100px;
-    width: 100px;
+    height: 70px;
+    width: 70px;
     display: block;
     margin: 0 auto;
-    animation: spin 3s linear infinite;
+    animation: spin 2s linear infinite;
 
 }
 
@@ -78,7 +78,7 @@ thead tr th {
         color: black;
     }
 
-    #home, #main-title, thead>tr>th:first-child, tbody>tr>th:first-child {
+    #nav-menu, #main-title, thead>tr>th:first-child, tbody>tr>th:first-child, #print {
         display: none;
     }
 }
