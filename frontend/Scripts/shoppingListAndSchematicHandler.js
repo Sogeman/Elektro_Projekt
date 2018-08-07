@@ -3,7 +3,7 @@ var ShoppingListHandler = {
     RequestShoppingList: function (item) {
         console.log(item.id);
         var request = { action: "get-shoppinglist", projectid: item.id, projectname: item.name };
-        QueryManager.LoadShoppingList(request);
+        QueryManager.LoadProjectData(request);
     }
 
     , DrawShoppingList: function (request, serverData) {
@@ -34,4 +34,28 @@ var ShoppingListHandler = {
         }
     }
 
+}
+
+var SchematicHandler = {
+
+    RequestSchematic: function (item) {
+        var request = { action: "get-schematic", projectid: item.id, projectname: item.name };
+        QueryManager.LoadProjectData(request);
+    }
+
+    , DrawSchematic: function (request, serverData) {
+        // code for schematic, serverdata has all rooms-fuses of Project
+        // also finish html for schematic
+        console.log(serverData);
+        console.log(request);
+    }
+
+}
+
+function ShoppingListAndSchematicRequest(button, serverData) {
+    var clickedItem = MiscLogic.FindClickedItem(button, serverData);
+    var id = clickedItem[0].id;
+    var name = clickedItem[0].name;
+    var item = { id: id, name: name };
+    return item;
 }
