@@ -10,7 +10,7 @@
     <script src="Scripts/listHandler.js"></script>
     <script src="Scripts/queryManager.js"></script>
     <script src="Scripts/modalManager.js"></script>
-    <script src="Scripts/shoppingListHandler.js"></script>
+    <script src="Scripts/shoppingListAndSchematicHandler.js"></script>
     <script src="Scripts/eventHandler.js"></script>
     <script src="Scripts/switchView.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
@@ -26,12 +26,12 @@
 
         <!-- Header -->
         <div class="row my-2">
-            <div class="col-2" id="nav-menu">
-                <button id="home" class="btn btn-link img-responsive">
+            <div class="col-2 mt-1" id="nav-menu">
+                <button id="home" class="btn btn-link">
                     <img class="img-responsive" src="Content/images/home-button.png">
                 </button>
             </div>
-            <div class="col-10 mt-3 text-center" id="main-title">
+            <div class="col-10 mt-2 text-center" id="main-title">
                 <h1>
                     <strong>Elektroinstallationsmanager</strong>
                 </h1>
@@ -44,7 +44,7 @@
     <!-- Loading Screen -->
 
     <div id="loading-screen">
-        <img id="loading-image" src="Content/images/loading.svg" alt="loading spinner">
+        <img id="loading-image" src="Content/images/loading-spinner.png" alt="loading spinner">
     </div>
 
     <!-- Homepage -->
@@ -101,7 +101,7 @@
                     <h2 id="shopping-list-title"></h2>
                 </div>
                 <div class="col-2">
-                    <button class="btn btn-info" onclick="window.print();">Drucken</button>
+                    <button class="btn btn-info" id="print" onclick="window.print();">Drucken</button>
                 </div>
             </div>
 
@@ -147,6 +147,15 @@
                 </table>
             </div>
 
+        </div>
+    </div>
+
+    <!-- Schematic -->
+    <div id="schematic">
+        <div class="container">
+            <div class="row my-3">
+                    <!--  -->
+            </div>
         </div>
     </div>
 
