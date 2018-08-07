@@ -22,7 +22,10 @@ class AppController {
                 $controller = new ChangeController();
                 break;
             case "get-shoppinglist":
-                $controller = new ShoppingListController();
+                $controller = new ProjectListController();
+                break;
+            case "get-schematic":
+                $controller = new ProjectListController();
                 break;
             default:
                 $controller = new ListController();
