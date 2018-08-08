@@ -57,13 +57,13 @@ var ListHandler = {
     }
 
     , AddOptionButtons: function(listtype) {
-        row = '<td class="py-0 pl-0 text-center"><button class="btn btn-link edit-button" title="Eintrag bearbeiten"><img src="Content/images/edit-icon.png"></button>';
-        row += '<button class="btn btn-link delete-button" title="Eintrag löschen"><img src="Content/images/delete-icon.png">';
+        row = '<td class="py-0 pl-0 text-center"><button class="btn btn-link edit-button" title="Eintrag bearbeiten"><img src="frontend/Content/images/edit-icon.png"></button>';
+        row += '<button class="btn btn-link delete-button" title="Eintrag löschen"><img src="frontend/Content/images/delete-icon.png">';
         if (listtype == "projects") {
-            row += '<button class="btn btn-link shopping-list-button" title="Einkaufsliste anzeigen"><img src="Content/images/shopping-cart.png">';
-            row += '<button class="btn btn-link schematic-button" title="Schaltplan anzeigen"><img src="Content/images/schematic-button.png">';            
+            row += '<button class="btn btn-link shopping-list-button" title="Einkaufsliste anzeigen"><img src="frontend/Content/images/shopping-cart.png">';
+            row += '<button class="btn btn-link schematic-button" title="Schaltplan anzeigen"><img src="frontend/Content/images/schematic-button.png">';            
         } else {
-            row += '<button class="btn btn-link back-button" title="zurück"><img src="Content/images/back-arrow.png">';
+            row += '<button class="btn btn-link back-button" title="zurück"><img src="frontend/Content/images/back-arrow.png">';
         }
         row += '</td></tr>';
         return row;
