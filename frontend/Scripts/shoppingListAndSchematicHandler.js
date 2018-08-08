@@ -48,6 +48,7 @@ var SchematicHandler = {
         // also finish html for schematic
         console.log(serverData);
         console.log(request);
+        viewSwitcher("schematic");
     }
 
 }

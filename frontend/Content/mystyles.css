@@ -23,7 +23,7 @@
     background-color: #17a2b8;
 }
 
-#shopping-list, #fuses-table-head, #circuitbreaker-button, #fuse-button {
+#shopping-list, #schematic, #fuses-table-head, #circuitbreaker-button, #fuse-button {
     display: none;
 }
 
