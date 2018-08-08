@@ -67,6 +67,17 @@ thead tr th {
 
 }
 
+.schematic-item-name {
+    padding: 5px;
+    margin: 5px;
+    border: 2px solid white;
+}
+
+.align-center {
+    display: flex;
+    align-items: center;
+}
+
 @keyframes spin {
 	from{transform:rotate(0deg)}
 	to{transform:rotate(360deg)}	

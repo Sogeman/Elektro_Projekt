@@ -57,7 +57,7 @@ var ListHandler = {
     }
 
     , AddOptionButtons: function(listtype) {
-        row = '<td class="py-0 pl-0 text-center"><button class="btn btn-link edit-button" title="Eintrag bearbeiten"><img src="frontend/Content/images/edit-icon.png"></button>';
+        var row = '<td class="py-0 pl-0 text-center"><button class="btn btn-link edit-button" title="Eintrag bearbeiten"><img src="frontend/Content/images/edit-icon.png"></button>';
         row += '<button class="btn btn-link delete-button" title="Eintrag löschen"><img src="frontend/Content/images/delete-icon.png">';
         if (listtype == "projects") {
             row += '<button class="btn btn-link shopping-list-button" title="Einkaufsliste anzeigen"><img src="frontend/Content/images/shopping-cart.png">';
@@ -70,8 +70,10 @@ var ListHandler = {
     } 
 
     , ListIsEmpty: function () {
-        row = '<td colspan = 3 class="text-center"><h4>Nothing here, why not add something.</h4></td>';
-        row += '<td><button class="btn btn-link back-button" title="zurück"><img src="Content/images/back-arrow.png"></td>';
+         var row = '<td colspan = 3 class="text-center"><h4>Nothing here, why not add something.</h4></td>';
+        if(QueryManager.currentLevel != "projects") {
+            row += '<td><button class="btn btn-link back-button" title="zurück"><img src="Content/images/back-arrow.png"></td>';
+        }
         $("#data-table").append(row);
     }
 

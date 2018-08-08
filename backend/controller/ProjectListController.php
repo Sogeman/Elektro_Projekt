@@ -43,14 +43,14 @@ class ProjectListController implements ControllerInterface {
         
         $circuitbreakers = $listModel->listCircuitbreakers($projectId);
         $fuses = $listModel->listFuses($projectId);
-        $rooms = $listModel->listRoomsOfProject($projectId);
+        #$rooms = $listModel->listRoomsOfProject($projectId);
         $devices = $listModel->listDevicesOfProject($projectId);
         $sensors = $listModel->listSensorsOfProject($projectId);
         
         $outputData = array(
           "Circuitbreakers" => $circuitbreakers,
           "Fuses" => $fuses,
-          "Rooms" => $rooms,
+          #"Rooms" => $rooms,
           "Devices" => $devices,
           "Sensors" => $sensors
         );

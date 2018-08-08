@@ -44,13 +44,27 @@ var SchematicHandler = {
     }
 
     , DrawSchematic: function (request, serverData) {
-        // code for schematic, serverdata has all rooms-fuses of Project
-        // also finish html for schematic
-        console.log(serverData);
-        console.log(request);
+        console.log(serverData); // everything of a single project
         viewSwitcher("schematic");
+        $(".schematic-anchor").empty();
+        var circuitbreakers = serverData.Circuitbreakers;
+        var fuses = serverData.Fuses;
+        var rooms = serverData.Rooms;
+        var devices = serverData.Devices;
+        var sensors = serverData.Sensors;
+        circuitbreakers.forEach(circuitbreaker => {
+            var singleCircuitbreaker = '<div class="row m-4"><div class="schematic-item-name">' + circuitbreaker.name + '</div>';
+            singleCircuitbreaker += '<span class="align-center" id="circuitbreaker' + circuitbreaker.id + '">&rArr;</span></div>';
+            $(".schematic-anchor").append(singleCircuitbreaker);
+            fuses.forEach(fuse => {
+                if(fuse["circuitbreakers_id"] == circuitbreaker.id) {
+                    var singleFuse = '<div class="schematic-item-name">' + fuse.name + '</option>';
+                    $('#circuitbreaker' + fuse["circuitbreakers_id"]).after(singleFuse);
+                }
+            });
+        });
     }
-
+//  nach jeder Sicherung ein Select aus den Devices und für Sensoren vielleicht mit on change anzeigen
 }
 
 function ShoppingListAndSchematicRequest(button, serverData) {
