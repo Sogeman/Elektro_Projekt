@@ -65,11 +65,13 @@ class CreateModel {
     
     public function createDevice($specification, $roomsid) {
         $name = filter_var($specification->name, FILTER_SANITIZE_SPECIAL_CHARS);
+        $fuse = filter_var($specification->fuseid, FILTER_SANITIZE_SPECIAL_CHARS);
 
         try {
-            $sql = "INSERT into devices (rooms_id, name) VALUES (:id, :name)";
+            $sql = "INSERT into devices (rooms_id, fuses_id, name) VALUES (:id, :fuse, :name)";
             $stmt = $this->database->prepare($sql);
             $stmt->bindParam(":id", $roomsid);
+            $stmt->bindParam(":fuse", $fuse);
             $stmt->bindParam(":name", $name);
             $stmt->execute();
             return $this->database->lastInsertedId(); 

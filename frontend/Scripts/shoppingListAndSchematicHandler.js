@@ -61,16 +61,19 @@ var SchematicHandler = {
                     var singleFuse = '<div class="schematic-item-name">' + fuse.name + '</div>';
                     singleFuse += '<span class="align-center" id="fuse' + fuse.id + '">&dArr;</span>';
                     $('#circuitbreaker' + fuse["circuitbreakers_id"]).after(singleFuse);
+                    devices.forEach(device => {
+                        if(device.fuseid == fuse.id) {
+                            var singleDevice = '<select class="custom-select">'
+                            singleDevice += '<option value="' + device.id + '">' + device.name + '</option>';
+                            singleDevice += '</select>'
+                        }
+                        $('#fuse' + device.fuseid).after(singleDevice);
+                    });
                 }
-                devices.forEach(device => {
-                    var singleDevice = '<select class="custom-select">'
-                    singleDevice += '<option value="' + device.id + '">' + device.name + '</option>';
-                    
-                });
             });
         });
     }
-//  nach jeder Sicherung ein Select aus den Devices und für Sensoren vielleicht mit on change anzeigen
+//   und für Sensoren vielleicht mit on change anzeigen
 }
 
 function ShoppingListAndSchematicRequest(button, serverData) {

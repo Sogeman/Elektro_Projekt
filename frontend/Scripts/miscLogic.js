@@ -87,6 +87,9 @@ var MiscLogic = {
                 var request = { action: "list", listtype: "circuitbreakers", parentid: QueryManager.projectId };
                 QueryManager.LoadDataSimple(request);
                 break;
+            case "devices":
+                var request = { action: "list", listtype: "fuses", parentid: QueryManager.projectId};
+                QueryManager.LoadDataSimple(request);
             case "circuitbreakers":
                 var request = { action: "list", listtype: "floors", parentid: QueryManager.projectId };
                 QueryManager.LoadDataSimple(request);

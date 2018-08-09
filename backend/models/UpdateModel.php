@@ -69,11 +69,13 @@ class UpdateModel {
 
     public function updateDevice($specification, $id) {
         $name = filter_var($specification->name, FILTER_SANITIZE_SPECIAL_CHARS);
+        $fuse = filter_var($specification->fuseid, FILTER_SANITIZE_SPECIAL_CHARS);
 
         try {
-            $sql = "UPDATE devices SET name = :name WHERE id = :id";
+            $sql = "UPDATE devices SET name = :name, fuses_id = :fuse WHERE id = :id";
             $stmt = $this->database->prepare($sql);
             $stmt->bindParam(":name", $name);
+            $stmt->bindParam(":fuse", $fuse);
             $stmt->bindParam(":id", $id);
             $stmt->execute();
             $rowsAffected = $stmt->rowCount();

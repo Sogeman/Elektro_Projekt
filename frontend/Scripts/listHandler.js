@@ -15,6 +15,7 @@ var ListHandler = {
 
     , FillNormalTable: function (serverData) {
         $("#data-table").empty();
+        console.log(serverData);
         var list = serverData["items"];
         var listtype = serverData["listtype"];
 
@@ -78,7 +79,6 @@ var ListHandler = {
     }
 
     , CreateSelectOption: function (serverData) {
-        console.log("test");
         var level = serverData["listtype"];
         $('#' + level + '-select').siblings().remove();
         var list = serverData["items"];

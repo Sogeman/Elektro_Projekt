@@ -9,6 +9,7 @@ var ModalManager = {
     formFloorsSelect: null,
     formRoomsSelect: null,
     formCircuitbreakersSelect: null,
+    formFusesSelect: null,
     formCurrentChoice1: null,
     formCurrentChoice2: null
 
@@ -22,6 +23,7 @@ var ModalManager = {
         ModalManager.formFloorsSelect = $("#form-floors-select");
         ModalManager.formRoomsSelect = $("#form-rooms-select");
         ModalManager.formCircuitbreakersSelect = $("#form-circuitbreakers-select");
+        ModalManager.formFusesSelect = $("#form-fuses-select");
         ModalManager.formCurrentChoice1 = $("#form-current-choice-1");
         ModalManager.formCurrentChoice2 = $("#form-current-choice-2");
         ModalManager.ResetModal();
@@ -39,6 +41,7 @@ var ModalManager = {
         ModalManager.formFloorsSelect.hide();
         ModalManager.formRoomsSelect.hide();
         ModalManager.formCircuitbreakersSelect.hide();
+        ModalManager.formFusesSelect.hide();
         ModalManager.formCurrentChoice1.hide();
         ModalManager.formCurrentChoice2.hide();
     }
@@ -57,6 +60,8 @@ var ModalManager = {
             case "devices":
                 ModalManager.formName.show();
                 ModalManager.devicesSelect.show();
+                ModalManager.formFusesSelect.show();
+                ModalManager.formCurrentChoice1.show();
                 break;
             case "sensors":
                 ModalManager.formName.show();
@@ -91,6 +96,7 @@ var ModalManager = {
         $("#floors-select").siblings().remove();
         $("#rooms-select").siblings().remove();
         $("#circuitbreakers-select").siblings().remove();
+        $("#fuses-select").siblings().remove();
     }
 
     , CreateEntry: function () { // Befehle im Switch in funktion rausbrechen
@@ -107,6 +113,10 @@ var ModalManager = {
                     var value = ModalManager.devicesSelect.val();
                     ModalManager.formName.find("input").val(value);
                 });
+                ModalManager.formFusesSelect.change(function() {
+                    var text = $("#form-fuses-select option:selected").text();
+                    ModalManager.formCurrentChoice1.find("input").val(text);
+                })
                 break;
             case "sensors":
                 ModalManager.sensorsSelect.change(function () {
@@ -147,10 +157,11 @@ var ModalManager = {
         var floorId = ModalManager.formFloorsSelect.val();
         var roomId = ModalManager.formRoomsSelect.val();
         var circuitbreakerId = ModalManager.formCircuitbreakersSelect.val();
+        var fuseId = ModalManager.formFusesSelect.val();
         if (action == "create") {
-            var request = { action: action, listtype: listType, parentid: parentId, specification: { name: name, floor_count_from_basement: count, unit: unit, value: value, floorid: floorId, roomid: roomId, circuitbreakerid: circuitbreakerId } };
+            var request = { action: action, listtype: listType, parentid: parentId, specification: { name: name, floor_count_from_basement: count, unit: unit, value: value, floorid: floorId, roomid: roomId, circuitbreakerid: circuitbreakerId, fuseid: fuseId } };
         } else {
-            var request = { action: action, listtype: listType, parentid: parentId, itemid: itemId, specification: { name: name, floor_count_from_basement: count, unit: unit, value: value,  floorid: floorId, roomid: roomId, circuitbreakerid: circuitbreakerId } };
+            var request = { action: action, listtype: listType, parentid: parentId, itemid: itemId, specification: { name: name, floor_count_from_basement: count, unit: unit, value: value,  floorid: floorId, roomid: roomId, circuitbreakerid: circuitbreakerId, fuseid: fuseId } };
         }
         QueryManager.PostData(request);
     }
@@ -166,15 +177,15 @@ var ModalManager = {
     , PrefillModal: function (clickedItem) { 
         var entry = clickedItem[0];
         $("#item-id").attr("value", entry.id);
-        // console.log(entry);
+        console.log(entry);
         switch (QueryManager.currentLevel) {
             case "floors":
                 ModalManager.formName.find("input").val(entry.name);
                 ModalManager.formFloorCount.find("input").val(entry.floor_count_from_basement);
                 ModalManager.formCurrentChoice1.find("input").val(entry.circuitbreakername);
                 ModalManager.formCircuitbreakersSelect.change(function () {
-                    var value = $("#form-circuitbreakers-select option:selected").text();
-                    ModalManager.formCurrentChoice1.find("input").val(value);
+                    var text = $("#form-circuitbreakers-select option:selected").text();
+                    ModalManager.formCurrentChoice1.find("input").val(text);
                 });
                 break;
             case "rooms": case "projects":
@@ -182,10 +193,15 @@ var ModalManager = {
                 break;
             case "devices":
                 ModalManager.formName.find("input").val(entry.name);
+                ModalManager.formCurrentChoice1.find("input").val(entry.fusename);
                 ModalManager.devicesSelect.change(function () {
                     var value = ModalManager.devicesSelect.val();
                     ModalManager.formName.find("input").val(value);
                 });
+                ModalManager.formFusesSelect.change(function() {
+                    var text =$("#form-fuses-select option:selected").text();
+                    ModalManager.formCurrentChoice1.find("input").val(text);
+                })
                 break;
             case "sensors":
                 ModalManager.formName.find("input").val(entry.name);
@@ -200,21 +216,21 @@ var ModalManager = {
                 ModalManager.formName.find("input").val(entry.name);
                 ModalManager.formCurrentChoice1.find("input").val(entry.floorname);
                 ModalManager.formFloorsSelect.change(function () {
-                    var value = $("#form-floors-select option:selected").text();
-                    ModalManager.formCurrentChoice1.find("input").val(value);
+                    var text = $("#form-floors-select option:selected").text();
+                    ModalManager.formCurrentChoice1.find("input").val(text);
                 });
                 break;
             case "fuses":
                 ModalManager.formName.find("input").val(entry.name);
                 ModalManager.formCurrentChoice1.find("input").val(entry.roomname);
                 ModalManager.formRoomsSelect.change(function () {
-                    var value = $("#form-rooms-select option:selected").text();
-                    ModalManager.formCurrentChoice1.find("input").val(value);
+                    var text = $("#form-rooms-select option:selected").text();
+                    ModalManager.formCurrentChoice1.find("input").val(text);
                 });
                 ModalManager.formCurrentChoice2.find("input").val(entry.circuitbreakername);
                 ModalManager.formCircuitbreakersSelect.change(function () {
-                    var value = $("#form-circuitbreakers-select option:selected").text();
-                    ModalManager.formCurrentChoice2.find("input").val(value);
+                    var text = $("#form-circuitbreakers-select option:selected").text();
+                    ModalManager.formCurrentChoice2.find("input").val(text);
                 });
                 break;
         }
