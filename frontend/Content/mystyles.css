@@ -73,6 +73,10 @@ thead tr th {
     border: 2px solid white;
 }
 
+.schematic-anchor {
+    overflow: auto;
+}
+
 .align-center {
     display: flex;
     align-items: center;

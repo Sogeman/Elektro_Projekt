@@ -70,9 +70,9 @@ var ListHandler = {
     } 
 
     , ListIsEmpty: function () {
-         var row = '<td colspan = 3 class="text-center"><h4>Nothing here, why not add something.</h4></td>';
+         var row = '<td colspan = 3 class="text-center"><h4 class="mt-2">Nothing here, why not add something.</h4></td>';
         if(QueryManager.currentLevel != "projects") {
-            row += '<td><button class="btn btn-link back-button" title="zurück"><img src="Content/images/back-arrow.png"></td>';
+            row += '<td><button class="btn btn-link back-button" title="zurück"><img src="frontend/Content/images/back-arrow.png"></td>';
         }
         $("#data-table").append(row);
     }

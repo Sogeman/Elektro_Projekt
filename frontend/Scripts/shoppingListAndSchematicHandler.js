@@ -58,9 +58,15 @@ var SchematicHandler = {
             $(".schematic-anchor").append(singleCircuitbreaker);
             fuses.forEach(fuse => {
                 if(fuse["circuitbreakers_id"] == circuitbreaker.id) {
-                    var singleFuse = '<div class="schematic-item-name">' + fuse.name + '</option>';
+                    var singleFuse = '<div class="schematic-item-name">' + fuse.name + '</div>';
+                    singleFuse += '<span class="align-center" id="fuse' + fuse.id + '">&dArr;</span>';
                     $('#circuitbreaker' + fuse["circuitbreakers_id"]).after(singleFuse);
                 }
+                devices.forEach(device => {
+                    var singleDevice = '<select class="custom-select">'
+                    singleDevice += '<option value="' + device.id + '">' + device.name + '</option>';
+                    
+                });
             });
         });
     }
