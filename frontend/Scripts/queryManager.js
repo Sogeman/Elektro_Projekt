@@ -14,13 +14,13 @@
             , dataType: "json"
             , cache: false
             , success: function (data) {
-                MiscLogic.showHideButtons(request.listtype);
+                console.log(EventHandler.lastParentIds);
+                MiscLogic.ShowHideButtons(request.listtype);
                 QueryManager.currentLevel = request.listtype;
                 viewSwitcher("homepage");
                 ListHandler.FillTable(data);
                 $("#create-item-button").text("+ " + MiscLogic.GetCurrentLevelName());
-                EventHandler.cbAndFuseButtons();
-                MiscLogic.DecideWhichLoadDataSimple();
+                EventHandler.CircuitbreakerButton();
                 ModalManager.Initialize(QueryManager.currentLevel, data);
             }
             , error: QueryManager.ErrorMessage
@@ -67,7 +67,7 @@
                 if(request.action == "get-shoppinglist") {
                     ShoppingListHandler.DrawShoppingList(request, data);
                 } else {
-                    SchematicHandler.DrawSchematic(request, data);
+                    SchematicHandler.DrawSchematic(data);
                 }
                 $("#home").show();
             }
@@ -80,6 +80,13 @@
         QueryManager.LoadData(Controller.homepage);
         viewSwitcher("homepage");
         console.log(errorMsg);
+    }
+
+    , RequestAllFuses: function () {
+        if(QueryManager.currentLevel == "devices") {
+            var request = { action: "all-fuses", projectid: QueryManager.projectId};
+            QueryManager.LoadDataSimple(request);
+        }
     }
 
     , LoadingScreen: function () {
