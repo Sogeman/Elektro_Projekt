@@ -1,5 +1,5 @@
 # Elektro_Projekt
-FH Web Dev Projekt
+FH Web Dev Projekt V1.0
 
 
 <strong>Todo</strong>:  Device und Sensor Select von Datenbank befüllen
