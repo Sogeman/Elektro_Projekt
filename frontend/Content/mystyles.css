@@ -23,7 +23,7 @@
     background-color: #17a2b8;
 }
 
-#shopping-list, #schematic, #fuses-table-head, #circuitbreaker-button, #fuse-button {
+#shopping-list, #schematic, #circuitbreaker-button {
     display: none;
 }
 
@@ -67,14 +67,32 @@ thead tr th {
 
 }
 
-.schematic-item-name {
+.schematic-first-level {
     padding: 5px;
     margin: 5px;
     border: 2px solid white;
+    display: block;
 }
 
-.schematic-anchor {
+.schematic-item {
+    margin-top: 5px;
+    padding: 5px;
+    border: 2px solid white;
+}
+
+.schematic-item:before {
+    content: "";
+    display: block;
+    background: url("images/arrow.png") no-repeat;
+    width: 24px;
+    height: 24px;
+    float: left;
+    margin: 0 6px 0 0;
+}
+
+.schematic-anchor{
     overflow: auto;
+    display: block;
 }
 
 .align-center {
