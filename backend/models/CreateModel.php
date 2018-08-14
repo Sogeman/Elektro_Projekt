@@ -30,15 +30,13 @@ class CreateModel {
     public function createFloor($specification, $projectsid) {
         $name = filter_var($specification->name, FILTER_SANITIZE_SPECIAL_CHARS);
         $count = filter_var($specification->floor_count_from_basement, FILTER_SANITIZE_SPECIAL_CHARS);
-        $cbid = filter_var($specification->circuitbreakerid, FILTER_SANITIZE_SPECIAL_CHARS);
 
         try {
-            $sql = "INSERT into floors (projects_id, floor_count_from_basement, name, circuitbreakers_id) VALUES (:id, :count, :name, :cbid)";
+            $sql = "INSERT into floors (projects_id, floor_count_from_basement, name) VALUES (:id, :count, :name)";
             $stmt = $this->database->prepare($sql);
             $stmt->bindParam(":id", $projectsid);
             $stmt->bindParam(":count", $count);
             $stmt->bindParam(":name", $name);
-            $stmt->bindParam(":cbid", $cbid);
             $stmt->execute();
             return $this->database->lastInsertedId(); 
         } catch (PDOException $e) {
@@ -101,14 +99,13 @@ class CreateModel {
         }
     }
     
-    public function createCircuitbreaker($specification) {
+    public function createCircuitbreaker($specification, $projectsid) {
         $name = filter_var($specification->name, FILTER_SANITIZE_SPECIAL_CHARS);
-        $floorId = filter_var($specification->floorid, FILTER_SANITIZE_SPECIAL_CHARS);
         
         try {
-            $sql = "INSERT into circuitbreakers (floors_id, name) VALUES (:floorId, :name)";
+            $sql = "INSERT into circuitbreakers (projects_id, name) VALUES (:projectid, :name)";
             $stmt = $this->database->prepare($sql);
-            $stmt->bindParam(":floorId", $floorId);
+            $stmt->bindParam(":projectid", $projectsid);
             $stmt->bindParam(":name", $name);
             $stmt->execute();
             return $this->database->lastInsertedId(); 
@@ -118,16 +115,13 @@ class CreateModel {
         }
     }
     
-    public function createFuse($specification) {
+    public function createFuse($specification, $circuitbreakerid) {
         $name = filter_var($specification->name, FILTER_SANITIZE_SPECIAL_CHARS);
-        $roomId = filter_var($specification->roomid, FILTER_SANITIZE_SPECIAL_CHARS);
-        $cbId = filter_var($specification->circuitbreakerid, FILTER_SANITIZE_SPECIAL_CHARS);
         
         try {
-            $sql = "INSERT into fuses (circuitbreakers_id, rooms_id, name) VALUES (:cbId, :roomsId, :name)";
+            $sql = "INSERT into fuses (circuitbreakers_id, name) VALUES (:cbId, :name)";
             $stmt = $this->database->prepare($sql);
-            $stmt->bindParam(":cbId", $cbId);
-            $stmt->bindParam(":roomsId", $roomId);
+            $stmt->bindParam(":cbId", $circuitbreakerid);
             $stmt->bindParam(":name", $name);
             $stmt->execute();
             return $this->database->lastInsertedId(); 

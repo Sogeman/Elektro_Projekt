@@ -54,10 +54,10 @@ class ChangeController implements ControllerInterface {
                 $newId = $createModel->createSensor($this->inputData->specification, $this->inputData->parentid);
                 break;
             case "circuitbreakers":
-                $newId = $createModel->createCircuitbreaker($this->inputData->specification);
+                $newId = $createModel->createCircuitbreaker($this->inputData->specification, $this->inputData->parentid);
                 break;
             case "fuses":
-                $newId = $createModel->createFuse($this->inputData->specification);
+                $newId = $createModel->createFuse($this->inputData->specification, $this->inputData->parentid);
                 break;
             default:
                 $newId = false;
