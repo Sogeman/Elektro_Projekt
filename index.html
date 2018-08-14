@@ -55,10 +55,7 @@
                     <h2 id="page-title">Projekte</h2>
                 </div>
                 <div class="col-1 ml-auto">
-                    <button type="button" id="circuitbreaker-button" class="btn btn-info btn-lg">FIs</button>
-                </div>
-                <div class="col-2 ml-auto">
-                    <button type="button" id="fuse-button" class="btn btn-info btn-lg">Sicherungen</button>
+                    <button type="button" id="circuitbreaker-button" class="btn btn-info btn-lg">FIs + Sicherungen</button>
                 </div>
                 <div class="col-2 ml-auto">
                     <button type="button" id="create-item-button" class="btn btn-lg btn-info"></button>
@@ -68,19 +65,11 @@
             <div class="row my-3">
                 <div id="data-list" class="col">
                     <table class="table">
-                        <thead id="normal-table-head">
+                        <thead id="data-table-head">
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Erstellungsdatum</th>
                                 <th scope="col">Bezeichnung</th>
-                                <th scope="col" class="text-center">Optionen</th>
-                            </tr>
-                        </thead>
-                        <thead id="fuses-table-head">
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Bezeichnung</th>
-                                <th scope="col">FI</th>
                                 <th scope="col" class="text-center">Optionen</th>
                             </tr>
                         </thead>
@@ -152,8 +141,8 @@
 
     <!-- Schematic -->
     <div id="schematic">
-        <div class="container schematic-anchor">
-            <!-- Anchorpoint Schematic-->
+        <div class="container">
+            <div class="row schematic-anchor" id="schematic-anchor"> </div>
         </div>
     </div>
 
@@ -172,7 +161,7 @@
                     <h3 class="dialog-item-name"></h3>
                     <input type="hidden" id="parent-id" value="0" />
                     <input type="hidden" id="item-id" value="0" />
-
+                    <input type="hidden" id="fuse-id" value="0" />
                     <!-- Select derzeit hardcoded -->
                     <div class="form-group" id="form-name">
                         <label for="name">Bezeichnung</label>
@@ -211,31 +200,13 @@
                         <label for="value">Wert</label>
                         <input type="text" class="form-control" id="value" name="value" placeholder="Ein, Aus,..." />
                     </div>
-                    <!-- nur bei FIs -->
-                    <select class="custom-select" id="form-floors-select">
-                        <option id="floors-select" selected>Stockwerk auswählen</option>
-                        <!-- Variabel Stockwerke einfügen -->
-                    </select>
-                    <!-- nur bei Sicherungen -->
-                    <select class="custom-select" id="form-rooms-select">
-                        <option id="rooms-select" selected>Zimmer auswählen</option>
-                        <!-- Variabel Zimmer einfügen -->
-                    </select>
-                    <select class="custom-select" id="form-circuitbreakers-select">
-                        <option id="circuitbreakers-select" selected>FI auswählen</option>
-                        <!-- Variabel FI einfügen -->
-                    </select>
                     <select class="custom-select" id="form-fuses-select">
                             <option id="fuses-select" selected>Sicherung auswählen</option>
                             <!-- Variabel Sicherung einfügen -->
                         </select>
-                    <div class="form-group" id="form-current-choice-1">
+                    <div class="form-group" id="form-current-choice">
                         <label for="unit">Derzeitige Auswahl</label>
-                        <input type="text" class="form-control" id="current-choice-1" name="choice1" />
-                    </div>
-                    <div class="form-group" id="form-current-choice-2">
-                        <label for="unit">Derzeitige Auswahl</label>
-                        <input type="text" class="form-control" id="current-choice-2" name="choice2" />
+                        <input type="text" class="form-control" id="current-choice" name="choice1" readonly/>
                     </div>
                 </div>
                 <div class="modal-footer">
