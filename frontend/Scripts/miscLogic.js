@@ -60,46 +60,25 @@ var MiscLogic = {
         return level;
     }
 
-    , showHideButtons: function(listtype) {
-        if (listtype == "circuitbreakers") {
-            $("#fuse-button").show();
+    , ShowHideButtons: function(listtype) {
+        if (listtype == "circuitbreakers" || listtype == "fuses") {
             $("#circuitbreaker-button").hide();
-            $("#home").show();
-        } else if (listtype =="fuses") {
-            $("#circuitbreaker-button").show();
-            $("#fuse-button").hide();
             $("#home").show();
         } else if (listtype == "projects") {
             $("#page-title").text("Projekte");
             $("#circuitbreaker-button").hide();
-            $("#fuse-button").hide();
             $("#home").hide();
         } else {
             $("#circuitbreaker-button").show();
-            $("#fuse-button").show();
             $("#home").show();
         }
     }
 
     , DecideWhichLoadDataSimple: function () {
         switch (QueryManager.currentLevel) {
-            case "floors":
-                var request = { action: "list", listtype: "circuitbreakers", parentid: QueryManager.projectId };
-                QueryManager.LoadDataSimple(request);
-                break;
             case "devices":
                 var request = { action: "list", listtype: "fuses", parentid: QueryManager.projectId};
                 QueryManager.LoadDataSimple(request);
-            case "circuitbreakers":
-                var request = { action: "list", listtype: "floors", parentid: QueryManager.projectId };
-                QueryManager.LoadDataSimple(request);
-                break;
-            case "fuses":
-                var request = { action: "list", listtype: "projectrooms", parentid: QueryManager.projectId };
-                QueryManager.LoadDataSimple(request);
-                request = { action: "list", listtype: "circuitbreakers", parentid: QueryManager.projectId };
-                QueryManager.LoadDataSimple(request);
-                break;
         }
     }
 
