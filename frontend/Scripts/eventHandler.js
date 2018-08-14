@@ -1,5 +1,7 @@
 var EventHandler = {
 
+    lastParentIds: [],
+
     Initialize: function () {
         QueryManager.LoadingScreen();
         QueryManager.LoadData(Controller.homepage);
@@ -34,9 +36,10 @@ var EventHandler = {
                 $("#page-title").text(name);
                 QueryManager.projectId = parentId;
             }
-            if (QueryManager.currentLevel != "circuitbreakers" && QueryManager.currentLevel != "fuses" && QueryManager.currentLevel != "sensors") {
+            if (QueryManager.currentLevel != "fuses" && QueryManager.currentLevel != "sensors") {
                 request = { action: "list", listtype: nextLevel, parentid: parentId };
                 QueryManager.LoadData(request);
+                EventHandler.lastParentIds.push(parentId);
             }
         });
     }
@@ -45,7 +48,11 @@ var EventHandler = {
         $(".edit-button").off().on("click", function (event) {
             event.stopPropagation();
             ModalManager.ClearModal();
-            MiscLogic.DecideWhichLoadDataSimple();
+            QueryManager.RequestAllFuses();
+            // if(QueryManager.currentLevel == "devices") {
+            //     var request = { action: "list", listtype: "all-fuses", parentid: QueryManager.projectId};
+            //     QueryManager.LoadDataSimple(request);
+            // }
             ModalManager.EditEntry($(this), serverData);
         });
     }
@@ -63,6 +70,10 @@ var EventHandler = {
         $(".back-button").off().on("click", function (event) {
             event.stopPropagation();
             QueryManager.GoBackToPreviousLevel();
+            EventHandler.FetchLastParentId();
+            if (QueryManager.currentLevel == "floors") {
+                EventHandler.lastParentIds = [];
+            }
         });
     }
 
@@ -75,26 +86,23 @@ var EventHandler = {
         });
     }
 
-    , SchematicButton: function(serverData) {
-        $(".schematic-button").off().on("click", function(event) {
+    , SchematicButton: function (serverData) {
+        $(".schematic-button").off().on("click", function (event) {
             event.stopPropagation();
             var item = ShoppingListAndSchematicRequest($(this), serverData);
             SchematicHandler.RequestSchematic(item);
         });
     }
 
-    , cbAndFuseButtons: function () {
+    , CircuitbreakerButton: function () {
         $("#circuitbreaker-button").off().on("click", function (event) {
             event.stopPropagation();
             var request = { action: "list", listtype: "circuitbreakers", parentid: QueryManager.projectId };
             QueryManager.LoadData(request);
+            if (EventHandler.lastParentIds[EventHandler.lastParentIds.length - 1] != QueryManager.projectId) {
+                EventHandler.lastParentIds.push(QueryManager.projectId);
+            }
         });
-
-        $("#fuse-button").off().on("click", function (event) {
-            event.stopPropagation();
-            var request = { action: "list", listtype: "fuses", parentid: QueryManager.projectId };
-            QueryManager.LoadData(request);
-        })
     }
 
     , ConfirmDeletion: function (request) {
@@ -131,7 +139,11 @@ var EventHandler = {
         $("#create-item-button").off().on("click", function (event) {
             event.stopPropagation();
             ModalManager.ClearModal();
-            MiscLogic.DecideWhichLoadDataSimple();
+            QueryManager.RequestAllFuses();
+            // if(QueryManager.currentLevel == "devices") {
+            //     var request = { action: "list", listtype: "all-fuses", parentid: QueryManager.projectId};
+            //     QueryManager.LoadDataSimple(request);
+            // }
             $("#create-entry-modal").modal(); //enables modal manually
             ModalManager.CreateEntry();
         });
@@ -141,6 +153,13 @@ var EventHandler = {
         $("#create-entry-modal").off().on("hidden.bs.modal", function (event) {
             ModalManager.ClearModal();
         });
+    }
+
+    , FetchLastParentId: function () {
+        if (EventHandler.lastParentIds.length > 1) {
+            EventHandler.lastParentIds.pop();
+            $("#parent-id").attr("value", EventHandler.lastParentIds[EventHandler.lastParentIds.length - 1]);
+        }
     }
 
 }
