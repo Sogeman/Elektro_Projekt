@@ -43,37 +43,42 @@ var SchematicHandler = {
         QueryManager.LoadProjectData(request);
     }
 
-    , DrawSchematic: function (request, serverData) {
+    , DrawSchematic: function (serverData) {
         console.log(serverData); // everything of a single project
         viewSwitcher("schematic");
-        $(".schematic-anchor").empty();
         var circuitbreakers = serverData.Circuitbreakers;
         var fuses = serverData.Fuses;
-        var rooms = serverData.Rooms;
         var devices = serverData.Devices;
         var sensors = serverData.Sensors;
-        circuitbreakers.forEach(circuitbreaker => {
-            var singleCircuitbreaker = '<div class="row m-4"><div class="schematic-item-name">' + circuitbreaker.name + '</div>';
-            singleCircuitbreaker += '<span class="align-center" id="circuitbreaker' + circuitbreaker.id + '">&rArr;</span></div>';
-            $(".schematic-anchor").append(singleCircuitbreaker);
-            fuses.forEach(fuse => {
-                if(fuse["circuitbreakers_id"] == circuitbreaker.id) {
-                    var singleFuse = '<div class="schematic-item-name">' + fuse.name + '</div>';
-                    singleFuse += '<span class="align-center" id="fuse' + fuse.id + '">&dArr;</span>';
-                    $('#circuitbreaker' + fuse["circuitbreakers_id"]).after(singleFuse);
-                    devices.forEach(device => {
-                        if(device.fuseid == fuse.id) {
-                            var singleDevice = '<select class="custom-select">'
-                            singleDevice += '<option value="' + device.id + '">' + device.name + '</option>';
-                            singleDevice += '</select>'
+        $("#circuitbreakers-anchor, #fuses-anchor, #rooms-anchor, #devices-anchor, #sensors-anchor").empty();
+        // $("#fuses-anchor").append('<select class=""custom-select" id="schematic-fuses></select>');
+        // var selectRoom = '<select class=""custom-select" id="schematic-rooms></select>';
+        // var selectDevice = '<select class=""custom-select" id="schematic-devices></select>';
+        // var selectSensor = '<select class=""custom-select" id="schematic-sensors></select>';
+
+        circuitbreakers.forEach(singleCircuitbreaker => {
+            var row = '<div value="' + singleCircuitbreaker.id + '" class="schematic-first-level">' + singleCircuitbreaker.name + '</div>';
+            $("#schematic-anchor").append(row);
+            fuses.forEach(singleFuse => {
+                if (singleFuse.circuitbreakers_id == singleCircuitbreaker.id) {
+                    row = '<div value="' + singleFuse.id + '" class="col-3 offset-1 schematic-item">' + singleFuse.name + '</div>';
+                    $("#schematic-anchor").append(row);
+                    devices.forEach(singleDevice => {
+                        if (singleDevice.fuses_id == singleFuse.id) {
+                            row = '<div value="' + singleDevice.id + '" class="col-3 offset-2 schematic-item">' + singleDevice.name + '</div>';
+                            $("#schematic-anchor").append(row);
+                            sensors.forEach(singleSensor => {
+                                if(singleSensor.devices_id == singleDevice.id) {
+                                    row = '<div value="' + singleSensor.id + '" class="col-3 offset-3 schematic-item">' + singleSensor.name + '</div>';
+                                    $("#schematic-anchor").append(row);
+                                }
+                            });
                         }
-                        $('#fuse' + device.fuseid).after(singleDevice);
                     });
                 }
             });
         });
     }
-//   und für Sensoren vielleicht mit on change anzeigen
 }
 
 function ShoppingListAndSchematicRequest(button, serverData) {
