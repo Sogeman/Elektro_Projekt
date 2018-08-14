@@ -23,7 +23,6 @@ include "views/JsonView.php";
 
 
 define ("DBHost", "localhost");
-define ("DBName", "projekt_2sem");
-#define ("DBName", "elektro_projekt"); 
+define ("DBName", "elektro_projekt"); 
 define ("DBUser", "root");
 define ("DBPass", "");
