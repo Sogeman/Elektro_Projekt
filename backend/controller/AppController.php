@@ -24,7 +24,7 @@ class AppController {
             case "get-shoppinglist":
                 $controller = new ProjectListController();
                 break;
-            case "get-schematic":
+            case "get-schematic": case "all-fuses":
                 $controller = new ProjectListController();
                 break;
             default:

@@ -12,6 +12,7 @@ include "controller/ListController.php";
 include "controller/ChangeController.php";
 include "controller/ProjectListController.php";
 include "models/ListModel.php";
+include "models/SchematicModel.php";
 include "models/CreateModel.php";
 include "models/UpdateModel.php";
 include "models/DeleteModel.php";
@@ -22,6 +23,7 @@ include "views/JsonView.php";
 
 
 define ("DBHost", "localhost");
-define ("DBName", "projekt_2sem"); 
+define ("DBName", "projekt_2sem");
+#define ("DBName", "elektro_projekt"); 
 define ("DBUser", "root");
 define ("DBPass", "");

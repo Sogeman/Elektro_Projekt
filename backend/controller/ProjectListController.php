@@ -11,7 +11,6 @@ class ProjectListController implements ControllerInterface {
 
     public function __construct() {
         $this->jsonView = new JsonView();
-        $this->listModel = new ListModel();
         $this->database = new Database(DBHost, DBName, DBUser, DBPass);
     }
 
@@ -19,6 +18,8 @@ class ProjectListController implements ControllerInterface {
         $projectId = filter_var($inputData->projectid, FILTER_VALIDATE_INT);
         if ($inputData->action == "get-shoppinglist") {
             $this->getShoppinglist($projectId);
+        } else if ($inputData->action == "all-fuses") {
+            $this->getAllFuses($projectId);
         } else {
             $this->getSchematic($projectId);
         }
@@ -37,22 +38,33 @@ class ProjectListController implements ControllerInterface {
 
         $this->showResponse($outputData);
     }
-    
+
     private function getSchematic($projectId) {
         $listModel = new ListModel();
-        
+        $schematicModel = new SchematicModel();
+
         $circuitbreakers = $listModel->listCircuitbreakers($projectId);
-        $fuses = $listModel->listFuses($projectId);
-        #$rooms = $listModel->listRoomsOfProject($projectId);
-        $devices = $listModel->listDevicesOfProject($projectId);
-        $sensors = $listModel->listSensorsOfProject($projectId);
-        
+        $fuses = $schematicModel->listFusesOfProject($projectId);
+        $devices = $schematicModel->listDevicesOfProject($projectId);
+        $sensors = $schematicModel->listSensorsOfProject($projectId);
+
         $outputData = array(
-          "Circuitbreakers" => $circuitbreakers,
-          "Fuses" => $fuses,
-          #"Rooms" => $rooms,
-          "Devices" => $devices,
-          "Sensors" => $sensors
+            "Circuitbreakers" => $circuitbreakers,
+            "Fuses" => $fuses,
+            "Devices" => $devices,
+            "Sensors" => $sensors
+        );
+
+        $this->showResponse($outputData);
+    }
+    
+    private function getAllFuses($projectId) {
+        $schematicModel = new SchematicModel();
+        
+        $fuses = $schematicModel->listFusesOfProject($projectId);
+        $outputData = array(
+            "items" => $fuses,
+            "listtype" => $schematicModel->getCurrentListType()
         );
         
         $this->showResponse($outputData);
