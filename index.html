@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" crossorigin="anonymous">
     <link href="frontend/Content/mystyles.css" rel="stylesheet" />
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
     <title>Elektroinstallationsmanager</title>
 </head>
 
@@ -32,15 +32,13 @@
 
         <!-- Header -->
         <div class="row my-2">
-            <div class="col-1 mt-1" id="nav-menu">
+            <div class="col-1 offset-1 col-lg-1 offset-lg-1 mt-1" id="nav-menu">
                 <button id="home" class="btn btn-link">
-                    <img class="img-responsive" src="frontend/Content/images/home-button.png">
+                    <img class="responsive" src="frontend/Content/images/home-button.png">
                 </button>
             </div>
-            <div class="col-10 mt-2 text-center" id="main-title">
-                <h1>
-                    <strong>Elektroinstallationsmanager</strong>
-                </h1>
+            <div class="col-9 offset-1 col-lg-9 offset-lg-1 mt-2 text-center" id="main-title">
+                <h1><strong>Elektroinstallationen</strong></h1>
             </div>
         </div>
     </div>
@@ -51,13 +49,13 @@
     <div id="homepage">
         <div class="container">
             <div class="row my-3 main-buttons">
-                <div class="col-6">
+                <div class="col-5 col-lg-6">
                     <h2 id="page-title">Projekte</h2>
                 </div>
-                <div class="col-1 ml-auto">
+                <div class="col-1 col-lg-1">
                     <button type="button" id="circuitbreaker-button" class="btn btn-info btn-lg">FIs + Sicherungen</button>
                 </div>
-                <div class="col-2 ml-auto">
+                <div class="col-2 offset-3 col-lg-2 offset-lg-2">
                     <button type="button" id="create-item-button" class="btn btn-lg btn-info"></button>
                 </div>
             </div>
@@ -162,33 +160,22 @@
                     <input type="hidden" id="parent-id" value="0" />
                     <input type="hidden" id="item-id" value="0" />
                     <input type="hidden" id="fuse-id" value="0" />
-                    <!-- Select derzeit hardcoded -->
+                    <select class="custom-select" id="form-devices-select">
+                        <option id="devices-choice-select" selected>Gerät auswählen oder darunter eintragen</option>
+                        <!-- Geräte von Datenbank eingefügt -->
+                    </select>
+                    <select class="custom-select" id="form-sensors-select">
+                        <option id="sensors-choice-select" selected>Sensor auswählen oder darunter eintragen</option>
+                        <!-- Sensoren von Datenbank eingefügt -->
+                    </select>
                     <div class="form-group" id="form-name">
                         <label for="name">Bezeichnung</label>
-                        <select class="custom-select" id="devices-select">
-                            <option selected>Auswählen oder unten eintragen</option>
-                            <option value="Leuchte E27">Leuchte E27</option>
-                            <option value="Leuchte E14">Leuchte E14</option>
-                            <option value="Leuchte GU10">Leuchte GU10</option>
-                            <option value="Leuchte GU5.3">Leuchte GU5.3</option>
-                            <option value="Steckdose 230V">Steckdose 230V</option>
-                            <option value="Rollo">Rollo</option>
-                        </select>
-                        <select class="custom-select" id="sensors-select">
-                            <option selected>Auswählen oder unten eintragen</option>
-                            <option value="Lichtschalter">Lichtschalter</option>
-                            <option value="Lichtsensor">Lichtsensor</option>
-                            <option value="Rolloschalter">Rolloschalter</option>
-                            <option value="Feuchtigkeitssensor">Feuchtigkeitssensor</option>
-                            <option value="Bewegungsmelder">Bewegungsmelder</option>
-                        </select>
                         <input type="text" class="form-control mt-2" id="name" name="name" maxlength=40 placeholder="Name" required="required" />
                     </div>
                     <!-- nur bei Stockwerken -->
                     <div class="form-group" id="form-floor-count">
                         <label for="floor-count">Stockwerk (0 ist Keller)</label>
-                        <input type="number" class="form-control" id="floor-count" name="count_from_basement" placeholder="0-n" min="0" max="99"
-                            required="required" />
+                        <input type="number" class="form-control" id="floor-count" name="count_from_basement" placeholder="0-n" min="0" max="99" />
                     </div>
                     <!-- nur bei Sensoren -->
                     <div class="form-group" id="form-unit">
@@ -201,12 +188,12 @@
                         <input type="text" class="form-control" id="value" name="value" placeholder="Ein, Aus,..." />
                     </div>
                     <select class="custom-select" id="form-fuses-select">
-                            <option id="fuses-select" selected>Sicherung auswählen</option>
-                            <!-- Variabel Sicherung einfügen -->
-                        </select>
+                        <option id="fuses-select" selected>Sicherung auswählen</option>
+                        <!-- Variabel Sicherung einfügen -->
+                    </select>
                     <div class="form-group" id="form-current-choice">
                         <label for="unit">Derzeitige Auswahl</label>
-                        <input type="text" class="form-control" id="current-choice" name="choice1" readonly/>
+                        <input type="text" class="form-control" id="current-choice" name="choice1" required="required" onkeypress="return false;"/>
                     </div>
                 </div>
                 <div class="modal-footer">
