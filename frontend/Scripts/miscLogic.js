@@ -63,14 +63,14 @@ var MiscLogic = {
     , ShowHideButtons: function(listtype) { // hides/shows buttons on page depending on what the current level is
         if (listtype == "circuitbreakers" || listtype == "fuses") {
             $("#circuitbreaker-button").hide();
-            $("#home").show();
+            $("#home").fadeIn();
         } else if (listtype == "projects") {
             $("#page-title").text("Projekte");
             $("#circuitbreaker-button").hide();
             $("#home").hide();
         } else {
             $("#circuitbreaker-button").show();
-            $("#home").show();
+            $("#home").fadeIn();
         }
     }
 
