@@ -69,7 +69,7 @@ var MiscLogic = {
             $("#circuitbreaker-button").hide();
             $("#home").hide();
         } else {
-            $("#circuitbreaker-button").show();
+            $("#circuitbreaker-button").fadeIn();
             $("#home").fadeIn();
         }
     }
