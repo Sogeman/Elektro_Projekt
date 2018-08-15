@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 15. Aug 2018 um 12:18
+-- Erstellungszeit: 15. Aug 2018 um 12:23
 -- Server-Version: 10.1.31-MariaDB
 -- PHP-Version: 7.2.3
 
@@ -59,6 +59,21 @@ CREATE TABLE `devices_select` (
   `id` int(11) UNSIGNED NOT NULL,
   `name` varchar(255) CHARACTER SET utf8mb4 NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Daten für Tabelle `devices_select`
+--
+
+INSERT INTO `devices_select` (`id`, `name`) VALUES
+(1, 'Leuchte E27'),
+(4, 'Leuchte E14'),
+(5, 'Leuchte GU10'),
+(6, 'Leuchte GU5.3'),
+(7, 'Steckdose 230V'),
+(8, 'Steckdose 400V'),
+(9, 'Außenrollo'),
+(10, 'Rauchmelder'),
+(11, 'COAX Dose');
 
 -- --------------------------------------------------------
 
@@ -137,6 +152,18 @@ CREATE TABLE `sensors_select` (
   `id` int(11) UNSIGNED NOT NULL,
   `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Daten für Tabelle `sensors_select`
+--
+
+INSERT INTO `sensors_select` (`id`, `name`) VALUES
+(1, 'Lichtschalter (Kipp)'),
+(3, 'Lichtschalter(2 Knöpfe)'),
+(4, 'Lichtsensor'),
+(5, 'Rolloschalter'),
+(6, 'Feuchtigkeitssensor'),
+(7, 'Bewegungsmelder');
 
 --
 -- Indizes der exportierten Tabellen
