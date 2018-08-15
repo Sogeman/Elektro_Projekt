@@ -1,8 +1,10 @@
 ﻿body {
-    overflow: auto;
     font-family: 'Montserrat', sans-serif;
     background-color: darkslategray;
     color: white;
+}
+.btn-lg {
+    min-width: 130px;
 }
 
 .modal {
@@ -11,6 +13,7 @@
 
 #page-title {
     overflow-x: auto;
+    overflow-y: hidden;
 }
 
 #nav-menu {
