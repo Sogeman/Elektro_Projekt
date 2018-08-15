@@ -21,7 +21,7 @@ var EventHandler = {
 
     }
 
-    , ClickableRow: function (serverData) {
+    , ClickableRow: function (serverData) { // events for the part of the row you can click
         $(".clickable").off().on("click", function (event) {
             event.stopPropagation();
 
@@ -44,15 +44,11 @@ var EventHandler = {
         });
     }
 
-    , EditButton: function (serverData) {
+    , EditButton: function (serverData) { 
         $(".edit-button").off().on("click", function (event) {
             event.stopPropagation();
             ModalManager.ClearModal();
-            QueryManager.RequestAllFuses();
-            // if(QueryManager.currentLevel == "devices") {
-            //     var request = { action: "list", listtype: "all-fuses", parentid: QueryManager.projectId};
-            //     QueryManager.LoadDataSimple(request);
-            // }
+            QueryManager.RequestDataForSelects();
             ModalManager.EditEntry($(this), serverData);
         });
     }
@@ -70,7 +66,7 @@ var EventHandler = {
         $(".back-button").off().on("click", function (event) {
             event.stopPropagation();
             QueryManager.GoBackToPreviousLevel();
-            EventHandler.FetchLastParentId();
+            MiscLogic.FetchLastParentId();
             if (QueryManager.currentLevel == "floors") {
                 EventHandler.lastParentIds = [];
             }
@@ -131,7 +127,30 @@ var EventHandler = {
     , SaveEvent: function (action) {
         $("#save-button").off().on("click", function (event) {
             event.stopPropagation();
-            ModalManager.SaveEntry(action);
+            switch (QueryManager.currentLevel) { // define inputfields to look for
+                case "projects": case "floors": case "rooms": case "sensors": case "circuitbreakers": case "fuses":
+                    var inputFields = $("#name");
+                    break;
+                case "devices":
+                    var inputFields = $("#name, #current-choice");
+                    break;
+                default:
+                    break;
+            }
+            var validate = [];
+            inputFields.each(function () { // check if inputfields defined above are empty or not
+                if($(this).val().trim().length < 1) {
+                    validate.push(false);
+                } else {
+                    validate.push(true);
+                }
+            });
+            var result = validate.includes(false);
+            if(result) {
+                alert("Bitte alles ausfüllen");
+            } else {
+                ModalManager.SaveEntry(action);
+            }
         });
     }
 
@@ -139,11 +158,7 @@ var EventHandler = {
         $("#create-item-button").off().on("click", function (event) {
             event.stopPropagation();
             ModalManager.ClearModal();
-            QueryManager.RequestAllFuses();
-            // if(QueryManager.currentLevel == "devices") {
-            //     var request = { action: "list", listtype: "all-fuses", parentid: QueryManager.projectId};
-            //     QueryManager.LoadDataSimple(request);
-            // }
+            QueryManager.RequestDataForSelects();
             $("#create-entry-modal").modal(); //enables modal manually
             ModalManager.CreateEntry();
         });
@@ -153,13 +168,6 @@ var EventHandler = {
         $("#create-entry-modal").off().on("hidden.bs.modal", function (event) {
             ModalManager.ClearModal();
         });
-    }
-
-    , FetchLastParentId: function () {
-        if (EventHandler.lastParentIds.length > 1) {
-            EventHandler.lastParentIds.pop();
-            $("#parent-id").attr("value", EventHandler.lastParentIds[EventHandler.lastParentIds.length - 1]);
-        }
     }
 
 }
