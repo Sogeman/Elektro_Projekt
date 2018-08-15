@@ -41,7 +41,7 @@ var ListHandler = {
         return row;
     }
 
-    , ListIsEmpty: function () {
+    , ListIsEmpty: function () { // message when there is nothing to show
         var row = '<td colspan = 3 class="text-center"><h4 class="mt-2">Nichts hier, bitte etwas hinzufügen</h4></td>';
         if (QueryManager.currentLevel != "projects") {
             row += '<td><button class="btn btn-link back-button" title="zurück"><img src="frontend/Content/images/back-arrow.png"></td>';
@@ -49,8 +49,8 @@ var ListHandler = {
         $("#data-table").append(row);
     }
 
-    , CreateSelectOption: function (serverData) {
-        console.log(serverData);
+    , CreateSelectOption: function (serverData) { // creates the options for the selects in the modal
+        //console.log(serverData);
         var level = serverData["listtype"];
         var items = serverData["items"];
         $('#' + level + '-select').siblings().remove();

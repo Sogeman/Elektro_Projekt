@@ -44,17 +44,13 @@ var SchematicHandler = {
     }
 
     , DrawSchematic: function (serverData) {
-        console.log(serverData); // everything of a single project
+        //console.log(serverData); // everything of a single project
         viewSwitcher("schematic");
         var circuitbreakers = serverData.Circuitbreakers;
         var fuses = serverData.Fuses;
         var devices = serverData.Devices;
         var sensors = serverData.Sensors;
         $("#circuitbreakers-anchor, #fuses-anchor, #rooms-anchor, #devices-anchor, #sensors-anchor").empty();
-        // $("#fuses-anchor").append('<select class=""custom-select" id="schematic-fuses></select>');
-        // var selectRoom = '<select class=""custom-select" id="schematic-rooms></select>';
-        // var selectDevice = '<select class=""custom-select" id="schematic-devices></select>';
-        // var selectSensor = '<select class=""custom-select" id="schematic-sensors></select>';
 
         circuitbreakers.forEach(singleCircuitbreaker => {
             var row = '<div value="' + singleCircuitbreaker.id + '" class="schematic-first-level">' + singleCircuitbreaker.name + '</div>';
@@ -81,7 +77,7 @@ var SchematicHandler = {
     }
 }
 
-function ShoppingListAndSchematicRequest(button, serverData) {
+function ShoppingListAndSchematicRequest(button, serverData) { // bundles id and name to give along to request function
     var clickedItem = MiscLogic.FindClickedItem(button, serverData);
     var id = clickedItem[0].id;
     var name = clickedItem[0].name;

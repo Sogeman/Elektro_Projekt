@@ -4,8 +4,8 @@ var ModalManager = {
     formFloorCount: null,
     formUnit: null,
     formValue: null,
-    devicesSelect: null,
-    sensorsSelect: null,
+    formDevicesSelect: null,
+    formSensorsSelect: null,
     formFusesSelect: null,
     formCurrentChoice: null
 
@@ -14,8 +14,8 @@ var ModalManager = {
         ModalManager.formFloorCount = $("#form-floor-count");
         ModalManager.formUnit = $("#form-unit");
         ModalManager.formValue = $("#form-value");
-        ModalManager.devicesSelect = $("#devices-select");
-        ModalManager.sensorsSelect = $("#sensors-select");
+        ModalManager.formDevicesSelect = $("#form-devices-select");
+        ModalManager.formSensorsSelect = $("#form-sensors-select");
         ModalManager.formFusesSelect = $("#form-fuses-select");
         ModalManager.formCurrentChoice = $("#form-current-choice");
         ModalManager.ResetModal();
@@ -25,8 +25,8 @@ var ModalManager = {
 
     , ResetModal: function () {
         ModalManager.formName.hide();
-        ModalManager.devicesSelect.hide();
-        ModalManager.sensorsSelect.hide();
+        ModalManager.formDevicesSelect.hide();
+        ModalManager.formSensorsSelect.hide();
         ModalManager.formFloorCount.hide();
         ModalManager.formUnit.hide();
         ModalManager.formValue.hide();
@@ -45,13 +45,13 @@ var ModalManager = {
                 break;
             case "devices":
                 ModalManager.formName.show();
-                ModalManager.devicesSelect.show();
+                ModalManager.formDevicesSelect.show();
                 ModalManager.formFusesSelect.show();
                 ModalManager.formCurrentChoice.show();
                 break;
             case "sensors":
                 ModalManager.formName.show();
-                ModalManager.sensorsSelect.show();
+                ModalManager.formSensorsSelect.show();
                 ModalManager.formUnit.show();
                 ModalManager.formValue.show();
                 break;
@@ -60,8 +60,8 @@ var ModalManager = {
 
     , ClearModal: function () {
         ModalManager.formName.find("input").val("");
-        ModalManager.devicesSelect[0].selectedIndex = 0;
-        ModalManager.sensorsSelect[0].selectedIndex = 0;
+        $("#devices-select").siblings().remove();
+        $("#sensors-select").siblings().remove();
         ModalManager.formFloorCount.find("input").val("");
         ModalManager.formUnit.find("input").val("");
         ModalManager.formValue.find("input").val("");
@@ -73,9 +73,9 @@ var ModalManager = {
         $("#modal-title").text(MiscLogic.GetCurrentLevelName() + " anlegen");
         switch (QueryManager.currentLevel) {
             case "devices":
-                ModalManager.devicesSelect.change(function () {
-                    var value = ModalManager.devicesSelect.val();
-                    ModalManager.formName.find("input").val(value);
+                ModalManager.formDevicesSelect.change(function () {
+                    var text = $("#form-devices-select option:selected").text();
+                    ModalManager.formName.find("input").val(text);
                 });
                 ModalManager.formFusesSelect.change(function() {
                     var text = $("#form-fuses-select option:selected").text();
@@ -84,9 +84,9 @@ var ModalManager = {
                 })
                 break;
             case "sensors":
-                ModalManager.sensorsSelect.change(function () {
-                    var value = ModalManager.sensorsSelect.val();
-                    ModalManager.formName.find("input").val(value);
+                ModalManager.formSensorsSelect.change(function () {
+                    var text = $("#form-sensors-select option:selected").text();
+                    ModalManager.formName.find("input").val(text);
                 });
                 break;
             default:
@@ -136,21 +136,21 @@ var ModalManager = {
             case "devices":
                 ModalManager.formName.find("input").val(entry.name);
                 ModalManager.formCurrentChoice.find("input").val(entry.fusename);
-                ModalManager.devicesSelect.change(function () {
-                    var value = ModalManager.devicesSelect.val();
-                    ModalManager.formName.find("input").val(value);
+                ModalManager.formDevicesSelect.change(function () {
+                    var text = $("#form-devices-select option:selected").text();
+                    ModalManager.formName.find("input").val(text);
                 });
                 ModalManager.formFusesSelect.change(function() {
-                    var text =$("#form-fuses-select option:selected").text();
+                    var text = $("#form-fuses-select option:selected").text();
                     ModalManager.formCurrentChoice.find("input").val(text);
                     $("#fuse-id").val($("#form-fuses-select option:selected").val());
                 })
                 break;
             case "sensors":
                 ModalManager.formName.find("input").val(entry.name);
-                ModalManager.sensorsSelect.change(function () {
-                    var value = ModalManager.sensorsSelect.val();
-                    ModalManager.formName.find("input").val(value);
+                ModalManager.formSensorsSelect.change(function () {
+                    var text = $("#form-sensors-select option:selected").text();
+                    ModalManager.formName.find("input").val(text);
                 });
                 ModalManager.formUnit.find("input").val(entry.unit);
                 ModalManager.formValue.find("input").val(entry.value);

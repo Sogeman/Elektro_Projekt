@@ -14,7 +14,7 @@
             , dataType: "json"
             , cache: false
             , success: function (data) {
-                console.log(EventHandler.lastParentIds);
+                //console.log(EventHandler.lastParentIds);
                 MiscLogic.ShowHideButtons(request.listtype);
                 QueryManager.currentLevel = request.listtype;
                 viewSwitcher("homepage");
@@ -27,7 +27,7 @@
         });
     }
 
-    , LoadDataSimple: function (request) {
+    , LoadSelectData: function (request) {
         $.ajax({
             url: QueryManager.backendAddress
             , method: "post"
@@ -64,7 +64,7 @@
             , dataType: "json"
             , cache: false
             , success: function (data) {
-                if(request.action == "get-shoppinglist") {
+                if (request.action == "get-shoppinglist") {
                     ShoppingListHandler.DrawShoppingList(request, data);
                 } else {
                     SchematicHandler.DrawSchematic(data);
@@ -82,10 +82,20 @@
         console.log(errorMsg);
     }
 
-    , RequestAllFuses: function () {
-        if(QueryManager.currentLevel == "devices") {
-            var request = { action: "all-fuses", projectid: QueryManager.projectId};
-            QueryManager.LoadDataSimple(request);
+    , RequestDataForSelects: function () { // requests to fill the selects in the modal
+        switch (QueryManager.currentLevel) {
+            case "devices":
+                var request = { action: "all-fuses", projectid: QueryManager.projectId };
+                QueryManager.LoadSelectData(request);
+                request = {action: "list", listtype: "devices-choice", parentid: 0};
+                QueryManager.LoadSelectData(request);
+                break;
+            case "sensors":
+                var request = {action: "list", listtype: "sensors-choice", parentid: 0};
+                QueryManager.LoadSelectData(request);
+                break;
+            default:
+                break;
         }
     }
 

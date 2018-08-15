@@ -60,7 +60,7 @@ var MiscLogic = {
         return level;
     }
 
-    , ShowHideButtons: function(listtype) {
+    , ShowHideButtons: function(listtype) { // hides/shows buttons on page depending on what the current level is
         if (listtype == "circuitbreakers" || listtype == "fuses") {
             $("#circuitbreaker-button").hide();
             $("#home").show();
@@ -74,19 +74,11 @@ var MiscLogic = {
         }
     }
 
-    , DecideWhichLoadDataSimple: function () {
-        switch (QueryManager.currentLevel) {
-            case "devices":
-                var request = { action: "list", listtype: "fuses", parentid: QueryManager.projectId};
-                QueryManager.LoadDataSimple(request);
-        }
-    }
-
     , FindClickedItem: function (clickedButton, data) {
         var parentRow = clickedButton.closest("tr")[0];
         var clickedItemId = $(parentRow).attr("itemid");
         var itemsObject = data["items"];
-        var allItemsArray = itemsObject.map(function (element) {
+        var allItemsArray = itemsObject.map(function (element) { // check items from server against the id of the clicked item
             if (element.id == clickedItemId) {
                 return element
             } else {
@@ -97,4 +89,10 @@ var MiscLogic = {
         return clickedItem;
     }
 
+    , FetchLastParentId: function () { // sets the parentid. Going into CBs and Fuses broke it before
+        if (EventHandler.lastParentIds.length > 1) {
+            EventHandler.lastParentIds.pop();
+            $("#parent-id").attr("value", EventHandler.lastParentIds[EventHandler.lastParentIds.length - 1]);
+        }
+    }
 }
