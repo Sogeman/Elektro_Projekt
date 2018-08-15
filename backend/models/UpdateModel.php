@@ -32,14 +32,12 @@ class UpdateModel {
     public function updateFloor($specification, $id) {
         $name = filter_var($specification->name, FILTER_SANITIZE_SPECIAL_CHARS);
         $count = filter_var($specification->floor_count_from_basement, FILTER_SANITIZE_SPECIAL_CHARS);
-        $cbid = filter_var($specification->circuitbreakerid, FILTER_SANITIZE_SPECIAL_CHARS);
 
         try {
-            $sql = "UPDATE floors SET floor_count_from_basement = :count, name = :name, circuitbreakers_id = :cbid WHERE id = :id";
+            $sql = "UPDATE floors SET floor_count_from_basement = :count, name = :name WHERE id = :id";
             $stmt = $this->database->prepare($sql);
             $stmt->bindParam(":count", $count);
             $stmt->bindParam(":name", $name);
-            $stmt->bindParam(":cbid", $cbid);
             $stmt->bindParam(":id", $id);
             $stmt->execute();
             $rowsAffected = $stmt->rowCount();
@@ -109,13 +107,11 @@ class UpdateModel {
     
     public function updateCircuitBreaker($specification, $id) {
         $name = filter_var($specification->name, FILTER_SANITIZE_SPECIAL_CHARS);
-        $floorId = filter_var($specification->floorid, FILTER_SANITIZE_SPECIAL_CHARS);
         
         try {
-            $sql = "UPDATE circuitbreakers SET floors_id = :floorId, name = :name WHERE id = :id";
+            $sql = "UPDATE circuitbreakers SET name = :name WHERE id = :id";
             $stmt = $this->database->prepare($sql);
             $stmt->bindParam(":name", $name);
-            $stmt->bindParam(":floorId", $floorId);
             $stmt->bindParam(":id", $id);
             $stmt->execute();
             $rowsAffected = $stmt->rowCount();
@@ -128,15 +124,13 @@ class UpdateModel {
     
     public function updateFuse($specification, $id) {
         $name = filter_var($specification->name, FILTER_SANITIZE_SPECIAL_CHARS);
-        $roomId = filter_var($specification->roomid, FILTER_SANITIZE_SPECIAL_CHARS);
         $cbId = filter_var($specification->circuitbreakerid, FILTER_SANITIZE_SPECIAL_CHARS);
         
         try {
-            $sql = "UPDATE fuses SET circuitbreakers_id = :cbId, rooms_id = :roomId, name = :name WHERE id = :id";
+            $sql = "UPDATE fuses SET circuitbreakers_id = :cbId, name = :name WHERE id = :id";
             $stmt = $this->database->prepare($sql);
             $stmt->bindParam(":name", $name);
             $stmt->bindParam(":cbId", $cbId);
-            $stmt->bindParam(":roomId", $roomId);
             $stmt->bindParam(":id", $id);
             $stmt->execute();
             $rowsAffected = $stmt->rowCount();
