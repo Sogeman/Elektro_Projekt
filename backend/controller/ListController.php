@@ -34,9 +34,14 @@ class ListController implements ControllerInterface {
             case "devices":
                 $this->listModel->listDevices($parentId);
                 break;
+            case "devices-choice":
+                $this->listModel->listDevicesChoice();
+                break;
             case "sensors":
                 $this->listModel->listSensors($parentId);
                 break;
+            case "sensors-choice":
+                $this->listModel->listSensorsChoice();
             case "projects":
                 $this->listModel->listProjects();
                 break;

@@ -56,16 +56,31 @@ class ListModel {
     }
     
     public function listDevices($roomid) {
-        $sql = "SELECT devices.id, devices.rooms_id, devices.fuses_id, devices.name, devices.created, fuses.name as fusename FROM devices JOIN fuses ON devices.fuses_id = fuses.id WHERE rooms_id = {$roomid}";
+        $sql = "SELECT devices.id, devices.rooms_id, devices.fuses_id, devices.name, devices.created, fuses.name as fusename FROM devices LEFT JOIN fuses ON devices.fuses_id = fuses.id WHERE devices.rooms_id = {$roomid}";
         $this->list = $this->getListFromDatabase($sql);
         $this->currentListType = "devices";
         return $this->list;
     }
     
+    public function listDevicesChoice() {
+        $sql = "SELECT * FROM devices_select";
+        $this->list = $this->getListFromDatabase($sql);
+        $this->currentListType = "devices-choice";
+        return $this->list;
+    }
+
+
     public function listSensors($deviceid) {
         $sql = "SELECT id, devices_id, name, unit, value, created FROM sensors WHERE devices_id = {$deviceid}";
         $this->list = $this->getListFromDatabase($sql);
         $this->currentListType = "sensors";
+        return $this->list;
+    }
+    
+    public function listSensorsChoice() {
+        $sql = "SELECT * FROM sensors_select";
+        $this->list = $this->getListFromDatabase($sql);
+        $this->currentListType = "sensors-choice";
         return $this->list;
     }
     
