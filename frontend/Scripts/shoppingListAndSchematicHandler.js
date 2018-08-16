@@ -14,23 +14,33 @@ var ShoppingListHandler = {
         $("#shopping-list-title").text("Einkaufsliste für " + request.projectname);
         var devices = serverData["Devices"];
         var sensors = serverData["Sensors"];
-        var index = 1;
-        for (const key in devices) {
-            var row = '<tr>';
-            row += '<th scope="row">' + index + '</th>';
-            row += '<td>' + devices[key].name + '</td>';
-            row += '<td>' + devices[key].amount + '</td></tr>';
+        if (devices.length < 1) {
+            var row = '<tr><td colspan = 4 class="text-center"><h4 class="mt-2">Keine Geräte angelegt</h4></td></tr>'
             $("#shopping-list-devices").append(row);
-            index++;
+        } else {
+            var index = 1;
+            for (const key in devices) {
+                var row = '<tr>';
+                row += '<th scope="row">' + index + '</th>';
+                row += '<td>' + devices[key].name + '</td>';
+                row += '<td>' + devices[key].amount + '</td></tr>';
+                $("#shopping-list-devices").append(row);
+                index++;
+            }
         }
-        index = 1; //reset index for next loop
-        for (const key in sensors) {
-            var row = '<tr>';
-            row += '<th scope="row">' + index + '</th>';
-            row += '<td>' + sensors[key].name + '</td>';
-            row += '<td>' + sensors[key].amount + '</td></tr>';
+        if (sensors.length < 1) {
+            var row = '<tr><td colspan = 4 class="text-center"><h4 class="mt-2">Keine Sensoren angelegt</h4></td></tr>'
             $("#shopping-list-sensors").append(row);
-            index++;
+        } else {
+            index = 1; //reset index for next loop
+            for (const key in sensors) {
+                var row = '<tr>';
+                row += '<th scope="row">' + index + '</th>';
+                row += '<td>' + sensors[key].name + '</td>';
+                row += '<td>' + sensors[key].amount + '</td></tr>';
+                $("#shopping-list-sensors").append(row);
+                index++;
+            }
         }
     }
 
@@ -52,6 +62,8 @@ var SchematicHandler = {
         var sensors = serverData.Sensors;
         $("#circuitbreakers-anchor, #fuses-anchor, #rooms-anchor, #devices-anchor, #sensors-anchor").empty();
 
+        $("#schematic-title").find("h3").text(serverData.Projectname);
+
         circuitbreakers.forEach(singleCircuitbreaker => {
             var row = '<div value="' + singleCircuitbreaker.id + '" class="schematic-first-level">' + singleCircuitbreaker.name + '</div>';
             $("#schematic-anchor").append(row);
@@ -64,7 +76,7 @@ var SchematicHandler = {
                             row = '<div value="' + singleDevice.id + '" class="col-3 offset-2 schematic-item">' + singleDevice.name + '</div>';
                             $("#schematic-anchor").append(row);
                             sensors.forEach(singleSensor => {
-                                if(singleSensor.devices_id == singleDevice.id) {
+                                if (singleSensor.devices_id == singleDevice.id) {
                                     row = '<div value="' + singleSensor.id + '" class="col-3 offset-3 schematic-item">' + singleSensor.name + '</div>';
                                     $("#schematic-anchor").append(row);
                                 }
