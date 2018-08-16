@@ -10,10 +10,9 @@ body {
     min-width: 130px;
 }
 
-#info-button {
-    position: absolute;
-    top: 2%;
-    right: 2%;
+#howto-button {
+    margin-top: 5px;
+    margin-right: 10px;
 }
 
 .modal {
