@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 15. Aug 2018 um 12:23
+-- Erstellungszeit: 16. Aug 2018 um 11:26
 -- Server-Version: 10.1.31-MariaDB
 -- PHP-Version: 7.2.3
 
@@ -173,13 +173,15 @@ INSERT INTO `sensors_select` (`id`, `name`) VALUES
 -- Indizes für die Tabelle `circuitbreakers`
 --
 ALTER TABLE `circuitbreakers`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `projects_id` (`projects_id`);
 
 --
 -- Indizes für die Tabelle `devices`
 --
 ALTER TABLE `devices`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `rooms_id` (`rooms_id`,`fuses_id`);
 
 --
 -- Indizes für die Tabelle `devices_select`
@@ -191,13 +193,15 @@ ALTER TABLE `devices_select`
 -- Indizes für die Tabelle `floors`
 --
 ALTER TABLE `floors`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `projects_id` (`projects_id`);
 
 --
 -- Indizes für die Tabelle `fuses`
 --
 ALTER TABLE `fuses`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `circuitbreakers_id` (`circuitbreakers_id`);
 
 --
 -- Indizes für die Tabelle `projects`
@@ -209,13 +213,15 @@ ALTER TABLE `projects`
 -- Indizes für die Tabelle `rooms`
 --
 ALTER TABLE `rooms`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `floors_id` (`floors_id`);
 
 --
 -- Indizes für die Tabelle `sensors`
 --
 ALTER TABLE `sensors`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `devices_id` (`devices_id`);
 
 --
 -- Indizes für die Tabelle `sensors_select`
@@ -237,7 +243,7 @@ ALTER TABLE `circuitbreakers`
 -- AUTO_INCREMENT für Tabelle `devices`
 --
 ALTER TABLE `devices`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT für Tabelle `devices_select`
@@ -261,7 +267,7 @@ ALTER TABLE `fuses`
 -- AUTO_INCREMENT für Tabelle `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT für Tabelle `rooms`
@@ -280,6 +286,40 @@ ALTER TABLE `sensors`
 --
 ALTER TABLE `sensors_select`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- Constraints der exportierten Tabellen
+--
+
+--
+-- Constraints der Tabelle `devices`
+--
+ALTER TABLE `devices`
+  ADD CONSTRAINT `devices_ibfk_1` FOREIGN KEY (`rooms_id`) REFERENCES `rooms` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints der Tabelle `floors`
+--
+ALTER TABLE `floors`
+  ADD CONSTRAINT `floors_ibfk_1` FOREIGN KEY (`projects_id`) REFERENCES `projects` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints der Tabelle `fuses`
+--
+ALTER TABLE `fuses`
+  ADD CONSTRAINT `fuses_ibfk_1` FOREIGN KEY (`circuitbreakers_id`) REFERENCES `circuitbreakers` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints der Tabelle `rooms`
+--
+ALTER TABLE `rooms`
+  ADD CONSTRAINT `rooms_ibfk_1` FOREIGN KEY (`floors_id`) REFERENCES `floors` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints der Tabelle `sensors`
+--
+ALTER TABLE `sensors`
+  ADD CONSTRAINT `sensors_ibfk_1` FOREIGN KEY (`devices_id`) REFERENCES `devices` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
