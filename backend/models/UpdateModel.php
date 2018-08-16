@@ -124,13 +124,11 @@ class UpdateModel {
     
     public function updateFuse($specification, $id) {
         $name = filter_var($specification->name, FILTER_SANITIZE_SPECIAL_CHARS);
-        $cbId = filter_var($specification->circuitbreakerid, FILTER_SANITIZE_SPECIAL_CHARS);
         
         try {
-            $sql = "UPDATE fuses SET circuitbreakers_id = :cbId, name = :name WHERE id = :id";
+            $sql = "UPDATE fuses SET name = :name WHERE id = :id";
             $stmt = $this->database->prepare($sql);
             $stmt->bindParam(":name", $name);
-            $stmt->bindParam(":cbId", $cbId);
             $stmt->bindParam(":id", $id);
             $stmt->execute();
             $rowsAffected = $stmt->rowCount();
