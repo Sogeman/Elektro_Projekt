@@ -2,6 +2,7 @@
     font-family: 'Montserrat', sans-serif;
     background-color: darkslategray;
     color: white;
+    min-width: 750px;
 }
 
 .btn-lg {
@@ -129,3 +130,9 @@ thead tr th {
     }
 }
 
+@media screen and (max-width: 1000px) {
+    .container {
+      width: 100%;
+      max-width: none;
+    }
+  }
