@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 
 <head>
@@ -17,7 +17,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" crossorigin="anonymous">
     <link href="frontend/Content/mystyles.css" rel="stylesheet" />
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Elektroinstallationsmanager</title>
 </head>
 
@@ -168,7 +169,8 @@
                         </select>
                         <div class="form-group" id="form-name">
                             <label for="name">Bezeichnung</label>
-                            <input type="text" class="form-control mt-2" id="name" name="name" maxlength=40 placeholder="Name (benötigt)" required="required" />
+                            <input type="text" class="form-control mt-2" id="name" name="name" maxlength=40 placeholder="Name (benötigt)" required="required"
+                            />
                         </div>
                         <!-- nur bei Stockwerken -->
                         <div class="form-group" id="form-floor-count">
@@ -192,8 +194,8 @@
                         </select>
                         <div class="form-group" id="form-current-choice">
                             <label for="unit">Derzeitige Auswahl</label>
-                            <input type="text" class="form-control" id="current-choice" name="choice1" placeholder="Beispielsicherung (benötigt)" required="required" onkeypress="return false;"
-                            />
+                            <input type="text" class="form-control" id="current-choice" name="choice1" placeholder="Beispielsicherung (benötigt)" required="required"
+                                onkeypress="return false;" />
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -244,34 +246,35 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Info Modal -->
+        <!-- Info Modal -->
 
-    <div class="modal" id="howto-modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">How To</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <ul>
-                        <li>Projekt, Stockwerke und Räume definieren</li>
-                        <li>FIs und Sicherungen anlegen</li>
-                        <li>Geräte und Sensoren anlegen</li>
-                        <li>Achtung: gelöscht wird immer der aktuelle Eintrag und alles in den Levels darunter</li>
-                        <li>Löschen des Projektes löscht wirklich alles!</li>
+        <div class="modal" id="howto-modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">How To</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <ul>
+                            <li>Projekt, Stockwerke und Räume definieren</li>
+                            <li>FIs und Sicherungen anlegen</li>
+                            <li>Geräte und Sensoren anlegen</li>
+                            <li>Achtung: gelöscht wird immer der aktuelle Eintrag und alles in den Levels darunter</li>
+                            <li>Löschen des Projektes löscht wirklich alles!</li>
 
-                    </ul>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+                    </div>
                 </div>
             </div>
         </div>
+
     </div>
 
 </body>
