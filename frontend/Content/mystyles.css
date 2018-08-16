@@ -1,21 +1,18 @@
-﻿body {
+﻿﻿body {
     font-family: 'Montserrat', sans-serif;
     background-color: darkslategray;
     color: white;
-    min-width: 750px;
+    min-width: 640px;
 }
 
 .btn-lg {
     min-width: 130px;
 }
 
-.floating {
-    position: absolute;
-}
-
 #info-button {
-    top: 25px;
-    right: 25px;
+    position: absolute;
+    top: 2%;
+    right: 2%;
 }
 
 .modal {
