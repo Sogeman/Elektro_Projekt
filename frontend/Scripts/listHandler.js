@@ -35,7 +35,7 @@ var ListHandler = {
             row += '<button class="btn btn-link shopping-list-button" title="Einkaufsliste anzeigen"><img src="frontend/Content/images/shopping-cart.png">';
             row += '<button class="btn btn-link schematic-button" title="Schaltplan anzeigen"><img src="frontend/Content/images/schematic-button.png">';
         } else {
-            row += '<button class="btn btn-link back-button" title="zurück"><img src="frontend/Content/images/back-arrow.png">';
+            row += '<button class="btn btn-link back-button" title="zurück"><img src="frontend/Content/images/back-button.png">';
         }
         row += '</td></tr>';
         return row;
@@ -47,7 +47,7 @@ var ListHandler = {
             var row = '<td colspan=4 class="text-center"><h4 class="mt-2">Nichts hier, bitte etwas hinzufügen (FIs und Sicherungen besser zuerst)</h4>';
         }
         if (QueryManager.currentLevel != "projects") {
-            row += '<button class="btn btn-link back-button" title="zurück"><img src="frontend/Content/images/back-arrow.png"></td>';
+            row += '<button class="btn btn-link back-button" title="zurück"><img src="frontend/Content/images/back-button.png"></td>';
         }
         $("#data-table").append(row);
     }
