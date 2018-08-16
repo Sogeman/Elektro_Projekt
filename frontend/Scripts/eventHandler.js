@@ -31,10 +31,10 @@ var EventHandler = {
             var name = clickedItem[0].name;
 
             $("#page-title").text(name);
+
             if(MiscLogic.titleHistory[MiscLogic.titleHistory.length-1] != name) {
                 MiscLogic.titleHistory.push(name);
             }
-            console.log(MiscLogic.titleHistory);
 
             if (QueryManager.currentLevel == "projects") {
                 QueryManager.projectId = parentId;
@@ -161,6 +161,9 @@ var EventHandler = {
     , CreateEvent: function () {
         $("#create-item-button").off().on("click", function (event) {
             event.stopPropagation();
+            if (QueryManager.currentLevel == "circuitbreakers") {
+                $("#parent-id").attr("value", QueryManager.projectId);
+            }
             ModalManager.ClearModal();
             QueryManager.RequestDataForSelects();
             $("#create-entry-modal").modal(); //enables modal manually

@@ -15,8 +15,10 @@ class ProjectListController implements ControllerInterface {
 
     public function route($inputData) {
         $projectId = filter_var($inputData->projectid, FILTER_VALIDATE_INT);
-        $name = filter_var($inputData->projectname, FILTER_SANITIZE_SPECIAL_CHARS);
-        
+        if(isset($inputData->projectname)) {
+            $name = filter_var($inputData->projectname, FILTER_SANITIZE_SPECIAL_CHARS);
+        }
+
         if ($inputData->action == "get-shoppinglist") {
             $this->getShoppinglist($projectId);
         } else if ($inputData->action == "all-fuses") {
@@ -59,16 +61,16 @@ class ProjectListController implements ControllerInterface {
 
         $this->showResponse($outputData);
     }
-    
+
     private function getAllFuses($projectId) {
         $schematicModel = new SchematicModel();
-        
+
         $fuses = $schematicModel->listFusesOfProject($projectId);
         $outputData = array(
             "items" => $fuses,
             "listtype" => $schematicModel->getCurrentListType()
         );
-        
+
         $this->showResponse($outputData);
     }
 
