@@ -60,13 +60,11 @@ var ModalManager = {
 
     , ClearModal: function () {
         ModalManager.formName.find("input").val("");
-        $("#devices-select").siblings().remove();
-        $("#sensors-select").siblings().remove();
+        $("#devices-select, #sensors-select, #fuses-select").siblings().remove();
         ModalManager.formFloorCount.find("input").val("");
         ModalManager.formUnit.find("input").val("");
         ModalManager.formValue.find("input").val("");
         ModalManager.formCurrentChoice.find("input").val("");
-        $("#fuses-select").siblings().remove();
     }
 
     , CreateEntry: function () { // Befehle im Switch in funktion rausbrechen
@@ -92,7 +90,7 @@ var ModalManager = {
             default:
                 break;
         }
-        EventHandler.SaveEvent("create"); // just uses SaveEntry
+        EventHandler.SaveEvent("create");
     }
 
     , SaveEntry: function (action) {

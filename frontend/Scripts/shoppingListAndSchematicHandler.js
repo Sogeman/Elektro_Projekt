@@ -7,8 +7,7 @@ var ShoppingListHandler = {
     }
 
     , DrawShoppingList: function (request, serverData) {
-        $("#shopping-list-devices").empty();
-        $("#shopping-list-sensors").empty();
+        $("#shopping-list-devices, #shopping-list-sensors").empty();
         viewSwitcher("shopping-list");
         console.log(serverData);
         $("#shopping-list-title").text("Einkaufsliste für " + request.projectname);
