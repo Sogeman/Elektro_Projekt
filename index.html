@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -29,10 +29,17 @@
             <img id="loading-image" src="frontend/Content/images/loading-spinner.png">
         </div>
 
+        <!-- Info Button -->
+        <div class="floating" id="info-button">
+            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#howto-modal">
+                <img src="frontend/Content/images/info-button.png">
+            </button>
+        </div>
+
         <!-- Header -->
         <div class="row my-2">
             <div class="col-1 offset-1 col-lg-1 offset-lg-1 mt-1" id="nav-menu">
-                <button id="home" class="btn btn-link">
+                <button type="button" id="home" class="btn btn-link">
                     <img src="frontend/Content/images/home-button.png">
                 </button>
             </div>
@@ -45,94 +52,94 @@
 
         <!-- Homepage -->
         <div id="homepage">
-                <div class="row my-3 main-buttons">
-                    <div class="col-5 col-lg-6">
-                        <h2 id="page-title">Projekte</h2>
-                    </div>
-                    <div class="col-1 col-lg-1">
-                        <button type="button" id="circuitbreaker-button" class="btn btn-info btn-lg">FIs + Sicherungen</button>
-                    </div>
-                    <div class="col-2 offset-3 col-lg-2 offset-lg-2">
-                        <button type="button" id="create-item-button" class="btn btn-lg btn-info"></button>
-                    </div>
+            <div class="row my-3 main-buttons">
+                <div class="col-5 col-lg-6">
+                    <h2 id="page-title">Projekte</h2>
                 </div>
+                <div class="col-1 col-lg-1">
+                    <button type="button" id="circuitbreaker-button" class="btn btn-info btn-lg">FIs + Sicherungen</button>
+                </div>
+                <div class="col-2 offset-3 col-lg-2 offset-lg-2">
+                    <button type="button" id="create-item-button" class="btn btn-lg btn-info"></button>
+                </div>
+            </div>
 
-                <div class="row my-3">
-                    <div id="data-list" class="col">
-                        <table class="table">
-                            <thead id="data-table-head">
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Erstellungsdatum</th>
-                                    <th scope="col">Bezeichnung</th>
-                                    <th scope="col" class="text-center">Optionen</th>
-                                </tr>
-                            </thead>
-                            <tbody id="data-table">
-                                <!-- Insert point for server data -->
-                            </tbody>
-                        </table>
-                    </div>
+            <div class="row my-3">
+                <div id="data-list" class="col">
+                    <table class="table">
+                        <thead id="data-table-head">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Erstellungsdatum</th>
+                                <th scope="col">Bezeichnung</th>
+                                <th scope="col" class="text-center">Optionen</th>
+                            </tr>
+                        </thead>
+                        <tbody id="data-table">
+                            <!-- Insert point for server data -->
+                        </tbody>
+                    </table>
                 </div>
+            </div>
         </div>
 
         <!-- Shoppinglist -->
         <div id="shopping-list">
-                <div class="row my-3">
-                    <div class="col-6 mx-auto">
-                        <h2 id="shopping-list-title"></h2>
-                    </div>
-                    <div class="col-2">
-                        <button class="btn btn-info" id="print" onclick="window.print();">Drucken</button>
-                    </div>
+            <div class="row my-3">
+                <div class="col-6 mx-auto">
+                    <h2 id="shopping-list-title"></h2>
                 </div>
+                <div class="col-2">
+                    <button type="button" class="btn btn-info" id="print" onclick="window.print();">Drucken</button>
+                </div>
+            </div>
 
-                <!-- Geräte -->
-                <div class="row my-3">
-                    <div class="col-3">
-                        <h4>Geräte</h4>
-                    </div>
+            <!-- Geräte -->
+            <div class="row my-3">
+                <div class="col-3">
+                    <h4>Geräte</h4>
                 </div>
-                <div class="row my-3">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Menge</th>
-                            </tr>
-                        </thead>
-                        <tbody id="shopping-list-devices">
-                            <!-- Insert point for shoppinglist -->
-                        </tbody>
-                    </table>
-                </div>
+            </div>
+            <div class="row my-3">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Menge</th>
+                        </tr>
+                    </thead>
+                    <tbody id="shopping-list-devices">
+                        <!-- Insert point for shoppinglist -->
+                    </tbody>
+                </table>
+            </div>
 
-                <!-- Sensoren -->
-                <div class="row my-3">
-                    <div class="col-3">
-                        <h4>Sensoren</h4>
-                    </div>
+            <!-- Sensoren -->
+            <div class="row my-3">
+                <div class="col-3">
+                    <h4>Sensoren</h4>
                 </div>
-                <div class="row my-3">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Menge</th>
-                            </tr>
-                        </thead>
-                        <tbody id="shopping-list-sensors">
-                            <!-- Insert point for shoppinglist -->
-                        </tbody>
-                    </table>
-                </div>
+            </div>
+            <div class="row my-3">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Menge</th>
+                        </tr>
+                    </thead>
+                    <tbody id="shopping-list-sensors">
+                        <!-- Insert point for shoppinglist -->
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <!-- Schematic -->
         <div id="schematic">
-                <div class="row schematic-anchor" id="schematic-anchor"> </div>
+            <div class="row schematic-anchor" id="schematic-anchor"> </div>
         </div>
 
         <!--Create Entry Modal-->
@@ -191,7 +198,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary close-button" data-dismiss="modal">Close</button>
-                        <button type="button" id="save-button" class="btn btn-info">Save changes</button>
+                        <button type="button" id="save-button" class="btn btn-success">Save changes</button>
                     </div>
                 </div>
             </div>
@@ -208,10 +215,10 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p>Sind Sie absolut sicher, dass Sie den Eintrag löschen wollen?</p>
+                        <p>Sind Sie absolut sicher, dass Sie den Eintrag und alle dazugehörigen Einträge löschen wollen?</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" id="delete-warning-confirm" class="btn btn-primary">JA!!!!</button>
+                        <button type="button" id="delete-warning-confirm" class="btn btn-warning">JA!!!!</button>
                         <button type="button" class="btn btn-secondary close-button" data-dismiss="modal">NEIN, doch nicht</button>
                     </div>
                 </div>
@@ -228,18 +235,46 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p>Letzte Chance. Gelöschte Einträge sind unwiderruflich vernichtet.</p>
+                        <p>Letzte Chance. Alles in den darunterliegenden Levels wird ebenfalls gelöscht!</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary close-button" data-dismiss="modal">NEIN, doch nicht</button>
-                        <button type="button" id="delete-confirm" class="btn btn-primary">JA!!!!</button>
+                        <button type="button" id="delete-confirm" class="btn btn-danger">JAAA!!!!</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Info Modal -->
+
+    <div class="modal" id="howto-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">How To</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ul>
+                        <li>Projekt, Stockwerke und Räume definieren</li>
+                        <li>FIs und Sicherungen anlegen</li>
+                        <li>Geräte und Sensoren anlegen</li>
+                        <li>Achtung: gelöscht wird immer der aktuelle Eintrag und alles in den Levels darunter</li>
+                        <li>Löschen des Projektes löscht wirklich alles!</li>
+
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
-<!-- icons: https://www.iconfinder.com/iconsets/app-custom-ui-1  -->
+<!-- Icons made by Juliia Osadcha: https://www.iconfinder.com/iconsets/app-custom-ui-1  -->
 
 </html>
