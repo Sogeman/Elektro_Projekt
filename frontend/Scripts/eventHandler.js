@@ -30,9 +30,7 @@ var EventHandler = {
             $("#parent-id").attr("value", parentId);
             var name = clickedItem[0].name;
 
-            $("#page-title").text(name);
-
-            if(MiscLogic.titleHistory[MiscLogic.titleHistory.length-1] != name) {
+            if (MiscLogic.titleHistory[MiscLogic.titleHistory.length - 1] != name) {
                 MiscLogic.titleHistory.push(name);
             }
 
@@ -42,12 +40,13 @@ var EventHandler = {
             if (QueryManager.currentLevel != "fuses" && QueryManager.currentLevel != "sensors") {
                 request = { action: "list", listtype: nextLevel, parentid: parentId };
                 QueryManager.LoadData(request);
+                $("#page-title").text(name);
                 MiscLogic.lastParentIds.push(parentId); //always push because Ids will be the same
             }
         });
     }
 
-    , EditButton: function (serverData) { 
+    , EditButton: function (serverData) {
         $(".edit-button").off().on("click", function (event) {
             event.stopPropagation();
             ModalManager.ClearModal();
@@ -99,9 +98,8 @@ var EventHandler = {
             event.stopPropagation();
             var request = { action: "list", listtype: "circuitbreakers", parentid: QueryManager.projectId };
             QueryManager.LoadData(request);
-            if (MiscLogic.lastParentIds[MiscLogic.lastParentIds.length - 1] != QueryManager.projectId) {
-                MiscLogic.lastParentIds.push(QueryManager.projectId);
-            }
+            MiscLogic.lastParentIds.push(QueryManager.projectId);
+
         });
     }
 
@@ -143,14 +141,14 @@ var EventHandler = {
             }
             var validate = [];
             inputFields.each(function () { // check if inputfields defined above are empty or not
-                if($(this).val().trim().length < 1) {
+                if ($(this).val().trim().length < 1) {
                     validate.push(false);
                 } else {
                     validate.push(true);
                 }
             });
             var result = validate.includes(false);
-            if(result) {
+            if (result) {
                 alert("Bitte alles ausfüllen");
             } else {
                 ModalManager.SaveEntry(action);
