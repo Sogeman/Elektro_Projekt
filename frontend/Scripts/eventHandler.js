@@ -129,6 +129,7 @@ var EventHandler = {
     , SaveEvent: function (action) {
         $("#save-button").off().on("click", function (event) {
             event.stopPropagation();
+            $("#save-button").off();
             switch (QueryManager.currentLevel) { // define inputfields to look for
                 case "projects": case "floors": case "rooms": case "sensors": case "circuitbreakers": case "fuses":
                     var inputFields = $("#name");
@@ -150,6 +151,7 @@ var EventHandler = {
             var result = validate.includes(false);
             if (result) {
                 alert("Bitte alles ausfüllen");
+                EventHandler.SaveEvent(action);
             } else {
                 ModalManager.SaveEntry(action);
             }
