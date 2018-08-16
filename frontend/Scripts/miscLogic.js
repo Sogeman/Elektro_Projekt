@@ -1,5 +1,8 @@
 var MiscLogic = {
 
+    lastParentIds: [],
+    titleHistory: [],
+
     GetCurrentLevelName: function () {
         var level;
         switch (QueryManager.currentLevel.toUpperCase()) {
@@ -51,7 +54,7 @@ var MiscLogic = {
             case "CIRCUITBREAKERS":
                 level = "fuses";
                 break;
-            case "FUSES": 
+            case "FUSES":
                 level = "fuses";
                 break;
             default:
@@ -60,7 +63,7 @@ var MiscLogic = {
         return level;
     }
 
-    , ShowHideButtons: function(listtype) { // hides/shows buttons on page depending on what the current level is
+    , ShowHideButtons: function (listtype) { // hides/shows buttons on page depending on what the current level is
         if (listtype == "circuitbreakers" || listtype == "fuses") {
             $("#circuitbreaker-button").hide();
             $("#home").fadeIn();
@@ -89,10 +92,14 @@ var MiscLogic = {
         return clickedItem;
     }
 
-    , FetchLastParentId: function () { // sets the parentid. Going into CBs and Fuses broke it before
-        if (EventHandler.lastParentIds.length > 1) {
-            EventHandler.lastParentIds.pop();
-            $("#parent-id").attr("value", EventHandler.lastParentIds[EventHandler.lastParentIds.length - 1]);
+    , FetchLastParentIdAndTitle: function () { // sets the parentid. Going into CBs and Fuses broke it before
+        if (MiscLogic.lastParentIds.length > 1) {
+            MiscLogic.lastParentIds.pop();
+            $("#parent-id").attr("value", MiscLogic.lastParentIds[MiscLogic.lastParentIds.length - 1]);
+        }
+        if (MiscLogic.titleHistory.length > 1) {
+            MiscLogic.titleHistory.pop();
+            $("#page-title").text(MiscLogic.titleHistory[MiscLogic.titleHistory.length - 1]);
         }
     }
 }

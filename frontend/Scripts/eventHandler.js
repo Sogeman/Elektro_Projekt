@@ -1,7 +1,5 @@
 var EventHandler = {
 
-    lastParentIds: [],
-
     Initialize: function () {
         QueryManager.LoadingScreen();
         QueryManager.LoadData(Controller.homepage);
@@ -32,14 +30,19 @@ var EventHandler = {
             $("#parent-id").attr("value", parentId);
             var name = clickedItem[0].name;
 
+            $("#page-title").text(name);
+            if(MiscLogic.titleHistory[MiscLogic.titleHistory.length-1] != name) {
+                MiscLogic.titleHistory.push(name);
+            }
+            console.log(MiscLogic.titleHistory);
+
             if (QueryManager.currentLevel == "projects") {
-                $("#page-title").text(name);
                 QueryManager.projectId = parentId;
             }
             if (QueryManager.currentLevel != "fuses" && QueryManager.currentLevel != "sensors") {
                 request = { action: "list", listtype: nextLevel, parentid: parentId };
                 QueryManager.LoadData(request);
-                EventHandler.lastParentIds.push(parentId);
+                MiscLogic.lastParentIds.push(parentId); //always push because Ids will be the same
             }
         });
     }
@@ -66,9 +69,10 @@ var EventHandler = {
         $(".back-button").off().on("click", function (event) {
             event.stopPropagation();
             QueryManager.GoBackToPreviousLevel();
-            MiscLogic.FetchLastParentId();
+            MiscLogic.FetchLastParentIdAndTitle();
             if (QueryManager.currentLevel == "floors") {
-                EventHandler.lastParentIds = [];
+                MiscLogic.lastParentIds = [];
+                MiscLogic.titleHistory = [];
             }
         });
     }
@@ -95,8 +99,8 @@ var EventHandler = {
             event.stopPropagation();
             var request = { action: "list", listtype: "circuitbreakers", parentid: QueryManager.projectId };
             QueryManager.LoadData(request);
-            if (EventHandler.lastParentIds[EventHandler.lastParentIds.length - 1] != QueryManager.projectId) {
-                EventHandler.lastParentIds.push(QueryManager.projectId);
+            if (MiscLogic.lastParentIds[MiscLogic.lastParentIds.length - 1] != QueryManager.projectId) {
+                MiscLogic.lastParentIds.push(QueryManager.projectId);
             }
         });
     }

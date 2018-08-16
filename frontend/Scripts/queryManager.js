@@ -14,7 +14,7 @@
             , dataType: "json"
             , cache: false
             , success: function (data) {
-                //console.log(EventHandler.lastParentIds);
+                //console.log(MiscLogic.lastParentIds);
                 MiscLogic.ShowHideButtons(request.listtype);
                 QueryManager.currentLevel = request.listtype;
                 viewSwitcher("homepage");
