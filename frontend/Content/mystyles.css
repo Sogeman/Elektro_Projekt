@@ -3,8 +3,18 @@
     background-color: darkslategray;
     color: white;
 }
+
 .btn-lg {
     min-width: 130px;
+}
+
+.floating {
+    position: absolute;
+}
+
+#info-button {
+    top: 25px;
+    right: 25px;
 }
 
 .modal {
