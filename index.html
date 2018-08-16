@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -17,24 +18,23 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" crossorigin="anonymous">
     <link href="frontend/Content/mystyles.css" rel="stylesheet" />
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Elektroinstallationsmanager</title>
 </head>
 
 <body>
+
+    <!-- Info Button -->
+    <button type="button" id="info-button" class="btn btn-link" data-toggle="modal" data-target="#howto-modal">
+        <img src="frontend/Content/images/info-button.png">
+    </button>
+
     <div class="container">
 
         <!-- Loading Screen -->
         <div id="loading-screen">
             <img id="loading-image" src="frontend/Content/images/loading-spinner.png">
-        </div>
-
-        <!-- Info Button -->
-        <div class="floating" id="info-button">
-            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#howto-modal">
-                <img src="frontend/Content/images/info-button.png">
-            </button>
         </div>
 
         <!-- Header -->
@@ -266,7 +266,7 @@
                             <li>Achtung: gelöscht wird immer der aktuelle Eintrag und alles in den Levels darunter</li>
                             <li>Löschen des Projektes löscht wirklich alles!</li>
                             <br>
-                            <li>Moderne Telefone funktionieren im Querformat</li>
+                            <li>Moderne Telefone sollten im Querformat funktionieren</li>
                         </ul>
                     </div>
                     <div class="modal-footer">
