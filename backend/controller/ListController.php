@@ -3,6 +3,7 @@
 /**
  * @author Rene
  */
+
 class ListController implements ControllerInterface {
 
     private $jsonView;
