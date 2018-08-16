@@ -34,6 +34,12 @@ class ListModel {
         return $this->currentListType;
     }
     
+    public function getProjectName($projectid) {
+        $sql = "SELECT name FROM projects where id = $projectid}";
+        $this->list = $this->getListFromDatabase($sql);
+        return $this->list;
+    }
+    
     public function listProjects() {
         $sql = "SELECT id, name, created FROM projects";
         $this->list = $this->getListFromDatabase($sql);

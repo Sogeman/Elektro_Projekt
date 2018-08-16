@@ -6,7 +6,6 @@
 class ProjectListController implements ControllerInterface {
 
     private $jsonView;
-    private $listModel;
     private $database;
 
     public function __construct() {
@@ -16,12 +15,14 @@ class ProjectListController implements ControllerInterface {
 
     public function route($inputData) {
         $projectId = filter_var($inputData->projectid, FILTER_VALIDATE_INT);
+        $name = filter_var($inputData->projectname, FILTER_SANITIZE_SPECIAL_CHARS);
+        
         if ($inputData->action == "get-shoppinglist") {
             $this->getShoppinglist($projectId);
         } else if ($inputData->action == "all-fuses") {
             $this->getAllFuses($projectId);
         } else {
-            $this->getSchematic($projectId);
+            $this->getSchematic($projectId, $name);
         }
     }
 
@@ -39,7 +40,7 @@ class ProjectListController implements ControllerInterface {
         $this->showResponse($outputData);
     }
 
-    private function getSchematic($projectId) {
+    private function getSchematic($projectId, $name) {
         $listModel = new ListModel();
         $schematicModel = new SchematicModel();
 
@@ -49,6 +50,7 @@ class ProjectListController implements ControllerInterface {
         $sensors = $schematicModel->listSensorsOfProject($projectId);
 
         $outputData = array(
+            "Projectname" => $name,
             "Circuitbreakers" => $circuitbreakers,
             "Fuses" => $fuses,
             "Devices" => $devices,
