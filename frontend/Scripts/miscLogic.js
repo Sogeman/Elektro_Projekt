@@ -102,4 +102,17 @@ var MiscLogic = {
             $("#page-title").text(MiscLogic.titleHistory[MiscLogic.titleHistory.length - 1]);
         }
     }
+    
+    , ValidateInputfields: function (inputFields) {
+        var validate = [];
+            inputFields.each(function () { // check if inputfields defined above are empty or not
+                if ($(this).val().trim().length < 1) {
+                    validate.push(false);
+                } else {
+                    validate.push(true);
+                }
+            });
+        var result = validate.includes(false);
+        return result;
+    }
 }
