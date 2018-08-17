@@ -103,9 +103,9 @@ var MiscLogic = {
         }
     }
     
-    , ValidateInputfields: function (inputFields) {
+    , ValidateInputfields: function (inputFields) { // check if inputfields defined in ModalManager.SetInputfields are empty or not
         var validate = [];
-            inputFields.each(function () { // check if inputfields defined above are empty or not
+            inputFields.each(function () {
                 if ($(this).val().trim().length < 1) {
                     validate.push(false);
                 } else {
