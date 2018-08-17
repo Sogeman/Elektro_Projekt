@@ -69,7 +69,7 @@ var ModalManager = {
 
     , CreateEntry: function () { // Befehle im Switch in funktion rausbrechen
         $("#modal-title").text(MiscLogic.GetCurrentLevelName() + " anlegen");
-        switch (QueryManager.currentLevel) {
+        switch (QueryManager.currentLevel) { // updates inputfields when you choose from options
             case "devices":
                 ModalManager.formDevicesSelect.change(function () {
                     var text = $("#form-devices-select option:selected").text();
@@ -91,6 +91,7 @@ var ModalManager = {
                 break;
         }
         EventHandler.SaveEvent("create");
+        EventHandler.SubmitWithEnter("create");
     }
 
     , SaveEntry: function (action) {
@@ -104,7 +105,7 @@ var ModalManager = {
         var fuseId = $("#fuse-id").val();
         if (action == "create") {
             var request = { action: action, listtype: listType, parentid: parentId, specification: { name: name, floor_count_from_basement: count, unit: unit, value: value, fuseid: fuseId } };
-        } else {
+        } else { // adds itemid for update and delete
             var request = { action: action, listtype: listType, parentid: parentId, itemid: itemId, specification: { name: name, floor_count_from_basement: count, unit: unit, value: value, fuseid: fuseId } };
         }
         QueryManager.PostData(request);
@@ -116,6 +117,7 @@ var ModalManager = {
         $("#modal-title").text(MiscLogic.GetCurrentLevelName() + " aktualisieren")
         $("#create-entry-modal").modal(); //enables modal manually
         EventHandler.SaveEvent("update");
+        EventHandler.SubmitWithEnter("update");
     }
 
     , PrefillModal: function (clickedItem) { 

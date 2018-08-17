@@ -36,6 +36,7 @@ var EventHandler = {
 
             if (QueryManager.currentLevel == "projects") {
                 QueryManager.projectId = parentId;
+                QueryManager.projectname = name;
             }
             if (QueryManager.currentLevel != "fuses" && QueryManager.currentLevel != "sensors") {
                 request = { action: "list", listtype: nextLevel, parentid: parentId };
@@ -98,8 +99,9 @@ var EventHandler = {
             event.stopPropagation();
             var request = { action: "list", listtype: "circuitbreakers", parentid: QueryManager.projectId };
             QueryManager.LoadData(request);
-            MiscLogic.lastParentIds.push(QueryManager.projectId);
-
+            MiscLogic.lastParentIds.push(QueryManager.projectId); // adds projectid so that the parentid for CBs is the projectid
+            $("#page-title").text(QueryManager.projectname);
+            MiscLogic.titleHistory.push(QueryManager.projectname); // adds projecttitle to history for backbutton later
         });
     }
 
@@ -120,7 +122,7 @@ var EventHandler = {
     , HomeEvent: function () {
         $("#home").on("click", function (event) {
             event.stopPropagation();
-            QueryManager.lastRequests.splice(0, QueryManager.lastRequests.length);
+            QueryManager.lastRequests.splice(0, QueryManager.lastRequests.length); // clears request history array on home button press
             QueryManager.LoadData(Controller.homepage);
             $("#page-title").text("Projekte");
         });
@@ -129,29 +131,9 @@ var EventHandler = {
     , SaveEvent: function (action) {
         $("#save-button").off().on("click", function (event) {
             event.stopPropagation();
-            EventHandler.SubmitWithEnter(action);
             $("#save-button").off();
-            var inputFields = ModalManager.setInputfields();
-            //switch (QueryManager.currentLevel) { // define inputfields to look for
-            //    case "projects": case "floors": case "rooms": case "sensors": case "circuitbreakers": case "fuses":
-            //        var inputFields = $("#name");
-            //        break;
-            //    case "devices":
-            //        var inputFields = $("#name, #current-choice");
-            //        break;
-             //   default:
-             //       break;
-           // }
-            var result = MiscLogic.ValidateInputfields(inputFields);
-            //var validate = [];
-            //inputFields.each(function () { // check if inputfields defined above are empty or not
-             //   if ($(this).val().trim().length < 1) {
-              //      validate.push(false);
-              //  } else {
-               //     validate.push(true);
-               // }
-            //});
-            //var result = validate.includes(false);
+            var inputFields = ModalManager.setInputfields(); // set inputfields required to be full
+            var result = MiscLogic.ValidateInputfields(inputFields); //checks if the inputfields are in fact full
             if (result) {
                 alert("Bitte alles ausfüllen");
                 EventHandler.SaveEvent(action);
@@ -162,16 +144,19 @@ var EventHandler = {
     }
     
     , SubmitWithEnter: function(action) {
-        $("input").off().on("keyup", function (event) {
+        $("body").off().on("keyup", function (event) {
             event.stopPropagation();
-            $("input").off();
             if (event.which == 13) {
+                $("input").off();
                 var inputFields = ModalManager.setInputfields();
                 var result = MiscLogic.ValidateInputfields(inputFields);
-                if (result) {
+                var isModalOpen = $('#create-entry-modal').is(':visible');
+                if (result && isModalOpen) { // inputfields are not full and modal is open -> alert and restore event
                     alert("Bitte alles ausfüllen");
                     EventHandler.SubmitWithEnter(action);
-                } else {
+                } else if (result && !isModalOpen) { // inputfields are not full and modal is closed -> restore event
+                    EventHandler.SubmitWithEnter(action);                    
+                } else if (!result && isModalOpen) { // inputfields are full and modal is open -> save entry
                     ModalManager.SaveEntry(action);
                 }
             }
@@ -192,7 +177,7 @@ var EventHandler = {
     }
 
     , ClearModal: function () { // clears Modal when it's closed
-        $("#create-entry-modal").off().on("hidden.bs.modal", function (event) {
+        $("#create-entry-modal").off().on("hidden.bs.modal", function () {
             ModalManager.ClearModal();
         });
     }
