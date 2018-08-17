@@ -169,5 +169,17 @@ var ModalManager = {
         QueryManager.PostData(request);
     }
 
-
+    , setInputfields: function () {
+        switch (QueryManager.currentLevel) { // define inputfields to look for
+                case "projects": case "floors": case "rooms": case "sensors": case "circuitbreakers": case "fuses":
+                    var inputFields = $("#name");
+                    break;
+                case "devices":
+                    var inputFields = $("#name, #current-choice");
+                    break;
+                default:
+                    break;
+            }
+        return inputFields;
+    }
 };
