@@ -109,6 +109,7 @@ var ModalManager = {
             var request = { action: action, listtype: listType, parentid: parentId, itemid: itemId, specification: { name: name, floor_count_from_basement: count, unit: unit, value: value, fuseid: fuseId } };
         }
         QueryManager.PostData(request);
+        $("#create-entry-modal").modal("hide");
     }
 
     , EditEntry: function (clickedButton, data) {
