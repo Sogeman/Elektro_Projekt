@@ -129,26 +129,29 @@ var EventHandler = {
     , SaveEvent: function (action) {
         $("#save-button").off().on("click", function (event) {
             event.stopPropagation();
+            EventHandler.SubmitWithEnter(action);
             $("#save-button").off();
-            switch (QueryManager.currentLevel) { // define inputfields to look for
-                case "projects": case "floors": case "rooms": case "sensors": case "circuitbreakers": case "fuses":
-                    var inputFields = $("#name");
-                    break;
-                case "devices":
-                    var inputFields = $("#name, #current-choice");
-                    break;
-                default:
-                    break;
-            }
-            var validate = [];
-            inputFields.each(function () { // check if inputfields defined above are empty or not
-                if ($(this).val().trim().length < 1) {
-                    validate.push(false);
-                } else {
-                    validate.push(true);
-                }
-            });
-            var result = validate.includes(false);
+            var inputFields = ModalManager.setInputfields();
+            //switch (QueryManager.currentLevel) { // define inputfields to look for
+            //    case "projects": case "floors": case "rooms": case "sensors": case "circuitbreakers": case "fuses":
+            //        var inputFields = $("#name");
+            //        break;
+            //    case "devices":
+            //        var inputFields = $("#name, #current-choice");
+            //        break;
+             //   default:
+             //       break;
+           // }
+            var result = MiscLogic.ValidateInputfields(inputFields);
+            //var validate = [];
+            //inputFields.each(function () { // check if inputfields defined above are empty or not
+             //   if ($(this).val().trim().length < 1) {
+              //      validate.push(false);
+              //  } else {
+               //     validate.push(true);
+               // }
+            //});
+            //var result = validate.includes(false);
             if (result) {
                 alert("Bitte alles ausfüllen");
                 EventHandler.SaveEvent(action);
@@ -156,6 +159,23 @@ var EventHandler = {
                 ModalManager.SaveEntry(action);
             }
         });
+    }
+    
+    , SubmitWithEnter: function(action) {
+        $("input").off().on("keyup", function (event) {
+            event.stopPropagation();
+            $("input").off();
+            if (event.which == 13) {
+                var inputFields = ModalManager.setInputfields();
+                var result = MiscLogic.ValidateInputfields(inputFields);
+                if (result) {
+                    alert("Bitte alles ausfüllen");
+                    EventHandler.SubmitWithEnter(action);
+                } else {
+                    ModalManager.SaveEntry(action);
+                }
+            }
+        });   
     }
 
     , CreateEvent: function () {
