@@ -27,7 +27,6 @@ var EventHandler = {
             var nextLevel = MiscLogic.GetNextLevel();
             var clickedItem = MiscLogic.FindClickedItem($(this), serverData);
             var parentId = clickedItem[0].id;
-            $("#parent-id").attr("value", parentId);
             var name = clickedItem[0].name;
 
             if (MiscLogic.titleHistory[MiscLogic.titleHistory.length - 1] != name) {
@@ -39,6 +38,7 @@ var EventHandler = {
                 QueryManager.projectname = name;
             }
             if (QueryManager.currentLevel != "fuses" && QueryManager.currentLevel != "sensors") {
+                $("#parent-id").attr("value", parentId);
                 request = { action: "list", listtype: nextLevel, parentid: parentId };
                 QueryManager.LoadData(request);
                 $("#page-title").text(name);
