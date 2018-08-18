@@ -59,7 +59,7 @@ var SchematicHandler = {
         var fuses = serverData.Fuses;
         var devices = serverData.Devices;
         var sensors = serverData.Sensors;
-        $("#circuitbreakers-anchor, #fuses-anchor, #rooms-anchor, #devices-anchor, #sensors-anchor").empty();
+        $("#schematic-anchor").empty();
 
         $("#schematic-title").find("h3").text(serverData.Projectname);
 
