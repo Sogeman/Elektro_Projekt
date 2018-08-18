@@ -42,9 +42,9 @@ var ListHandler = {
     }
 
     , ListIsEmpty: function () { // message when there is nothing to show
-        var row = '<td colspan = 4 class="text-center"><h4 class="mt-2">Nichts hier, bitte etwas hinzufügen</h4>';
+        var row = '<td colspan = 4 class="text-center"><h4 class="mt-2">Es gibt keine Einträge, bitte etwas hinzufügen</h4>';
         if (QueryManager.currentLevel == "devices") {
-            var row = '<td colspan=4 class="text-center"><h4 class="mt-2">Nichts hier, bitte etwas hinzufügen (FIs und Sicherungen besser zuerst)</h4>';
+            var row = '<td colspan=4 class="text-center"><h4 class="mt-2">Es gibt keine Einträge, bitte etwas hinzufügen (FIs und Sicherungen besser zuerst)</h4>';
         }
         if (QueryManager.currentLevel != "projects") {
             row += '<button class="btn btn-link back-button" title="zurück"><img src="frontend/Content/images/back-button.png"></td>';
