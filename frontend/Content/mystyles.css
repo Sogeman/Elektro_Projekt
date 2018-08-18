@@ -24,10 +24,6 @@ body {
     overflow-y: hidden;
 }
 
-#nav-menu {
-    height: 80px;
-}
-
 .edit-button, .delete-button, .shopping-list-button, .back-button, .schematic-button {
     margin-top: 4px;
     margin-right: 4px;
@@ -46,6 +42,9 @@ thead tr th {
 #home {
     background-color: #17a2b8;
     display: none;
+    position: absolute;
+    left: 2%;
+    top: 2%;
 }
 
 #home:hover, .back-button:hover, .edit-button:hover, .delete-button:hover, .shopping-list-button:hover, .schematic-button:hover{
@@ -59,7 +58,7 @@ thead tr th {
 
 #loading-screen {
     left: 0;
-    top: 110px;
+    top: 95px;
     width: 100%;
     height: 100%;
     background: #2f4f4f;
