@@ -147,7 +147,7 @@ var EventHandler = {
         $("body").off().on("keyup", function (event) {
             event.stopPropagation();
             if (event.which == 13) {
-                $("input").off();
+                $("body").off();
                 var inputFields = ModalManager.setInputfields();
                 var result = MiscLogic.ValidateInputfields(inputFields);
                 var isModalOpen = $('#create-entry-modal').is(':visible');
