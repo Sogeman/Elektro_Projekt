@@ -22,7 +22,7 @@ var ShoppingListHandler = {
                 var row = '<tr>';
                 row += '<th scope="row">' + index + '</th>';
                 row += '<td>' + devices[key].name + '</td>';
-                row += '<td>' + devices[key].amount + '</td></tr>';
+                row += '<td class="text-right">' + devices[key].amount + '</td></tr>';
                 $("#shopping-list-devices").append(row);
                 index++;
             }
@@ -36,7 +36,7 @@ var ShoppingListHandler = {
                 var row = '<tr>';
                 row += '<th scope="row">' + index + '</th>';
                 row += '<td>' + sensors[key].name + '</td>';
-                row += '<td>' + sensors[key].amount + '</td></tr>';
+                row += '<td class="text-right">' + sensors[key].amount + '</td></tr>';
                 $("#shopping-list-sensors").append(row);
                 index++;
             }
