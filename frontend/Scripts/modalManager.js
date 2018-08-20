@@ -98,10 +98,10 @@ var ModalManager = {
         var listType = QueryManager.currentLevel;
         var itemId = $("#item-id").val();
         var parentId = $("#parent-id").val();
-        var name = ModalManager.formName.find("input").val() || "0";
+        var name = ModalManager.formName.find("input").val().trim() || "nothing";
         var count = ModalManager.formFloorCount.find("input").val() || "0";
-        var unit = ModalManager.formUnit.find("input").val() || "0";
-        var value = ModalManager.formValue.find("input").val() || "0";
+        var unit = ModalManager.formUnit.find("input").val().trim() || "nothing";
+        var value = ModalManager.formValue.find("input").val().trim() || "nothing";
         var fuseId = $("#fuse-id").val();
         if (action == "create") {
             var request = { action: action, listtype: listType, parentid: parentId, specification: { name: name, floor_count_from_basement: count, unit: unit, value: value, fuseid: fuseId } };
