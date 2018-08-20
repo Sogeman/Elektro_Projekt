@@ -41,28 +41,28 @@ class ListModel {
     }
     
     public function listProjects() {
-        $sql = "SELECT id, name, created FROM projects";
+        $sql = "SELECT id, name, date(created) as created FROM projects";
         $this->list = $this->getListFromDatabase($sql);
         $this->currentListType = "projects";
         return $this->list;
     }
     
     public function listFloors($projectid) {
-        $sql = "SELECT id, projects_id, name, floor_count_from_basement, created FROM floors WHERE projects_id = {$projectid}";
+        $sql = "SELECT id, projects_id, name, floor_count_from_basement, date(created) as created FROM floors WHERE projects_id = {$projectid}";
         $this->list = $this->getListFromDatabase($sql);
         $this->currentListType = "floors";
         return $this->list;
     }
     
     public function listRooms($floorid) {
-        $sql = "SELECT id, floors_id, name, created FROM rooms WHERE floors_id = {$floorid}";
+        $sql = "SELECT id, floors_id, name, date(created) as created FROM rooms WHERE floors_id = {$floorid}";
         $this->list = $this->getListFromDatabase($sql);
         $this->currentListType = "rooms";
         return $this->list;
     }
     
     public function listDevices($roomid) {
-        $sql = "SELECT devices.id, devices.rooms_id, devices.fuses_id, devices.name, devices.created, fuses.name as fusename FROM devices LEFT JOIN fuses ON devices.fuses_id = fuses.id WHERE devices.rooms_id = {$roomid}";
+        $sql = "SELECT devices.id, devices.rooms_id, devices.fuses_id, devices.name, date(devices.created) as created, fuses.name as fusename FROM devices LEFT JOIN fuses ON devices.fuses_id = fuses.id WHERE devices.rooms_id = {$roomid}";
         $this->list = $this->getListFromDatabase($sql);
         $this->currentListType = "devices";
         return $this->list;
@@ -77,7 +77,7 @@ class ListModel {
 
 
     public function listSensors($deviceid) {
-        $sql = "SELECT id, devices_id, name, unit, value, created FROM sensors WHERE devices_id = {$deviceid}";
+        $sql = "SELECT id, devices_id, name, unit, value, date(created) as created FROM sensors WHERE devices_id = {$deviceid}";
         $this->list = $this->getListFromDatabase($sql);
         $this->currentListType = "sensors";
         return $this->list;
@@ -91,14 +91,14 @@ class ListModel {
     }
     
     public function listCircuitbreakers($projectid) {
-        $sql = "SELECT id, projects_id, name, created FROM circuitbreakers where projects_id = {$projectid}";
+        $sql = "SELECT id, projects_id, name, date(created) as created FROM circuitbreakers where projects_id = {$projectid}";
         $this->list = $this->getListFromDatabase($sql);
         $this->currentListType = "circuitbreakers";
         return $this->list;
     }
     
     public function listFuses($circuitbreakerid) {
-        $sql = "SELECT id, circuitbreakers_id, name, created FROM fuses WHERE circuitbreakers_id = {$circuitbreakerid}";
+        $sql = "SELECT id, circuitbreakers_id, name, date(created) as created FROM fuses WHERE circuitbreakers_id = {$circuitbreakerid}";
         $this->list = $this->getListFromDatabase($sql);
         $this->currentListType = "fuses";
         return $this->list;
