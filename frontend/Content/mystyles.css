@@ -25,8 +25,7 @@ body {
 }
 
 .edit-button, .delete-button, .shopping-list-button, .back-button, .schematic-button {
-    margin-top: 4px;
-    margin-right: 4px;
+    margin: 4px;
     background-color: #17a2b8;
 }
 
@@ -44,7 +43,7 @@ thead tr th {
     display: none;
     position: absolute;
     left: 2%;
-    top: 2%;
+    top: 1.5%;
 }
 
 #home:hover, .back-button:hover, .edit-button:hover, .delete-button:hover, .shopping-list-button:hover, .schematic-button:hover{
