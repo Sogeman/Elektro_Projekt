@@ -62,7 +62,7 @@ thead tr th {
 #loading-screen {
     left: 0;
     top: 85px;
-    width: 200vw;
+    width: 100vw;
     height: 100vh;
     background: #2f4f4f;
     position: absolute;
@@ -133,5 +133,17 @@ thead tr th {
     .container {
       min-width: 100%;
       max-width: none;
+    }
+	
+#loading-screen { // on screens under 1000px, double width of loading screen to position spinner in the middle
+    left: 0;
+    top: 85px;
+    width: 200vw;
+    height: 100vh;
+    background: #2f4f4f;
+    position: absolute;
+    z-index: 1;
+    opacity: 1;
+    display: none;
     }
   }
