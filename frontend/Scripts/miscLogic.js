@@ -108,8 +108,10 @@ var MiscLogic = {
             inputFields.each(function () {
                 if ($(this).val().trim().length < 1) {
                     validate.push(false);
+                    $(this).addClass("input-warning");
                 } else {
                     validate.push(true);
+                    $(this).removeClass("input-warning");
                 }
             });
         var result = validate.includes(false);

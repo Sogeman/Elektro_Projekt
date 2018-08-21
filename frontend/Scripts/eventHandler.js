@@ -135,7 +135,6 @@ var EventHandler = {
             var inputFields = ModalManager.setInputfields(); // set inputfields required to be full
             var result = MiscLogic.ValidateInputfields(inputFields); //checks if the inputfields are in fact full
             if (result) {
-                alert("Bitte alles ausfüllen");
                 EventHandler.SaveEvent(action);
             } else {
                 ModalManager.SaveEntry(action);
@@ -152,7 +151,6 @@ var EventHandler = {
                 var result = MiscLogic.ValidateInputfields(inputFields);
                 var isModalOpen = $('#create-entry-modal').is(':visible');
                 if (result && isModalOpen) { // inputfields are not full and modal is open -> alert and restore event
-                    alert("Bitte alles ausfüllen");
                     EventHandler.SubmitWithEnter(action);
                 } else if (result && !isModalOpen) { // inputfields are not full and modal is closed -> restore event
                     EventHandler.SubmitWithEnter(action);                    
@@ -178,6 +176,7 @@ var EventHandler = {
 
     , ClearModal: function () { // clears Modal when it's closed
         $("#create-entry-modal").off().on("hidden.bs.modal", function () {
+            $("input").removeClass("input-warning");
             ModalManager.ClearModal();
         });
     }
