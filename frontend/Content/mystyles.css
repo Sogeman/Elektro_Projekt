@@ -38,6 +38,10 @@ thead tr th {
     color: white;
 }
 
+.input-warning {
+    box-shadow: 0 0 3px 3px rgb(255, 0, 0);
+}
+
 #home {
     background-color: #17a2b8;
     display: none;
