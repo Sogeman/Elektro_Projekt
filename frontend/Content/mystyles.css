@@ -134,8 +134,8 @@ thead tr th {
       min-width: 100%;
       max-width: none;
     }
-	
-#loading-screen { // on screens under 1000px, double width of loading screen to position spinner in the middle
+	/* on screens under 1000px, double width of loading screen to position spinner in the middle */
+    #loading-screen { 
     left: 0;
     top: 85px;
     width: 200vw;
