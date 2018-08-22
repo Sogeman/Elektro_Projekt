@@ -17,10 +17,10 @@ var ShoppingListHandler = {
             var row = '<tr><td colspan = 4 class="text-center"><h4 class="mt-2">Keine Geräte angelegt</h4></td></tr>'
             $("#shopping-list-devices").append(row);
         } else {
-            var index = 1;
+            var i = 1;
             for (const key in devices) {
                 var row = '<tr>';
-                row += '<th scope="row">' + index + '</th>';
+                row += '<th scope="row">' + i + '</th>';
                 row += '<td>' + devices[key].name + '</td>';
                 row += '<td class="text-right">' + devices[key].amount + '</td></tr>';
                 $("#shopping-list-devices").append(row);
@@ -31,14 +31,14 @@ var ShoppingListHandler = {
             var row = '<tr><td colspan = 4 class="text-center"><h4 class="mt-2">Keine Sensoren angelegt</h4></td></tr>'
             $("#shopping-list-sensors").append(row);
         } else {
-            index = 1; //reset index for next loop
+            var j = 1; 
             for (const key in sensors) {
                 var row = '<tr>';
-                row += '<th scope="row">' + index + '</th>';
+                row += '<th scope="row">' + j + '</th>';
                 row += '<td>' + sensors[key].name + '</td>';
                 row += '<td class="text-right">' + sensors[key].amount + '</td></tr>';
                 $("#shopping-list-sensors").append(row);
-                index++;
+                j++;
             }
         }
     }
