@@ -63,10 +63,10 @@ thead tr th {
 #loading-screen {
     left: 0;
     top: 85px;
-    width: 100vw;
-    height: 100vh;
+    width: 99vw;
+    height: 99vh;
     background: #2f4f4f;
-    position: absolute;
+    position: fixed;
     z-index: 1;
     opacity: 1;
     display: none;
@@ -132,33 +132,33 @@ thead tr th {
     }
     
     #loading-screen {
-    left: 0;
-    top: 85px;
-    width: 185vw;
-    height: 150vh;
-    background: #2f4f4f;
-    position: absolute;
-    z-index: 1;
-    opacity: 1;
-    display: none;
+        left: 0;
+        top: 85px;
+        width: 187vw;
+        height: 99vh;
+        background: #2f4f4f;
+        position: fixed;
+        z-index: 1;
+        opacity: 1;
+        display: none;
     }
-  }
-  
- @media only screen and (max-device-width: 1000px) and (orientation: landscape) { 
- 	.container {
-      min-width: 100%;
-      max-width: none;
+}
+      
+@media only screen and (max-device-width: 1000px) and (orientation: landscape) { 
+    .container {
+        min-width: 100%;
+        max-width: none;
     }
-    
+        
     #loading-screen {
-    left: 0;
-    top: 85px;
-    width: 105vw;
-    height: 150vh;
-    background: #2f4f4f;
-    position: absolute;
-    z-index: 1;
-    opacity: 1;
-    display: none;
+        left: 0;
+        top: 85px;
+        width: 106vw;
+        height: 99vh;
+        background: #2f4f4f;
+        position: fixed;
+        z-index: 1;
+        opacity: 1;
+        display: none;
     }
- }
+}

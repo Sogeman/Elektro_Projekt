@@ -106,7 +106,7 @@
         });
 
         $(document).ajaxStop(function () {
-            $("#loading-screen").delay(85).hide(0);
+            $("#loading-screen").delay(80).hide(0);
         });
     }
 
