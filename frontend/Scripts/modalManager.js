@@ -7,7 +7,8 @@ var ModalManager = {
     formDevicesSelect: null,
     formSensorsSelect: null,
     formFusesSelect: null,
-    formCurrentChoice: null
+    formCurrentChoice: null,
+    formFuseCount: null
 
     , Initialize: function (currentLevel, data) {
         ModalManager.formName = $("#form-name");
@@ -18,6 +19,7 @@ var ModalManager = {
         ModalManager.formSensorsSelect = $("#form-sensors-select");
         ModalManager.formFusesSelect = $("#form-fuses-select");
         ModalManager.formCurrentChoice = $("#form-current-choice");
+        ModalManager.formFuseCount = $("#form-fuse-count");
         ModalManager.ResetModal();
         ModalManager.AddEntryFields(currentLevel);
         EventHandler.ClearModal();
@@ -32,6 +34,7 @@ var ModalManager = {
         ModalManager.formValue.hide();
         ModalManager.formFusesSelect.hide();
         ModalManager.formCurrentChoice.hide();
+        ModalManager.formFuseCount.hide();
     }
 
     , AddEntryFields: function (currentLevel) {
@@ -40,7 +43,7 @@ var ModalManager = {
                 ModalManager.formName.show();
                 ModalManager.formFloorCount.show();
                 break;
-            case "rooms": case "projects": case "circuitbreakers": case "fuses":
+            case "rooms": case "projects": case "circuitbreakers":
                 ModalManager.formName.show();
                 break;
             case "devices":
@@ -55,6 +58,8 @@ var ModalManager = {
                 ModalManager.formUnit.show();
                 ModalManager.formValue.show();
                 break;
+            case "fuses":
+                ModalManager.formName.show();
         }
     }
 
@@ -65,6 +70,7 @@ var ModalManager = {
         ModalManager.formUnit.find("input").val("");
         ModalManager.formValue.find("input").val("");
         ModalManager.formCurrentChoice.find("input").val("");
+        ModalManager.formFuseCount.find("input").val("1");
     }
 
     , CreateEntry: function () { // Befehle im Switch in funktion rausbrechen
@@ -87,6 +93,12 @@ var ModalManager = {
                     ModalManager.formName.find("input").val(text);
                 });
                 break;
+            case "fuses":
+                ModalManager.formName.find("input").on("keyup", function() { // change event sadly only works on blur, so not really useable with one input field
+                    if(ModalManager.formName.find("input").val() == "Reserve") {
+                        ModalManager.formFuseCount.show();
+                    }
+                });
             default:
                 break;
         }
@@ -103,13 +115,16 @@ var ModalManager = {
         var unit = ModalManager.formUnit.find("input").val().trim() || "nothing";
         var value = ModalManager.formValue.find("input").val().trim() || "nothing";
         var fuseId = $("#fuse-id").val();
+        var fuseCount = ModalManager.formFuseCount.find("input").val() || 1;
         if (action == "create") {
             var request = { action: action, listtype: listType, parentid: parentId, specification: { name: name, floor_count_from_basement: count, unit: unit, value: value, fuseid: fuseId } };
         } else { // adds itemid for update and delete
             var request = { action: action, listtype: listType, parentid: parentId, itemid: itemId, specification: { name: name, floor_count_from_basement: count, unit: unit, value: value, fuseid: fuseId } };
         }
-        QueryManager.PostData(request);
-        $("#create-entry-modal").modal("hide");
+        for (let index = 0; index < fuseCount; index++) { // for loop fires PostData multiple times depending on the fuse count
+            QueryManager.PostData(request);
+        }
+        $("#create-entry-modal").modal("hide"); // closes Modal after saving
     }
 
     , EditEntry: function (clickedButton, data) {

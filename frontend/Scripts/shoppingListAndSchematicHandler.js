@@ -24,7 +24,7 @@ var ShoppingListHandler = {
                 row += '<td>' + devices[key].name + '</td>';
                 row += '<td class="text-right">' + devices[key].amount + '</td></tr>';
                 $("#shopping-list-devices").append(row);
-                index++;
+                i++;
             }
         }
         if (sensors.length < 1) {

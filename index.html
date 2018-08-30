@@ -172,17 +172,23 @@
                             <option id="sensors-choice-select" selected>Sensor auswählen oder darunter eintragen</option>
                             <!-- Sensoren von Datenbank eingefügt -->
                         </select>
+
                         <div class="form-group" id="form-name">
                             <label for="name">Bezeichnung</label>
                             <input type="text" class="form-control mt-2" id="name" name="name" maxlength=40 placeholder="Name (benötigt)" required="required"
                             />
                         </div>
+                        <div class="form-group" id="form-fuse-count">
+                            <input type="number" class="form-control" min="1" max="30" placeholder="Anzahl Sicherungen" />
+                        </div>
+
                         <!-- nur bei Stockwerken -->
                         <div class="form-group" id="form-floor-count">
                             <label for="floor-count">Stockwerk (0 ist Keller)</label>
                             <input type="number" class="form-control" id="floor-count" name="count_from_basement" placeholder="0-n" min="0" max="99"
                             />
                         </div>
+
                         <!-- nur bei Sensoren -->
                         <div class="form-group" id="form-unit">
                             <label for="unit">Einheit</label>
@@ -193,6 +199,8 @@
                             <label for="value">Wert</label>
                             <input type="text" class="form-control" id="value" name="value" placeholder="Ein, Aus,..." />
                         </div>
+
+                        <!-- Nur bei Geräten -->
                         <select class="custom-select" id="form-fuses-select">
                             <option id="fuses-select" selected>Sicherung auswählen</option>
                             <!-- Variabel Sicherung einfügen -->
@@ -200,7 +208,7 @@
                         <div class="form-group" id="form-current-choice">
                             <label for="unit">Derzeitige Auswahl</label>
                             <input type="text" class="form-control" id="current-choice" name="choice1" placeholder="Beispielsicherung (benötigt)" required="required"
-                                onkeypress="return false;" />
+                                onkeypress="return false;" /> <!-- Eingabe nicht erlaubt -->
                         </div>
                     </div>
                     <div class="modal-footer">

@@ -50,11 +50,14 @@
             , dataType: "json"
             , cache: false
             , success: function (data) {
-                $("#create-entry-modal").modal("hide"); // closes Modal after saving
-                QueryManager.LoadData(QueryManager.lastRequests[QueryManager.lastRequests.length - 1]); // reload page after sending new data to database
+                QueryManager.ReloadPage();
             }
             , error: QueryManager.ErrorMessage
         });
+    }
+
+    , ReloadPage: function () { // reload page after sending data to database
+        QueryManager.LoadData(QueryManager.lastRequests[QueryManager.lastRequests.length - 1]); 
     }
 
     , LoadProjectData: function (request) {
