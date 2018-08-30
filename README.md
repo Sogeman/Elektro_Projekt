@@ -1,10 +1,10 @@
 # Elektro_Projekt
-FH Web Dev Projekt v1.2
+FH Web Dev Projekt v1.5
 
- v1.4 under releases
+ v1.5 under releases
 
 
-<strong>Todo</strong>:  mehrere Sicherungen auf einmal einfügen, mit gleichem Namen, als Reservesicherungen
+<strong>Todo</strong>:  ---
 
 
 <strong>Bugs</strong>:  ¯\\\_(ツ)\_/¯ 
