@@ -1,4 +1,4 @@
-﻿var QueryManager = {
+var QueryManager = {
     currentLevel: "",
     backendAddress: "http://localhost/Elektro_Projekt/backend/index.php",
     lastRequests: [], // saves last requests for backbutton and reload
