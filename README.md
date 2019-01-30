@@ -1,5 +1,6 @@
 # Elektro_Projekt
 FH Web Dev Projekt v1.5
+Second semester project
 
  v1.5 under releases
 
